@@ -10,32 +10,33 @@ class FoodItem(models.Model):
     quantity = models.IntegerField()
     packaging_type = models.CharField(max_length=255)
     food_type = models.CharField(max_length=255)
-    
+    restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, related_name='food_items',default='')
+
     def __str__(self):
-        return f"Food Item: {self.name}, Description: {self.description}, Expiration Date: {self.expiration_date}, Quantity: {self.quantity}"
+        return self.name
 
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=255,default='')
+    name = models.CharField(max_length=255, default='')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20)
     stock = models.ManyToManyField(FoodItem, related_name='restaurants')
-    
+
     def __str__(self):
-        return f"Restaurant: {self.name}, Location: {self.location}, Email: {self.contact_email}, Phone: {self.contact_phone}"
+        return self.name
 
 
 class NGO(models.Model):
-    name = models.CharField(max_length=255,default='')
+    name = models.CharField(max_length=255, default='')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20)
-    review = models.TextField()
+    review = models.TextField(blank=True)
     category = models.CharField(max_length=255)
-    
+
     def __str__(self):
         return self.name
 
@@ -43,23 +44,23 @@ class NGO(models.Model):
 class Donation(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     ngo = models.ForeignKey(NGO, on_delete=models.CASCADE)
-    food_items_donated = models.CharField(max_length=255,default='') 
     donation_date = models.DateField(default=timezone.now)
     delivery_time = models.CharField(max_length=255, default='')
-    posted = models.BooleanField(default=True) #controlled by restaurant
-    confirmed = models.BooleanField(default=True) #controlled by Charity NGO
+    posted = models.BooleanField(default=True)  # controlled by restaurant
+    confirmed = models.BooleanField(default=True)  # controlled by Charity NGO
     created_on = models.DateTimeField(default=timezone.now)
-    
+    food_items_donated = models.ManyToManyField(FoodItem)
+
     def __str__(self):
-        return f"Donation - Restaurant: {self.restaurant.name}, NGO: {self.ngo.name}, Donation Date: {self.donation_date}, Delivery Time: {self.delivery_time}, Posted: {self.posted}, Confirmed: {self.confirmed}, Created On: {self.created_on}"
+        return f"Donation from {self.restaurant} to {self.ngo}"
 
 
-class Rest_Request(models.Model):
+class RestRequest(models.Model):
     ngo = models.ForeignKey(NGO, on_delete=models.CASCADE)
-    food_items_donated = models.CharField(max_length=255,default='') 
-    quatityRequested = models.IntegerField() # quatity by person
-    confirmed = models.BooleanField(default=True) #controlled by Charity NGO
+    food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
+    quantity_requested = models.IntegerField()  # quantity by person
+    confirmed = models.BooleanField(default=True)  # controlled by Charity NGO
     donation = models.ForeignKey(Donation, on_delete=models.CASCADE)
-    
+
     def __str__(self):
-        return f"Rest_Request - NGO: {self.ngo.name}, Quantity Requested: {self.quatityRequested}, Confirmed: {self.confirmed}, Donation: {self.donation}"
+        return f"RestRequest - NGO: {self.ngo.name}, Food Item: {self.food_item.name}, Quantity Requested: {self.quantity_requested}, Confirmed: {self.confirmed}, Donation: {self.donation}"
