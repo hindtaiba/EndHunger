@@ -37,7 +37,7 @@ class NGO(models.Model):
     category = models.CharField(max_length=255)
     
     def __str__(self):
-        return f"NGO: {self.name}, Location: {self.location}, Email: {self.contact_email}, Phone: {self.contact_phone}, Review: {self.review}, Category: {self.category}"
+        return self.name
 
 
 class Donation(models.Model):

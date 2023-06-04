@@ -10,17 +10,17 @@ class DonationAdmin(admin.ModelAdmin):
     readonly_fields = ( )
 
     def get_queryset(self, request):
-        # Only display appointments for the current user
+        # Only display donations for the current user
         qs = super().get_queryset(request)
         if request.user.is_superuser:
-            # Superusers can see all appointments
+            # Superusers can see all donations
             return qs
         elif hasattr(request.user, 'ngo'):
-            return qs.filter(doctor=request.user.ngo)
+            return qs.filter(ngo=request.user.ngo)
         elif hasattr(request.user, 'restaurant'):
-            return qs.filter(nurse=request.user.restaurant)
+            return qs.filter(restaurant=request.user.restaurant)
         else:
-            # Non-doctor users won't see any appointments
+            # Non-ngo or Non-restaurant users won't see any donations
             return qs.none()
 
     def get_readonly_fields(self, request, obj=None):
@@ -30,11 +30,9 @@ class DonationAdmin(admin.ModelAdmin):
             return self.readonly_fields + ('donation_date','delivery_time')
 
         return self.readonly_fields
-
+ 
 admin.site.register(Donation,DonationAdmin)
-
-admin.site.register(NGO)
 admin.site.register(Restaurant)
-
+admin.site.register(NGO)
 admin.site.register(FoodItem)
 
