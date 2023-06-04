@@ -16,7 +16,7 @@ class FoodItem(models.Model):
 
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,default='')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
     contact_email = models.EmailField()
@@ -28,7 +28,7 @@ class Restaurant(models.Model):
 
 
 class NGO(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,default='')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
     contact_email = models.EmailField()
@@ -43,7 +43,7 @@ class NGO(models.Model):
 class Donation(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     ngo = models.ForeignKey(NGO, on_delete=models.CASCADE)
-    food_items_donated = models.CharField(max_length=255) 
+    food_items_donated = models.CharField(max_length=255,default='') 
     donation_date = models.DateField(default=timezone.now)
     delivery_time = models.CharField(max_length=255, default='')
     posted = models.BooleanField(default=True) #controlled by restaurant
@@ -56,7 +56,7 @@ class Donation(models.Model):
 
 class Rest_Request(models.Model):
     ngo = models.ForeignKey(NGO, on_delete=models.CASCADE)
-    food_items_donated = models.CharField(max_length=255) 
+    food_items_donated = models.CharField(max_length=255,default='') 
     quatityRequested = models.IntegerField() # quatity by person
     confirmed = models.BooleanField(default=True) #controlled by Charity NGO
     donation = models.ForeignKey(Donation, on_delete=models.CASCADE)
