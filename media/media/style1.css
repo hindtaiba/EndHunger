@@ -10,7 +10,11 @@ body,
 input {
 font-family: "Poppins", sans-serif;
 }
-
+.radio-container {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
 .container {
 position: relative;
 width: 100%;
@@ -29,7 +33,7 @@ left: 0;
 
 .signin-signup {
 position: absolute;
-top: 50%;
+top: 38%;
 transform: translate(-50%, -50%);
 left: 75%;
 width: 50%;
