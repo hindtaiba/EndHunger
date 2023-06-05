@@ -7667,8 +7667,7 @@ a {
     .wrap .phone span {
         color: #fff; }
     .wrap .phone a {
-        color: #fff;
-        font-size: 12px; }
+        color: #fff; }
 
 .social-media p a {
 width: 34px;
@@ -7676,11 +7675,8 @@ height: 34px;
 margin-right: 1px; }
 .social-media p a span {
     color: #fff; }
-.social-media p a:hover {
-    background: #eec857;
-    border-color: #eec857; }
-.social-media p a:hover span {
-color: #fff; }
+.social-media p a span:hover {
+color: #eec857; }
 
 
 @-webkit-keyframes pulse {
