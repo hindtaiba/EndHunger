@@ -58,4 +58,4 @@ admin.site.register(FoodItem, FoodItemAdmin)
 admin.site.register(Donation,DonationAdmin)
 admin.site.register(Restaurant)
 admin.site.register(NGO)
-# admin.site.register(FoodItem)
+

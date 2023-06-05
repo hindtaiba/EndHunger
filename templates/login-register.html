@@ -31,10 +31,13 @@
 			</div>
 		</div>
 	</div>
+    <!-- sign in -->
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-            <form method="post" class="sign-in-form">
+            <form method="post" class="sign-in-form" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
                 <h2 class="title">Sign in</h2>
                 <div class="input-field">
                 <i class="fas fa-user"></i>
@@ -47,32 +50,35 @@
                 <input type="submit" value="Login" class="btn solid" />
                 <p class="social-text">Forgot Password?</p>
             </form>
-            <form method="post" class="sign-up-form">
+            <!-- sign up -->
+            <form method="post" class="sign-up-form" action="{% url 'register' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
                 <h2 class="title">Sign up</h2>
                 <div class="input-field">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Username" name="name"  />
                 </div>
                 <div class="input-field">
                 <i class="fas fa-envelope"></i>
-                <input type="email" placeholder="Email" />
+                <input type="email" placeholder="Email" name="email"/>
                 </div>
                 <div class="input-field">
                 <i class="fas fa-mobile"></i>
-                <input type="tel" placeholder="Phone Number" />
+                <input type="tel" placeholder="Phone Number" name="phone" />
                 </div>
                 <div class="input-field">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Password" name="password" />
                 </div>
                 <div class="radio-container">
                     <div style="margin-right: 20px;">
                         <input type="radio" id="restaurant" name="choice" value="Restaurant">
-                        <label for="restaurant"> Restaurant</label>
+                        <label for="Restaurant"> Restaurant</label>
                     </div>
                     <div>
                         <input type="radio" id="charity" name="choice" value="Charity">
-                        <label for="charity"> Charity</label>
+                        <label for="Charity"> Charity</label>
                     </div>
                 </div>
                 <input type="submit" class="btn" value="Sign up" />
