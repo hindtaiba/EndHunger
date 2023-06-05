@@ -52,7 +52,8 @@ class FoodItemAdmin(admin.ModelAdmin):
             return self.readonly_fields + ('name', 'description', 'expiration_date', 'quantity', 'packaging_type', 'food_type', 'restaurant')
 
         return self.readonly_fields
- 
+
+
 admin.site.register(FoodItem, FoodItemAdmin)
 admin.site.register(Donation,DonationAdmin)
 admin.site.register(Restaurant)
