@@ -128,12 +128,14 @@ def verify_email(request, uidb64, token):
 
         try:
             restaurant = Restaurant.objects.get(user=user)
+            user.is_active = True
             restaurant.is_verified = True
             restaurant.save()
             return render(request, 'login-register.html', {'message': 'Your account is verified'})
         except Restaurant.DoesNotExist:
             try:
                 ngo = NGO.objects.get(user=user)
+                user.is_active= True
                 ngo.is_verified = True
                 ngo.save()
                 return render(request, 'login-register.html', {'message': 'Your account is verified'})
@@ -148,34 +150,30 @@ def verify_email(request, uidb64, token):
 
 def login(request):
     if request.method == 'POST':
-        
         try:
             # Check User in DB
             username = request.POST['username']
             password = request.POST['password']
-            user_authenticate = auth.authenticate(username=username, password=password)
-            if user_authenticate is not None:
-                user = User.objects.get(username=username)
-                if user_authenticate.is_active:
+            user = auth.authenticate(username=username, password=password)  # Renamed 'user_authenticate' to 'user'
+            if user is not None:  # Simplified the condition
+                if user.is_active:
                     try:
-                        if user_authenticate.Restaurant.is_verified:
-                            data = Restaurant.objects.get(user=user)
-                            print(data)
+                        restaurant = Restaurant.objects.get(user=user)  # Moved 'restaurant' and 'ngo' inside this block
+                        if restaurant.is_verified:
+                            auth.login(request, user)
                             print('Restaurant has been Logged')
-                            auth.login(request, user_authenticate)
                             return redirect('dashboard', user="R")
                         else:
-                            pass
+                            return render(request, 'login-register.html', {'message': 'Your email is not verified yet'})
                     except Restaurant.DoesNotExist:
                         try:
-                            if user_authenticate.NGO.is_verified:
-                                data = NGO.objects.get(user=user)
-                                auth.login(request, user_authenticate)
+                            ngo = NGO.objects.get(user=user)
+                            if ngo.is_verified:
+                                auth.login(request, user)
                                 print('NGO has been Logged')
                                 return redirect('dashboard', user="N")
                             else:
                                 return render(request, 'login-register.html', {'message': 'Your email is not verified yet'})
-                        
                         except NGO.DoesNotExist:
                             return redirect('/')
                 else:
