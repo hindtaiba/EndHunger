@@ -23,6 +23,7 @@ class Restaurant(models.Model):
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20)
     stock = models.ManyToManyField(FoodItem, related_name='restaurants')
+    is_verified = models.BooleanField(default=False)  # Add the is_verified field
 
     def __str__(self):
         return self.name
@@ -36,6 +37,7 @@ class NGO(models.Model):
     contact_phone = models.CharField(max_length=20)
     review = models.TextField(blank=True)
     category = models.CharField(max_length=255)
+    is_verified = models.BooleanField(default=False)  # Add the is_verified field
 
     def __str__(self):
         return self.name

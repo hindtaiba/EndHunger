@@ -1,9 +1,26 @@
-from django.shortcuts import render
+from email.message import EmailMessage
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .models import Restaurant, NGO
 from django.contrib import auth
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from django.utils.html import strip_tags
+from django.db import IntegrityError
+from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
 
 
 # Create your views here.
@@ -51,89 +68,126 @@ def register(request):
             return render(request, 'login-register.html')
         except User.DoesNotExist:
             # add this if only active users log in ,is_active=False
-            user = User.objects.create_user(username=name, password=password )
+            user = User.objects.create_user(username=name, password=password, is_active = False)
+
             print()
             if choice == 'Restaurant':
-                restaurant = Restaurant(name=name, contact_email=email, contact_phone=phone, user=user)
+                restaurant = Restaurant(name=name, contact_email=email, contact_phone=phone, user=user, is_verified= False)
                 restaurant.save()
                 print('Registered as a Restaurant')
             elif choice == 'Charity':
-                ngo = NGO(name=name, contact_email=email, contact_phone=phone, user=user)
+                ngo = NGO(name=username, contact_email=email, contact_phone=phone, user=user, is_verified= False)
                 ngo.save()
                 print('Registered as an NGO')
             else:
                 # Handle registration for other roles if needed
                 pass
             
+            # Send email for account activation
+            current_site = get_current_site(request)
+            mail_subject = 'Activate Your Account'
+            message = render_to_string('verify_email.html', {
+                'user': user,
+                'protocol': 'http',
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+            })
+            email_message = EmailMessage(
+            subject=mail_subject,
+            body=message,
+            from_email='endhunger4@gmail.com',
+            to=[email],
+            )
+            email_message.content_subtype = 'html'
+            email_message.send()
             print('Registered Successfully')
             return render(request, 'login-register.html')
+        
+        except IntegrityError as e:
+            error_message = f"An error occurred during registration: {str(e)}"
+            return render(request, 'login-register.html', {'error_message': error_message})
+
+        except ValidationError as e:
+            error_message = e.message
+            return render(request, 'login-register.html', {'error_message': error_message})
     else:
         return render(request, 'login-register.html')
-# def login(request):
-#     if request.method == 'POST':
-#         try:
-#             # Check User in DB
-#             uname = request.POST['username']
-#             pwd = request.POST['password']
-#             user_authenticate = auth.authenticate(username=uname, password=pwd)
-#             if user_authenticate is not None:
-#                 user = User.objects.get(username=uname)
-#                 if user.is_staff:
-#                     try:
-#                         data = Restaurant.objects.get(user=user)
-#                         print(data)
-#                         print('Patient has been Logged')
-#                         auth.login(request, user_authenticate)
-#                         return redirect('dashboard', user="P")
-#                     except Restaurant.DoesNotExist:
-#                         try:
-#                             data = NGO.objects.get(user=user)
-#                             auth.login(request, user_authenticate)
-#                             print('HR has been Logged')
-#                             return redirect('dashboard', user="H")
-#                         except NGO.DoesNotExist:
-#                             return redirect('/')
-#                 else:
-#                     return render(request, 'login.html', {'error': 'You are not authorized to log in.'})
-#             else:
-#                 print('Login Failed')
-#                 return render(request, 'login.html')
-#         except KeyError:
-#             return render(request, 'login.html', {'error': 'Invalid username or password'})
-#         except User.DoesNotExist:
-#             return render(request, 'login.html', {'error': 'User does not exist'})
-#     return render(request, 'login.html')
+
+
+def verify_email(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+
+        try:
+            restaurant = Restaurant.objects.get(user=user)
+            restaurant.is_verified = True
+            restaurant.save()
+            return render(request, 'login-register.html', {'message': 'Your account is verified'})
+        except Restaurant.DoesNotExist:
+            try:
+                ngo = NGO.objects.get(user=user)
+                ngo.is_verified = True
+                ngo.save()
+                return render(request, 'login-register.html', {'message': 'Your account is verified'})
+            except NGO.DoesNotExist:
+                messages.error(request, 'Associated restaurant or Charity does not exist.')
+                return redirect('verification_failed')
+    else:
+        messages.error(request, 'Invalid verification link.')
+        return redirect('verification_failed')
+    
+
+
 def login(request):
     if request.method == 'POST':
+        
         try:
             # Check User in DB
-            uname = request.POST['username']
-            pwd = request.POST['password']
-            user_authenticate = auth.authenticate(username=uname, password=pwd)
+            username = request.POST['username']
+            password = request.POST['password']
+            user_authenticate = auth.authenticate(username=username, password=password)
             if user_authenticate is not None:
-                user = User.objects.get(username=uname)
-                try:
-                    data = Restaurant.objects.get(user=user)
-                    print(data)
-                    print('Restaurant has been Logged')
-                    auth.login(request, user_authenticate)
-                    return redirect('dashboard', user="R")
-                except Restaurant.DoesNotExist:
+                user = User.objects.get(username=username)
+                if user_authenticate.is_active:
                     try:
-                        data = NGO.objects.get(user=user)
-                        auth.login(request, user_authenticate)
-                        print('NGO has been Logged')
-                        return redirect('dashboard', user="N")
-                    except NGO.DoesNotExist:
-                        return redirect('/')
+                        if user_authenticate.Restaurant.is_verified:
+                            data = Restaurant.objects.get(user=user)
+                            print(data)
+                            print('Restaurant has been Logged')
+                            auth.login(request, user_authenticate)
+                            return redirect('dashboard', user="R")
+                        else:
+                            pass
+                    except Restaurant.DoesNotExist:
+                        try:
+                            if user_authenticate.NGO.is_verified:
+                                data = NGO.objects.get(user=user)
+                                auth.login(request, user_authenticate)
+                                print('NGO has been Logged')
+                                return redirect('dashboard', user="N")
+                            else:
+                                return render(request, 'login-register.html', {'message': 'Your email is not verified yet'})
+                        
+                        except NGO.DoesNotExist:
+                            return redirect('/')
+                else:
+                    messages.error(request, 'Your account is disabled.')
             else:
                 print('Login Failed')
-                return render(request, 'login.html')
-        except KeyError:
-            return render(request, 'login.html', {'error': 'Invalid username or password'})
-        except User.DoesNotExist:
-            return render(request, 'login.html', {'error': 'User does not exist'})
-    return render(request, 'login.html')
+                return render(request, 'login-register.html', {'message': 'Invalid email or password'})
+        except:
+            print('Login Failed')
+            return render(request, 'login-register.html')
+    else:
+        return render(request, 'login-register.html', {"user": None})
 
 def dashboard(request, user):
     print(user)

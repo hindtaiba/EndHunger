@@ -19,5 +19,5 @@ urlpatterns = [
     path('restaurant', restaurant_view, name='restaurant'),
     path('confirmations', confirmations_view, name='confirmations'),
     path('logout',logout_view, name='logout'),
-
+    path('verify_email/<str:uidb64>/<str:token>/', verify_email, name='verify_email'),
 ]

@@ -9186,7 +9186,7 @@ h1, h2, h3, h4, h5,
   position: relative;
   padding: 5em 0;
   background: #4c7bcb;
-  background: url(../images/moroccan-flower-dark.png); }
+  background: url(moroccan-flower-dark.png); }
   @media (max-width: 1199.98px) {
     .ftco-counter {
       background-position: center center !important; } }
@@ -9291,7 +9291,7 @@ textarea.form-control {
 
 .donation-wrap {
   width: 100%;
-  background: url(../images/moroccan-flower-dark.png);
+  background: url(moroccan-flower-dark.png);
   border-radius: 10px 10px 0px 0; }
   @media (min-width: 992px) {
     .donation-wrap {
