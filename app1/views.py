@@ -76,7 +76,7 @@ def register(request):
                 restaurant.save()
                 print('Registered as a Restaurant')
             elif choice == 'Charity':
-                ngo = NGO(name=username, contact_email=email, contact_phone=phone, user=user, is_verified= False)
+                ngo = NGO(name=name, contact_email=email, contact_phone=phone, user=user, is_verified= False)
                 ngo.save()
                 print('Registered as an NGO')
             else:
