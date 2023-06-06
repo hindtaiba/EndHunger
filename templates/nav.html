@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>End Hunger</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../../media/media/animate.css">
+	
+	<link rel="stylesheet" href="../../media/media/owl.carousel.min.css">
+	<link rel="stylesheet" href="../../media/media/owl.theme.default.min.css">
+	<link rel="stylesheet" href="../../media/media/magnific-popup.css">
+
+
+	<link rel="stylesheet" href="../../media/media/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="../../media/media/jquery.timepicker.css">
+
+	<link rel="stylesheet" href="../../media/media/flaticon.css">
+	<link rel="stylesheet" href="../../media/media/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/">EndHunger</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+              
+                <li class="nav-item "><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+                {% if user == "R" and status %}
+                <li class="nav-item"><a href="/requests" class="nav-link">Requests</a></li>
+                <li class="nav-item"><a href="/donate" class="nav-link">Donate</a></li>
+                <li class="nav-item"><a href="/charity" class="nav-link">Charity</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link">Log Out</a></li>
+            {% elif user == "N" and status %}
+                <li class="nav-item"><a href="/browse-food" class="nav-link">Browse Food</a></li>
+                <li class="nav-item"><a href="/restaurant" class="nav-link">Restaurant</a></li>
+                <li class="nav-item"><a href="/confirmations" class="nav-link">Confirmations</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link">Log Out</a></li>
+            {% else %}
+                <li class="nav-item cta"><a href="/login-register" class="nav-link">Log In</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+<!-- END nav -->
