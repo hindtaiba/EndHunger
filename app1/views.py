@@ -149,4 +149,4 @@ def dashboard(request, user):
 def logout_view(request):
     auth.logout(request)
     print('logout')
-    return render(request,'')
+    return render(request,'index.html')
