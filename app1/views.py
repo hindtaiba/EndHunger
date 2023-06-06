@@ -36,10 +36,7 @@ def restaurant_view(request):
 
 def confirmations_view(request):
     return render(request,'#')
-def logout_view(request):
-    auth.logout(request)
-    print('logout')
-    return render(request,'')
+
 
 def register(request):
     if request.method == 'POST':
@@ -149,3 +146,7 @@ def dashboard(request, user):
     return render(request, 'index.html', {'user': user, "status": status})
 
 
+def logout_view(request):
+    auth.logout(request)
+    print('logout')
+    return render(request,'')
