@@ -53,7 +53,8 @@ def register(request):
             user = User.objects.get(username=name)
             return render(request, 'login-register.html')
         except User.DoesNotExist:
-            user = User.objects.create_user(username=name, password=password)
+            # add this if only active users log in ,is_active=False
+            user = User.objects.create_user(username=name, password=password )
             print()
             if choice == 'Restaurant':
                 restaurant = Restaurant(name=name, contact_email=email, contact_phone=phone, user=user)
@@ -71,6 +72,40 @@ def register(request):
             return render(request, 'login-register.html')
     else:
         return render(request, 'login-register.html')
+def login(request):
+    if request.method == 'POST':
+        try:
+            # Check User in DB
+            uname = request.POST['username']
+            pwd = request.POST['password']
+            user_authenticate = auth.authenticate(username=uname, password=pwd)
+            if user_authenticate is not None:
+                user = User.objects.get(username=uname)
+                if user.is_staff:
+                    try:
+                        data = Restaurant.objects.get(user=user)
+                        print(data)
+                        print('Patient has been Logged')
+                        auth.login(request, user_authenticate)
+                        return redirect('dashboard', user="P")
+                    except Restaurant.DoesNotExist:
+                        try:
+                            data = NGO.objects.get(user=user)
+                            auth.login(request, user_authenticate)
+                            print('HR has been Logged')
+                            return redirect('dashboard', user="H")
+                        except NGO.DoesNotExist:
+                            return redirect('/')
+                else:
+                    return render(request, 'login.html', {'error': 'You are not authorized to log in.'})
+            else:
+                print('Login Failed')
+                return render(request, 'login.html')
+        except KeyError:
+            return render(request, 'login.html', {'error': 'Invalid username or password'})
+        except User.DoesNotExist:
+            return render(request, 'login.html', {'error': 'User does not exist'})
+    return render(request, 'login.html')
 def login(request):
     if request.method == 'POST':
         try:
@@ -113,28 +148,4 @@ def dashboard(request, user):
 
     return render(request, 'index.html', {'user': user, "status": status})
 
-# def login(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-        
-#         user = authenticate(username=username, password=password)
-        
-#         if user is not None:
-#             login(request, user)
-#             if Restaurant.objects.filter(user=user).exists():
-#                 print('Restaurant has been logged in')
-#                 # Handle restaurant login logic
-#                 return redirect('restaurant_dashboard',user="R")
-#             elif NGO.objects.filter(user=user).exists():
-#                 print('NGO has been logged in')
-#                 # Handle NGO login logic
-#                 return redirect('ngo_dashboard',user="N")
-#             else:
-#                 # Handle login for other roles if needed
-#                 pass
-#         else:
-#             print('Invalid credentials')
-#             return render(request, 'login.html')
-    
-#     return render(request, 'login.html')
+
