@@ -20,4 +20,8 @@ urlpatterns = [
     path('confirmations', confirmations_view, name='confirmations'),
     path('logout',logout_view, name='logout'),
     path('verify_email/<str:uidb64>/<str:token>/', verify_email, name='verify_email'),
+    path('password_reset/', PasswordResetRequestView.as_view(), name='password_reset'),
+    path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('password_reset/confirm/<uidb64>/<token>/', PasswordResetConfirmationView.as_view(), name='password_reset_confirm'),
+    path('password_reset/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
