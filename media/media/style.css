@@ -8432,6 +8432,7 @@ h1, h2, h3, h4, h5,
     padding-right: 20px;
     color: #fff;
     font-weight: 600;
+    text-shadow: 2px 2px 2px #000;
     opacity: 1 !important; }
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
       color: #eec857; }
