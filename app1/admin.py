@@ -4,7 +4,17 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import *
 from django.contrib.auth.admin import UserAdmin
-
+class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ('name','user','location','contact_email','contact_phone')
+    readonly_fields = ( )
+    
+class NGOAdmin(admin.ModelAdmin):
+    list_display = ('name','user','location','contact_email','contact_phone','review','category')
+    readonly_fields = ( )
+    
+    
+    
+    
 class DonationAdmin(admin.ModelAdmin):
     list_display = ('restaurant','ngo','donation_date','delivery_time','posted','confirmed')
     readonly_fields = ( )
@@ -34,7 +44,14 @@ class DonationAdmin(admin.ModelAdmin):
 class FoodItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'expiration_date', 'quantity', 'packaging_type', 'food_type','restaurant')
     readonly_fields = ()
+    
+    def mark_events_completed(modeladmin, request, queryset):
+        pass
+    
+    actions = [mark_events_completed]
 
+
+    
     def get_queryset(self, request):
         # Only display food items for the current restaurant user
         qs = super().get_queryset(request)
@@ -56,6 +73,6 @@ class FoodItemAdmin(admin.ModelAdmin):
 
 admin.site.register(FoodItem, FoodItemAdmin)
 admin.site.register(Donation,DonationAdmin)
-admin.site.register(Restaurant)
-admin.site.register(NGO)
+admin.site.register(Restaurant,RestaurantAdmin)
+admin.site.register(NGO, NGOAdmin)
 

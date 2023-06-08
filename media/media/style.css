@@ -8405,6 +8405,7 @@ h1, h2, h3, h4, h5,
 .ftco-navbar-light {
   background: transparent !important;
   position: absolute;
+  text-shadow: 2px 2px 5px #000;
   top: 40px;
   left: 0;
   right: 0;

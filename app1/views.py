@@ -37,6 +37,15 @@ def home(request):
     return render(request, 'index.html')
 
 def contact(request):
+    if request.user.is_authenticated:
+        if Restaurant.objects.filter(user=request.user).exists():
+            user_type = "R"  # User is a restaurant
+        elif NGO.objects.filter(user=request.user).exists():
+            user_type = "N"  # User is an NGO
+        else:
+            user_type = None  # User doesn't have a recognized role
+    else:
+        user_type = None  # User is not authenticated
     return render(request, 'contact.html')
 
 def about(request):
@@ -46,7 +55,7 @@ def loginRegister(request):
     return render(request, 'login-register.html')
 
 def requests_view(request):
-    return render(request,'#')
+    return render(request,'requests.html')
 
 def donate_view(request):
     return render(request,'#')

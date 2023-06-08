@@ -16,5 +16,15 @@ class RedirectHomeMiddleware:
                 return redirect('/dashboard/R/')
             elif request.user.groups.filter(name='ngo').exists():
                 return redirect('/dashboard/N/')
+        elif request.user.is_authenticated and request.path == '/login/':
+            if request.user.groups.filter(name='PermissionOfRestaurant').exists():
+                return redirect('/dashboard/R/')
+            elif request.user.groups.filter(name='ngo').exists():
+                return redirect('/dashboard/N/')
+        elif request.user.is_authenticated and request.path == '/register/':
+            if request.user.groups.filter(name='PermissionOfRestaurant').exists():
+                return redirect('/dashboard/R/')
+            elif request.user.groups.filter(name='ngo').exists():
+                return redirect('/dashboard/N/')
 
         return self.get_response(request)
