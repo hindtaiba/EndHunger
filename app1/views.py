@@ -1,9 +1,10 @@
 from email.message import EmailMessage
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from app1.forms import PasswordResetConfirmationForm, PasswordResetRequestForm
 from app1 import forms
-from .models import Restaurant, NGO
+from .models import Restaurant, NGO, Donation
+from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -22,6 +23,8 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.shortcuts import render, redirect
+from django.utils import timezone
     
 from django.contrib.auth.views import (
     PasswordResetView,
@@ -257,3 +260,38 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
+
+@login_required
+def add_donation(request):
+    if request.method == 'POST':
+        ngo = request.POST.get('ngo')
+        donation_date = request.POST.get('donation_date')
+        delivery_time = request.POST.get('delivery_time')
+        expiration_date = request.POST.get('expiration_date')
+
+        # Check if the user is associated with a restaurant
+        try:
+            restaurant = Restaurant.objects.get(user=request.user)
+        except Restaurant.DoesNotExist:
+            return render(request, 'error.html', {'message': 'User does not have a related restaurant.'})
+
+        ngo = get_object_or_404(NGO, name=ngo)
+        # Create a new Donation object
+        donation = Donation.objects.create(
+            name=f"{restaurant.name}_{timezone.now().strftime('%Y%m%d')}",
+            restaurant=restaurant,
+            ngo=ngo,
+            donation_date=donation_date,
+            delivery_time=delivery_time,
+            expiration_date=expiration_date
+        )
+
+        # Redirect to the donation success page or any other desired page
+        return redirect('donation_success')
+
+    return render(request, 'donations.html')
+
+from django.shortcuts import render
+
+def donation_success(request):
+    return render(request, 'donation_success.html')

@@ -5,7 +5,7 @@ from datetime import date, timedelta
 
 
 class Donation(models.Model):
-    name = models.CharField(max_length=255, unique=True, editable=False)
+    name = models.CharField(max_length=255, editable=False)
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, related_name='donations')
     ngo = models.ForeignKey('NGO', on_delete=models.CASCADE, related_name='donations_received')
     donation_date = models.DateField(default=timezone.now)
@@ -24,8 +24,8 @@ class Donation(models.Model):
 
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=255, default='')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, default='')
     location = models.CharField(max_length=255)
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20)

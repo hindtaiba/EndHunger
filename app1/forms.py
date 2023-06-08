@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.forms import SetPasswordForm
 
-
 class PasswordResetRequestForm(PasswordResetForm):
     email = forms.EmailField(label='Email')
     

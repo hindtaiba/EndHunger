@@ -61,28 +61,20 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="title" class="form-label">NGO</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required>
+                        <label for="ngo" class="form-label">NGO</label>
+                        <input type="text" class="form-control" id="ngo" name="ngo" placeholder="Enter NGO name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="donationDate" class="form-label">Donation Date</label>
-                        <input type="date" class="form-control" id="donationDate" name="donationDate" required>
+                        <label for="donation_date" class="form-label">Donation Date</label>
+                        <input type="date" class="form-control" id="donation_date" name="donation_date" required>
                     </div>
                     <div class="mb-3">
-                        <label for="donationTime" class="form-label">Donation Time</label>
-                        <input type="time" class="form-control" id="donationTime" name="donationTime" required>
+                        <label for="delivery_time" class="form-label">Delivery Time</label>
+                        <input type="time" class="form-control" id="delivery_time" name="delivery_time" required>
                     </div>
                     <div class="mb-3">
-                        <label for="createdOn" class="form-label">Created On</label>
-                        <input type="datetime-local" class="form-control" id="createdOn" name="createdOn" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="expirationDate" class="form-label">Expiration Date</label>
-                        <input type="date" class="form-control" id="expirationDate" name="expirationDate" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                        <label for="expiration_date" class="form-label">Expiration Date</label>
+                        <input type="date" class="form-control" id="expiration_date" name="expiration_date" required>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Donate</button>
@@ -96,12 +88,11 @@
             {% for donation in donations %}
             <div class="donation-card">
                 <h4>{{ donation.name }}</h4>
-                <p>NGO: {{ donation.ngo }}</p>
+                <p>NGO: {{ donation.ngo.name }}</p>
                 <p>Donation Date: {{ donation.donation_date }}</p>
-                <p>Donation Time: {{ donation.delivery_time }}</p>
+                <p>Delivery Time: {{ donation.delivery_time }}</p>
                 <p>Created On: {{ donation.created_on }}</p>
                 <p>Expiration Date: {{ donation.expiration_date }}</p>
-                <img src="{{ donation.image.url }}" alt="Donation Image">
                 {% if donation.confirmed %}
                 <p>Confirmed</p>
                 {% else %}
