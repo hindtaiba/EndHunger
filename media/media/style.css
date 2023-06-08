@@ -8764,13 +8764,15 @@ h1, h2, h3, h4, h5,
         position: relative; }
         .owl-carousel.home-slider .slider-item .slider-text .text {
           z-index: 0;
+          text-shadow: 2px 2px 10px #000;
           color: rgba(255, 255, 255, 0.9); }
         .owl-carousel.home-slider .slider-item .slider-text h1 {
           font-size: 50px;
           font-weight: 800;
           color: #fff;
           line-height: 1.3;
-          text-shadow: 0px 3px 25px rgba(0, 0, 0, 0.1); }
+          /* text-shadow: 0px 3px 25px rgba(0, 0, 0, 0.1); */
+          }
           @media (max-width: 991.98px) {
             .owl-carousel.home-slider .slider-item .slider-text h1 {
               font-size: 40px;
