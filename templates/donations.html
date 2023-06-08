@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Dashboard</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin-top: 100px;
+        }
+        .card {
+            padding: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .btn-add-donation {
+            float: right;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .donation-card {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .donation-card img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2 class="text-center text-primary mb-3">Restaurant Dashboard</h2>
+            <button class="btn btn-primary btn-add-donation" onclick="openDonationForm()">Add Donation</button>
+            <!-- Donation Form (hidden by default) -->
+            <div id="donationForm" style="display: none;">
+                <h3>Add Donation</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="form-label">NGO</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="donationDate" class="form-label">Donation Date</label>
+                        <input type="date" class="form-control" id="donationDate" name="donationDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="donationTime" class="form-label">Donation Time</label>
+                        <input type="time" class="form-control" id="donationTime" name="donationTime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="createdOn" class="form-label">Created On</label>
+                        <input type="datetime-local" class="form-control" id="createdOn" name="createdOn" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expirationDate" class="form-label">Expiration Date</label>
+                        <input type="date" class="form-control" id="expirationDate" name="expirationDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Donate</button>
+                    </div>
+                </form>
+            </div>
+            <!-- End Donation Form -->
+
+            <!-- Donations List -->
+            <h3>Donations</h3>
+            {% for donation in donations %}
+            <div class="donation-card">
+                <h4>{{ donation.name }}</h4>
+                <p>NGO: {{ donation.ngo }}</p>
+                <p>Donation Date: {{ donation.donation_date }}</p>
+                <p>Donation Time: {{ donation.delivery_time }}</p>
+                <p>Created On: {{ donation.created_on }}</p>
+                <p>Expiration Date: {{ donation.expiration_date }}</p>
+                <img src="{{ donation.image.url }}" alt="Donation Image">
+                {% if donation.confirmed %}
+                <p>Confirmed</p>
+                {% else %}
+                <p>Pending Confirmation</p>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p>No donations found.</p>
+            {% endfor %}
+            <!-- End Donations List -->
+        </div>
+    </div>
+
+    <script>
+        function openDonationForm() {
+            document.getElementById('donationForm').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

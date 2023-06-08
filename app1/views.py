@@ -58,7 +58,7 @@ def requests_view(request):
     return render(request,'requests.html')
 
 def donate_view(request):
-    return render(request,'#')
+    return render(request,'donations.html')
 
 def charity_view(request):
     return render(request,'#')
