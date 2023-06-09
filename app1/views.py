@@ -295,3 +295,4 @@ from django.shortcuts import render
 
 def donation_success(request):
     return render(request, 'donation_success.html')
+
