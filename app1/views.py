@@ -25,6 +25,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.contrib.sessions.models import Session
     
 from django.contrib.auth.views import (
     PasswordResetView,
@@ -220,6 +221,8 @@ def dashboard(request, user):
 
 
 def logout_view(request):
+    # Clear all sessions associated with the user
+    Session.objects.filter(session_key__startswith=request.session.session_key[:10]).delete()
     auth.logout(request)
     print('logout')
     return render(request,'index.html')
