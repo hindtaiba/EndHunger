@@ -269,6 +269,10 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 
 @login_required
 def add_donation(request):
+    # Fetch the updated list of donations for the current restaurant
+    restaurant = get_object_or_404(Restaurant, user=request.user)
+    donations = Donation.objects.filter(restaurant=restaurant)
+    
     if request.method == 'POST':
         ngo = request.POST.get('ngo')
         donation_date = request.POST.get('donation_date')
@@ -298,10 +302,22 @@ def add_donation(request):
         
         return render(request, 'donations.html', {'donations': donations})
     
-    return render(request, 'donations.html')
+    return render(request, 'donations.html', {'donations':donations})
+
+@login_required
+def view_donations(request):
+    # Check if the user is associated with a restaurant
+    try:
+        restaurant = Restaurant.objects.get(user=request.user)
+    except Restaurant.DoesNotExist:
+        return render(request, 'donations.html', {'message': 'User does not have a related restaurant.'})
+    
+    # Fetch the donations for the current restaurant
+    donations = Donation.objects.filter(restaurant=restaurant)
+    
+    return render(request, 'donations.html', {'donations': donations, 'restaurant': restaurant})
 
 from django.shortcuts import render
 
-def donation_success(request):
-    return render(request, 'donation_success.html')
+
 
