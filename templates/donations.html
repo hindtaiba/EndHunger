@@ -62,7 +62,11 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="ngo" class="form-label">NGO</label>
-                        <input type="text" class="form-control" id="ngo" name="ngo" placeholder="Enter NGO name" required>
+                        <select class="form-control" id="ngo" name="ngo">
+                            {% for ngo in ngos %}
+                                <option value="{{ ngo.name }}">{{ ngo.name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="donation_date" class="form-label">Donation Date</label>

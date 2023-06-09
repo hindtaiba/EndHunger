@@ -67,15 +67,15 @@ def donate_view(request):
 def charity_view(request):
     return render(request,'#')
 
-def browse_donations(request):
-    return render(request,'browse_donations.html')
-
 def restaurant_view(request):
     return render(request,'#')
 
 
 def requestsR_view(request):
     return render(request,'requestsR.html')
+
+def requestsN_view(request):
+    return render(request,'requestsN.html')
 
 
 def register(request):
@@ -267,53 +267,49 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 
 @login_required
 def add_donation(request):
-    # Fetch the updated list of donations for the current restaurant
+    # Fetch the current restaurant
     restaurant = get_object_or_404(Restaurant, user=request.user)
+
+    # Fetch the updated list of donations for the current restaurant
     donations = Donation.objects.filter(restaurant=restaurant)
-    
+
     if request.method == 'POST':
-        ngo = request.POST.get('ngo')
+        ngo_name = request.POST.get('ngo')
         donation_date = request.POST.get('donation_date')
         delivery_time = request.POST.get('delivery_time')
         expiration_date = request.POST.get('expiration_date')
 
-        # Check if the user is associated with a restaurant
-        try:
-            restaurant = Restaurant.objects.get(user=request.user)
-        except Restaurant.DoesNotExist:
-            return render(request, 'error.html', {'message': 'User does not have a related restaurant.'})
+        ngo = get_object_or_404(NGO, name=ngo_name)
 
-        ngo = get_object_or_404(NGO, name=ngo)
         # Create a new Donation object
         donation = Donation.objects.create(
-            name=f"{restaurant.name}_{timezone.now().strftime('%Y%m%d')}",
             restaurant=restaurant,
             ngo=ngo,
             donation_date=donation_date,
             delivery_time=delivery_time,
             expiration_date=expiration_date
         )
-        
+
         # Fetch the updated list of donations for the current restaurant
         donations = Donation.objects.filter(restaurant=restaurant)
+
         # Redirect to the donation success page or any other desired page
-        
-        return render(request, 'donations.html', {'donations': donations})
-    
-    return render(request, 'donations.html', {'donations':donations})
+    ngos = NGO.objects.all()
+
+    return render(request, 'donations.html', {'donations': donations, 'ngos': ngos})
 
 @login_required
-def requestsN_view(request):
+def view_donations(request):
     # Check if the user is associated with a restaurant
     try:
         ngo = NGO.objects.get(user=request.user)
     except NGO.DoesNotExist:
-        return render(request, 'requestsN.html', {'message': 'User does not have a related restaurant.'})
+        return render(request, 'browse_donations.html', {'message': 'User does not have a related restaurant.'})
     
     # Fetch the donations for the current restaurant
     donations = Donation.objects.filter(ngo=ngo)
     
-    return render(request, 'requestsN.html', {'donations': donations, 'ngo': ngo})
+    return render(request, 'browse_donations.html', {'donations': donations, 'ngo': ngo})
 
 from django.shortcuts import render
 
