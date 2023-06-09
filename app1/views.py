@@ -73,8 +73,6 @@ def browse_donations(request):
 def restaurant_view(request):
     return render(request,'#')
 
-def requestsN_view(request):
-    return render(request,'requestsN.html')
 
 def requestsR_view(request):
     return render(request,'requestsR.html')
@@ -305,17 +303,17 @@ def add_donation(request):
     return render(request, 'donations.html', {'donations':donations})
 
 @login_required
-def view_donations(request):
+def requestsN_view(request):
     # Check if the user is associated with a restaurant
     try:
-        restaurant = Restaurant.objects.get(user=request.user)
-    except Restaurant.DoesNotExist:
-        return render(request, 'donations.html', {'message': 'User does not have a related restaurant.'})
+        ngo = NGO.objects.get(user=request.user)
+    except NGO.DoesNotExist:
+        return render(request, 'requestsN.html', {'message': 'User does not have a related restaurant.'})
     
     # Fetch the donations for the current restaurant
-    donations = Donation.objects.filter(restaurant=restaurant)
+    donations = Donation.objects.filter(ngo=ngo)
     
-    return render(request, 'donations.html', {'donations': donations, 'restaurant': restaurant})
+    return render(request, 'requestsN.html', {'donations': donations, 'ngo': ngo})
 
 from django.shortcuts import render
 
