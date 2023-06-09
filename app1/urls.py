@@ -14,6 +14,7 @@ urlpatterns = [
     path('dashboard/<str:user>/', dashboard, name='dashboard'),
     path('requests/', requests_view, name='requests'),
     path('donate/', add_donation, name='donate'),
+    path('donation_success/', donation_success, name='donation_success'),
     path('charity', charity_view, name='charity'),
     path('browse-food', browse_food_view, name='browse_food'),
     path('restaurant', restaurant_view, name='restaurant'),
