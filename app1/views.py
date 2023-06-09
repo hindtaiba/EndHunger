@@ -59,7 +59,7 @@ def loginRegister(request):
     return render(request, 'login-register.html')
 
 def requests_view(request):
-    return render(request,'requests.html')
+    return render(request,'requestsR.html')
 
 def donate_view(request):
     return render(request,'donations.html')
@@ -67,14 +67,17 @@ def donate_view(request):
 def charity_view(request):
     return render(request,'#')
 
-def browse_food_view(request):
-    return render(request,'#')
+def browse_donations(request):
+    return render(request,'browse_donations.html')
 
 def restaurant_view(request):
     return render(request,'#')
 
-def confirmations_view(request):
-    return render(request,'#')
+def requestsN_view(request):
+    return render(request,'requestsN.html')
+
+def requestsR_view(request):
+    return render(request,'requestsR.html')
 
 
 def register(request):
@@ -288,10 +291,13 @@ def add_donation(request):
             delivery_time=delivery_time,
             expiration_date=expiration_date
         )
-
+        
+        # Fetch the updated list of donations for the current restaurant
+        donations = Donation.objects.filter(restaurant=restaurant)
         # Redirect to the donation success page or any other desired page
-        return redirect('donation_success')
-
+        
+        return render(request, 'donations.html', {'donations': donations})
+    
     return render(request, 'donations.html')
 
 from django.shortcuts import render
