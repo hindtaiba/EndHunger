@@ -24,9 +24,7 @@ from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
-from django.utils import timezone
 from django.contrib.sessions.models import Session
-from django.db.models import Q
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
@@ -275,38 +273,6 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
 
-# @login_required
-# def add_donation(request):
-#     # Fetch the current restaurant
-#     restaurant = get_object_or_404(Restaurant, user=request.user)
-
-#     # Fetch the updated list of donations for the current restaurant
-#     donations = Donation.objects.filter(restaurant=restaurant)
-
-#     if request.method == 'POST':
-#         ngo_name = request.POST.get('ngo')
-#         donation_date = request.POST.get('donation_date')
-#         delivery_time = request.POST.get('delivery_time')
-#         expiration_date = request.POST.get('expiration_date')
-
-#         ngo = get_object_or_404(NGO, name=ngo_name)
-
-#         # Create a new Donation object
-#         donation = Donation.objects.create(
-#             restaurant=restaurant,
-#             ngo=ngo,
-#             donation_date=donation_date,
-#             delivery_time=delivery_time,
-#             expiration_date=expiration_date
-#         )
-
-#         # Fetch the updated list of donations for the current restaurant
-#         donations = Donation.objects.filter(restaurant=restaurant)
-
-#         # Redirect to the donation success page or any other desired page
-#     ngos = NGO.objects.all()
-
-#     return render(request, 'donations_try.html', {'donations': donations, 'ngos': ngos})
 
 @login_required
 def add_donation(request):
@@ -317,9 +283,9 @@ def add_donation(request):
     donations = Donation.objects.filter(restaurant=restaurant)
 
     # Group donations based on their status
-    todo_donations = donations.filter(confirmed=False)
-    inprogress_donations = donations.filter(confirmed=True, delivery_time__gte=timezone.now())
-    done_donations = donations.filter(confirmed=True, delivery_time__lt=timezone.now())
+    todo_donations = donations.filter(requested=False)
+    inprogress_donations = donations.filter(requested=True, confirmed=False)
+    done_donations = donations.filter(requested=True, confirmed=True)
 
     if request.method == 'POST':
         ngo_name = request.POST.get('ngo')
@@ -337,16 +303,6 @@ def add_donation(request):
             delivery_time=delivery_time,
             expiration_date=expiration_date
         )
-
-        # Fetch the updated list of donations for the current restaurant
-        donations = Donation.objects.filter(restaurant=restaurant)
-
-        # Group donations based on their status
-        todo_donations = donations.filter(confirmed=False,requested=False)
-        inprogress_donations = donations.filter(confirmed=False,requested=True )
-        done_donations = donations.filter(confirmed=True, requested=True)
-
-        # Redirect to the donation success page or any other desired page
 
     ngos = NGO.objects.all()
 
@@ -374,21 +330,6 @@ def view_donations(request):
     donations = Donation.objects.filter(ngo=ngo)
     
     return render(request, 'browse_donations.html', {'donations': donations, 'ngo': ngo})
-
-
-
-# def kanban_view(request):
-#     todo_donations = Donation.objects.filter(Q(requested=False) & Q(confirmed=False))
-#     inprogress_donations = Donation.objects.filter(Q(requested=True) & Q(confirmed=False))
-#     done_donations = Donation.objects.filter(Q(requested=True) & Q(confirmed=True))
-   
-#     context = {
-#         'todo_donations': todo_donations,
-#         'inprogress_donations': inprogress_donations,
-#         'done_donations': done_donations
-#     }
- 
-#     return render(request, 'donations.html', context)
 
 
 
