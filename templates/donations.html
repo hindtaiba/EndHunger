@@ -133,94 +133,110 @@
             </div>
             <!-- End Donation Form -->
 
-            <!-- Kanban View -->
-            <div class="kanban-board">
-                <div class="kanban-column" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)" data-column="todo">
-                    <h3>Donations</h3>
-                    {% for donation in todo_donations %}
-                    
-                    <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
-                        <h4>{{ donation.name }}</h4>
-                        <p>NGO: {{ donation.ngo.name }}</p>
-                        <p>Donation Date: {{ donation.donation_date }}</p>
-                        <p>Delivery Time: {{ donation.delivery_time }}</p>
-                        <p>Created On: {{ donation.created_on }}</p>
-                        <p>Expiration Date: {{ donation.expiration_date }}</p>
-                    </div>
-                   
-                    {% empty %}
-                    <p>No donations in this column.</p>
-                    {% endfor %}
-                </div>
-                <div class="kanban-column" ondrop="drop(event, 'inprogress')" ondragover="allowDrop(event)" data-column="inprogress">
-                    <h3>Requested</h3>
-                    {% for donation in inprogress_donations %}
-                      
-                    <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
-                        <h4>{{ donation.name }}</h4>
-                        <p>NGO: {{ donation.ngo.name }}</p>
-                        <p>Donation Date: {{ donation.donation_date }}</p>
-                        <p>Delivery Time: {{ donation.delivery_time }}</p>
-                        <p>Created On: {{ donation.created_on }}</p>
-                        <p>Expiration Date: {{ donation.expiration_date }}</p>
-                        <form method="POST" action="{% url 'confirm_donation' donation.id %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="donation_id" value="{{ donation.id }}">
-                            <button type="submit" class="checkmark-btn" onclick="return confirm('Are you sure you want to confirm this donation?');"></button>
-                        </form>
-                    </div>
-                  
-                    {% empty %}
-                    <p>No donations in this column.</p>
-                    {% endfor %}
-                </div>
-                <div class="kanban-column" ondrop="drop(event, 'done')" ondragover="allowDrop(event)" data-column="done">
-                    <h3>Confirmed</h3>
-                    {% for donation in done_donations %}
-                    <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
-                        <h4>{{ donation.name }}</h4>
-                        <p>NGO: {{ donation.ngo.name }}</p>
-                        <p>Donation Date: {{ donation.donation_date }}</p>
-                        <p>Delivery Time: {{ donation.delivery_time }}</p>
-                        <p>Created On: {{ donation.created_on }}</p>
-                        <p>Expiration Date: {{ donation.expiration_date }}</p>
-                        <p>CONFIRMED</p>
-                    </div>
-                    {% empty %}
-                    <p>No donations in this column.</p>
-                    {% endfor %}
-                </div>
-            </div>
-            <!-- End Kanban View -->
+           <!-- Kanban View -->
+<div class="kanban-board">
+    <div class="kanban-column" data-column="todo">
+        <h3>Donations</h3>
+        {% for donation in todo_donations %}
+        
+        <div class="kanban-card" id="{{ donation.id }}">
+            <h4>{{ donation.name }}</h4>
+            <p>NGO: {{ donation.ngo.name }}</p>
+            <p>Donation Date: {{ donation.donation_date }}</p>
+            <p>Delivery Time: {{ donation.delivery_time }}</p>
+            <p>Created On: {{ donation.created_on }}</p>
+            <p>Expiration Date: {{ donation.expiration_date }}</p>
         </div>
+       
+        {% empty %}
+        <p>No donations in this column.</p>
+        {% endfor %}
     </div>
-
-    <script>
-    function openDonationForm() {
+    <div class="kanban-column" data-column="inprogress">
+        <h3>Requested</h3>
+        {% for donation in inprogress_donations %}
+          
+        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
+            <h4>{{ donation.name }}</h4>
+            <p>NGO: {{ donation.ngo.name }}</p>
+            <p>Donation Date: {{ donation.donation_date }}</p>
+            <p>Delivery Time: {{ donation.delivery_time }}</p>
+            <p>Created On: {{ donation.created_on }}</p>
+            <p>Expiration Date: {{ donation.expiration_date }}</p>
+            <form method="POST" action="{% url 'confirm_donation' donation.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="donation_id" value="{{ donation.id }}">
+                <button type="submit" class="checkmark-btn" onclick="return confirm('Are you sure you want to confirm this donation?');"></button>
+            </form>
+        </div>
+      
+        {% empty %}
+        <p>No donations in this column.</p>
+        {% endfor %}
+    </div>
+    <div class="kanban-column" data-column="done" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
+        <h3>Confirmed</h3>
+        {% for donation in done_donations %}
+        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
+            <h4>{{ donation.name }}</h4>
+            <p>NGO: {{ donation.ngo.name }}</p>
+            <p>Donation Date: {{ donation.donation_date }}</p>
+            <p>Delivery Time: {{ donation.delivery_time }}</p>
+            <p>Created On: {{ donation.created_on }}</p>
+            <p>Expiration Date: {{ donation.expiration_date }}</p>
+            <p>CONFIRMED</p>
+        </div>
+        {% empty %}
+        <p>No donations in this column.</p>
+        {% endfor %}
+    </div>
+</div>
+<!-- End Kanban View -->
+<script>
+function openDonationForm() {
         var donationForm = document.getElementById('donationForm');
         if (donationForm.style.display === 'block') {
             donationForm.style.display = 'none';
         } else {
             donationForm.style.display = 'block';
+}
+}
+
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+function drop(event, column) {
+    event.preventDefault();
+    var donationId = event.dataTransfer.getData("text");
+    var donationCard = document.getElementById(donationId);
+    var targetColumn = event.target.closest('.kanban-column');
+  
+    if (column === 'done') {
+        if (confirm('Are you sure you want to confirm this donation?')) {
+            var donationForm = document.createElement('form');
+            donationForm.method = 'POST';
+            donationForm.action = '/confirm_donation/' + donationId + '/';
+            donationForm.style.display = 'none';
+
+            var csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = '{{ csrf_token }}';
+
+            donationForm.appendChild(csrfInput);
+            targetColumn.appendChild(donationForm);
+            donationForm.submit();
         }
-    }
-
-    function allowDrop(event) {
-        event.preventDefault();
-    }
-
-    function drag(event) {
-        event.dataTransfer.setData("text", event.target.id);
-    }
-
-    function drop(event, column) {
-        event.preventDefault();
-        var donationId = event.dataTransfer.getData("text");
-        var donationCard = document.getElementById(donationId);
-        var targetColumn = event.target.closest('.kanban-column');
+    } else {
         targetColumn.appendChild(donationCard);
     }
-</script>
+}
 
-</body>
-</html>
+
+
+</script>
