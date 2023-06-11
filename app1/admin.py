@@ -14,9 +14,7 @@ class NGOAdmin(admin.ModelAdmin):
 
 class DonationAdmin(admin.ModelAdmin):
     confirmed = models.BooleanField(default=False)
-    confirmed = models.BooleanField(default=False)
-    confirmed = models.BooleanField(default=False)
-    list_display = ('name','restaurant', 'ngo', 'donation_date', 'delivery_time','created_on','confirmed','expiration_date')
+    list_display = ('name','restaurant', 'ngo', 'donation_date', 'delivery_time','created_on','confirmed','expiration_date','requested')
     readonly_fields = ()
 
     def get_queryset(self, request):

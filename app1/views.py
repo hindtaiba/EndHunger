@@ -26,7 +26,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib.sessions.models import Session
-    
+from django.db.models import Q
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
@@ -61,8 +61,6 @@ def about(request):
 def loginRegister(request):
     return render(request, 'login-register.html')
 
-def donate_view(request):
-    return render(request,'donations.html')
 
 def charity_view(request):
     return render(request,'#')
@@ -344,9 +342,9 @@ def add_donation(request):
         donations = Donation.objects.filter(restaurant=restaurant)
 
         # Group donations based on their status
-        todo_donations = donations.filter(confirmed=False)
-        inprogress_donations = donations.filter(confirmed=True, delivery_time__gte=timezone.now())
-        done_donations = donations.filter(confirmed=True, delivery_time__lt=timezone.now())
+        todo_donations = donations.filter(confirmed=False,requested=False)
+        inprogress_donations = donations.filter(confirmed=False,requested=True )
+        done_donations = donations.filter(confirmed=True, requested=True)
 
         # Redirect to the donation success page or any other desired page
 
@@ -378,16 +376,26 @@ def view_donations(request):
     return render(request, 'browse_donations.html', {'donations': donations, 'ngo': ngo})
 
 
-def kanban_view(request):
-    todo_donations = Donation.objects.filter(confirmed=False)
-    inprogress_donations = Donation.objects.filter(confirmed=True, delivery_time__gte=timezone.now())
-    done_donations = Donation.objects.filter(confirmed=True, delivery_time__lt=timezone.now())
 
-    context = {
-        'todo_donations': todo_donations,
-        'inprogress_donations': inprogress_donations,
-        'done_donations': done_donations
-    }
+# def kanban_view(request):
+#     todo_donations = Donation.objects.filter(Q(requested=False) & Q(confirmed=False))
+#     inprogress_donations = Donation.objects.filter(Q(requested=True) & Q(confirmed=False))
+#     done_donations = Donation.objects.filter(Q(requested=True) & Q(confirmed=True))
+   
+#     context = {
+#         'todo_donations': todo_donations,
+#         'inprogress_donations': inprogress_donations,
+#         'done_donations': done_donations
+#     }
+ 
+#     return render(request, 'donations.html', context)
 
-    return render(request, 'donations.html', context)
+
+
+def request_donation(request, donation_name):
+    donation = get_object_or_404(Donation, pk=donation_name)
+    # Mark the donation as requested by the NGO
+    donation.requested = True
+    donation.save()
+    return redirect('/browse_donations/')
 

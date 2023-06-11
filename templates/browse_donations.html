@@ -58,11 +58,14 @@
                 {% else %}
                 <p>Pending Confirmation</p>
                 {% endif %}
-                <button type="button">Request</button>
+                <form method="POST" action="{% url 'request_donation' donation.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Request</button>
+                </form>
             </div>
             {% endfor %}
         </div>
         <!-- End Donations List -->
     </div>
 </body>
-</html>
+</html>>

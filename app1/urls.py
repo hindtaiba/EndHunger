@@ -14,7 +14,7 @@ urlpatterns = [
     path('dashboard/<str:user>/', dashboard, name='dashboard'),
     path('donate/', add_donation, name='donate'),
     path('charity', charity_view, name='charity'),
-    path('browse_donations/', view_donations, name='browse_food'),
+    path('browse_donations/', view_donations, name='browse_donations'),
     path('restaurant', restaurant_view, name='restaurant'),
     path('requestsR/', requestsR_view, name='confirmations'),
     path('requestsN/', requestsN_view, name='confirmations'),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('password_reset/confirm/<uidb64>/<token>/', PasswordResetConfirmationView.as_view(), name='password_reset_confirm'),
     path('password_reset/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('donation/request/<int:donation_id>/',request_donation, name='request_donation'),
 ]

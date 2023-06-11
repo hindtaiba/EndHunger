@@ -138,6 +138,7 @@
                 <div class="kanban-column" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)" data-column="todo">
                     <h3>Donations</h3>
                     {% for donation in todo_donations %}
+                    
                     <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
                         <h4>{{ donation.name }}</h4>
                         <p>NGO: {{ donation.ngo.name }}</p>
@@ -147,6 +148,7 @@
                         <p>Expiration Date: {{ donation.expiration_date }}</p>
                         <p>Pending Confirmation</p>
                     </div>
+                   
                     {% empty %}
                     <p>No donations in this column.</p>
                     {% endfor %}
@@ -154,6 +156,7 @@
                 <div class="kanban-column" ondrop="drop(event, 'inprogress')" ondragover="allowDrop(event)" data-column="inprogress">
                     <h3>Requested</h3>
                     {% for donation in inprogress_donations %}
+                      
                     <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
                         <h4>{{ donation.name }}</h4>
                         <p>NGO: {{ donation.ngo.name }}</p>
@@ -163,6 +166,7 @@
                         <p>Expiration Date: {{ donation.expiration_date }}</p>
                         <p>Confirmed</p>
                     </div>
+                  
                     {% empty %}
                     <p>No donations in this column.</p>
                     {% endfor %}

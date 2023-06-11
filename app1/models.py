@@ -13,6 +13,8 @@ class Donation(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     expiration_date = models.DateField(default=date.today() + timedelta(days=3))
     confirmed = models.BooleanField(default=False)
+    requested = models.BooleanField(default=False)
+
 
     def save(self, *args, **kwargs):
         if not self.name:
@@ -29,7 +31,7 @@ class Restaurant(models.Model):
     location = models.CharField(max_length=255)
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20)
-    is_verified = models.BooleanField(default=False)  # Add the is_verified field
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -44,16 +46,16 @@ class NGO(models.Model):
     capacity = models.IntegerField(default=0)
     review = models.TextField(blank=True)
     category = models.CharField(max_length=255)
-    is_verified = models.BooleanField(default=False)  # Add the is_verified field
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
 
 class DonationRequest(models.Model):
-    donation = models.ForeignKey('Donation', on_delete=models.CASCADE, related_name='requests')
-    ngo = models.ForeignKey('NGO', on_delete=models.CASCADE)
+    donation = models.ForeignKey('Donation', on_delete=models.CASCADE, related_name='donation_requests')
+    ngo = models.ForeignKey('NGO', on_delete=models.CASCADE, related_name='donation_requests_received')
     confirmed = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Donation Request - NGO: {self.ngo.name}, Donation: {self.donation.name}, Quantity Requested: {self.quantity_requested}, Confirmed: {self.confirmed}"
+        return f"Donation Request - NGO: {self.ngo.name}, Donation: {self.donation.name}"
