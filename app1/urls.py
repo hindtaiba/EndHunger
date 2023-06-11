@@ -12,7 +12,6 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('register/',register, name='register'),
     path('dashboard/<str:user>/', dashboard, name='dashboard'),
-    path('requests/', requests_view, name='requests'),
     path('donate/', add_donation, name='donate'),
     path('charity', charity_view, name='charity'),
     path('browse_donations/', view_donations, name='browse_food'),

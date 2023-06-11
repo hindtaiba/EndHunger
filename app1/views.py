@@ -44,22 +44,22 @@ def contact(request):
     if request.user.is_authenticated:
         if Restaurant.objects.filter(user=request.user).exists():
             user_type = "R"  # User is a restaurant
+            status = True
         elif NGO.objects.filter(user=request.user).exists():
             user_type = "N"  # User is an NGO
+            status = True
         else:
             user_type = None  # User doesn't have a recognized role
+            status = False
     else:
         user_type = None  # User is not authenticated
-    return render(request, 'contact.html')
+    return render(request, 'contact.html', {'user': user_type, 'status': status})
 
 def about(request):
     return render(request, 'about.html')
 
 def loginRegister(request):
     return render(request, 'login-register.html')
-
-def requests_view(request):
-    return render(request,'requestsR.html')
 
 def donate_view(request):
     return render(request,'donations.html')
@@ -72,7 +72,19 @@ def restaurant_view(request):
 
 
 def requestsR_view(request):
-    return render(request,'requestsR.html')
+    if request.user.is_authenticated:
+        if Restaurant.objects.filter(user=request.user).exists():
+            user_type = "R"  # User is a restaurant
+            status = True
+        elif NGO.objects.filter(user=request.user).exists():
+            user_type = "N"  # User is an NGO
+            status = True
+        else:
+            user_type = None  # User doesn't have a recognized role
+            status = False
+    else:
+        user_type = None  # User is not authenticated
+    return render(request,'requestsR.html', {'user': user_type, 'status': status})
 
 def requestsN_view(request):
     return render(request,'requestsN.html')
@@ -154,20 +166,20 @@ def verify_email(request, uidb64, token):
             user.is_active = True
             restaurant.is_verified = True
             restaurant.save()
-            return render(request, 'login-register.html', {'message': 'Your account is verified'})
+            return redirect('/login/', {'message': 'Your accoumt is verified now'})
         except Restaurant.DoesNotExist:
             try:
                 ngo = NGO.objects.get(user=user)
                 user.is_active= True
                 ngo.is_verified = True
                 ngo.save()
-                return render(request, 'login-register.html', {'message': 'Your account is verified'})
+                return redirect('/login/', {'message': 'Your accoumt is verified now'})
             except NGO.DoesNotExist:
                 messages.error(request, 'Associated restaurant or Charity does not exist.')
-                return redirect('verification_failed')
+                return render(request, 'login-register.html', {'message': 'Associated restaurant or Charity does not exist. Verification failed'})
     else:
         messages.error(request, 'Invalid verification link.')
-        return redirect('verification_failed')
+        return render(request, 'login-register.html', {'message': 'Invalid verification link. Verification failed'})
     
 
 
@@ -265,6 +277,39 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
 
+# @login_required
+# def add_donation(request):
+#     # Fetch the current restaurant
+#     restaurant = get_object_or_404(Restaurant, user=request.user)
+
+#     # Fetch the updated list of donations for the current restaurant
+#     donations = Donation.objects.filter(restaurant=restaurant)
+
+#     if request.method == 'POST':
+#         ngo_name = request.POST.get('ngo')
+#         donation_date = request.POST.get('donation_date')
+#         delivery_time = request.POST.get('delivery_time')
+#         expiration_date = request.POST.get('expiration_date')
+
+#         ngo = get_object_or_404(NGO, name=ngo_name)
+
+#         # Create a new Donation object
+#         donation = Donation.objects.create(
+#             restaurant=restaurant,
+#             ngo=ngo,
+#             donation_date=donation_date,
+#             delivery_time=delivery_time,
+#             expiration_date=expiration_date
+#         )
+
+#         # Fetch the updated list of donations for the current restaurant
+#         donations = Donation.objects.filter(restaurant=restaurant)
+
+#         # Redirect to the donation success page or any other desired page
+#     ngos = NGO.objects.all()
+
+#     return render(request, 'donations_try.html', {'donations': donations, 'ngos': ngos})
+
 @login_required
 def add_donation(request):
     # Fetch the current restaurant
@@ -272,6 +317,11 @@ def add_donation(request):
 
     # Fetch the updated list of donations for the current restaurant
     donations = Donation.objects.filter(restaurant=restaurant)
+
+    # Group donations based on their status
+    todo_donations = donations.filter(confirmed=False)
+    inprogress_donations = donations.filter(confirmed=True, delivery_time__gte=timezone.now())
+    done_donations = donations.filter(confirmed=True, delivery_time__lt=timezone.now())
 
     if request.method == 'POST':
         ngo_name = request.POST.get('ngo')
@@ -293,10 +343,26 @@ def add_donation(request):
         # Fetch the updated list of donations for the current restaurant
         donations = Donation.objects.filter(restaurant=restaurant)
 
+        # Group donations based on their status
+        todo_donations = donations.filter(confirmed=False)
+        inprogress_donations = donations.filter(confirmed=True, delivery_time__gte=timezone.now())
+        done_donations = donations.filter(confirmed=True, delivery_time__lt=timezone.now())
+
         # Redirect to the donation success page or any other desired page
+
     ngos = NGO.objects.all()
 
-    return render(request, 'donations.html', {'donations': donations, 'ngos': ngos})
+    context = {
+        'donations': donations,
+        'ngos': ngos,
+        'todo_donations': todo_donations,
+        'inprogress_donations': inprogress_donations,
+        'done_donations': done_donations,
+        'ngos': ngos
+    }
+
+    return render(request, 'donations.html', context)
+
 
 @login_required
 def view_donations(request):
@@ -311,7 +377,17 @@ def view_donations(request):
     
     return render(request, 'browse_donations.html', {'donations': donations, 'ngo': ngo})
 
-from django.shortcuts import render
 
+def kanban_view(request):
+    todo_donations = Donation.objects.filter(confirmed=False)
+    inprogress_donations = Donation.objects.filter(confirmed=True, delivery_time__gte=timezone.now())
+    done_donations = Donation.objects.filter(confirmed=True, delivery_time__lt=timezone.now())
 
+    context = {
+        'todo_donations': todo_donations,
+        'inprogress_donations': inprogress_donations,
+        'done_donations': done_donations
+    }
+
+    return render(request, 'donations.html', context)
 

@@ -7,18 +7,6 @@
 	
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<link rel="stylesheet" href="../../media/media/animate.css">
-	
-	<link rel="stylesheet" href="../../media/media/owl.carousel.min.css">
-	<link rel="stylesheet" href="../../media/media/owl.theme.default.min.css">
-	<link rel="stylesheet" href="../../media/media/magnific-popup.css">
-
-
-	<link rel="stylesheet" href="../../media/media/bootstrap-datepicker.css">
-	<link rel="stylesheet" href="../../media/media/jquery.timepicker.css">
-
 	<link rel="stylesheet" href="../media/media/css/flaticon.css">
 	<link rel="stylesheet" href="../../media/media/style.css">
 </head>
@@ -46,19 +34,15 @@
                     <li class="nav-item"><a href="/restaurant/" class="nav-link">Restaurant</a></li>
                     <li class="nav-item"><a href="/requestsN/" class="nav-link">Requests</a></li>
                     <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
+                {% else %}
+                    <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
                 {% endif %}
             {% else %}
                 <li class="nav-item cta"><a href="/login-register/" class="nav-link">Log In</a></li>
             {% endif %}
             
         </ul>
-        <!-- {% if request.user.is_authenticated %}
-                <p>hello</p>
-        {% else %}
-            <p>bye</p>
-        {% endif %} -->
-      </div>
-      
+    </div>
 </nav>
 </body>
 <!-- END nav -->
