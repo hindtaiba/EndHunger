@@ -340,3 +340,10 @@ def request_donation(request, donation_name):
     donation.save()
     return redirect('/browse_donations/')
 
+
+def confirm_donation(request, donation_id):
+    donation = get_object_or_404(Donation, pk=donation_id)
+    donation.confirmed = True
+    donation.save()
+    return redirect('/donate/') 
+

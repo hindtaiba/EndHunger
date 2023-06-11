@@ -146,7 +146,6 @@
                         <p>Delivery Time: {{ donation.delivery_time }}</p>
                         <p>Created On: {{ donation.created_on }}</p>
                         <p>Expiration Date: {{ donation.expiration_date }}</p>
-                        <p>Pending Confirmation</p>
                     </div>
                    
                     {% empty %}
@@ -164,7 +163,11 @@
                         <p>Delivery Time: {{ donation.delivery_time }}</p>
                         <p>Created On: {{ donation.created_on }}</p>
                         <p>Expiration Date: {{ donation.expiration_date }}</p>
-                        <p>Confirmed</p>
+                        <form method="POST" action="{% url 'confirm_donation' donation.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="donation_id" value="{{ donation.id }}">
+                            <button type="submit" class="checkmark-btn" onclick="return confirm('Are you sure you want to confirm this donation?');"></button>
+                        </form>
                     </div>
                   
                     {% empty %}
@@ -181,7 +184,7 @@
                         <p>Delivery Time: {{ donation.delivery_time }}</p>
                         <p>Created On: {{ donation.created_on }}</p>
                         <p>Expiration Date: {{ donation.expiration_date }}</p>
-                        <p>Confirmed</p>
+                        <p>CONFIRMED</p>
                     </div>
                     {% empty %}
                     <p>No donations in this column.</p>
