@@ -4,28 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Bridge</title>
+    <style>
+        .card {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .donation-card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+        
+        .donation-card h4 {
+            margin-top: 0;
+        }
+        
+        .donation-card p {
+            margin-bottom: 5px;
+        }
+        
+        .donation-card button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="card">
         <!-- Donations List -->
         <h3>Donations</h3>
-        {% for donation in donations %}
-        <div class="donation-card">
-            <h4>{{ donation.name }}</h4>
-            <p>Restaurant: {{ donation.restaurant.name }}</p>
-            <p>Donation Date: {{ donation.donation_date }}</p>
-            <p>Delivery Time: {{ donation.delivery_time }}</p>
-            <p>Created On: {{ donation.created_on }}</p>
-            <p>Expiration Date: {{ donation.expiration_date }}</p>
-            {% if donation.confirmed %}
-            <p>Confirmed</p>
-            {% else %}
-            <p>Pending Confirmation</p>
-            {% endif %}
+        <div style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+            {% for donation in donations %}
+            <div class="donation-card">
+                <h4>{{ donation.name }}</h4>
+                <p>Restaurant: {{ donation.restaurant.name }}</p>
+                <p>Donation Date: {{ donation.donation_date }}</p>
+                <p>Delivery Time: {{ donation.delivery_time }}</p>
+                <p>Created On: {{ donation.created_on }}</p>
+                <p>Expiration Date: {{ donation.expiration_date }}</p>
+                {% if donation.confirmed %}
+                <p>Confirmed</p>
+                {% else %}
+                <p>Pending Confirmation</p>
+                {% endif %}
+                <button type="button">Request</button>
+            </div>
+            {% endfor %}
         </div>
-        {% empty %}
-        <p>No donations found.</p>
-        {% endfor %}
         <!-- End Donations List -->
     </div>
 </body>

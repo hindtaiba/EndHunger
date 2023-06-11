@@ -96,6 +96,7 @@
     </style>    
 </head>
 <body>
+    
     <div class="container">
         <div class="card">
             <h2 class="text-center text-primary mb-3">Restaurant Dashboard</h2>
@@ -167,7 +168,7 @@
                     {% endfor %}
                 </div>
                 <div class="kanban-column" ondrop="drop(event, 'done')" ondragover="allowDrop(event)" data-column="done">
-                    <h3>Done</h3>
+                    <h3>Confirmed</h3>
                     {% for donation in done_donations %}
                     <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
                         <h4>{{ donation.name }}</h4>
