@@ -18,3 +18,12 @@ class PasswordResetConfirmationForm(SetPasswordForm):
 
 class SMSForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols': 50}), label='Message')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        message = cleaned_data.get('message')
+
+        if not message:
+            self.add_error('message', 'Please enter a message.')
+
+        return cleaned_data

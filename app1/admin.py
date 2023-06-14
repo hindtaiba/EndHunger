@@ -142,8 +142,17 @@ class RestaurantAdmin(admin.ModelAdmin):
     def send_sms_to_restaurants(self, request, queryset):
         if request.method == 'POST':
             form = SMSForm(request.POST)
+            # if form.is_valid():
+            #     print('Riwa')
+            # else:
+            #     print(form.errors)
+            # print('Hind', form.is_valid())
+            # # print(form.message1)
+            # msg = form.cleaned_data['messages']
+            # print('Riwa ' , msg)
             if form.is_valid():
-                message = form.cleaned_data['message']
+                msg = form.cleaned_data['message']
+                print('Riwa ' , msg)
                 username = "naderbakir@gmail.com"
                 password = "qfzjui"
 
@@ -161,6 +170,8 @@ class RestaurantAdmin(admin.ModelAdmin):
                         messages.error(request, f"Failed to send SMS to {number}. Error: {response.text}")
                 
                 return redirect('admin:app_restaurant_changelist')
+            else:
+                print(form.errors)
         else:
             form = SMSForm()
 
