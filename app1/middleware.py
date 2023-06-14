@@ -60,6 +60,9 @@ class LoggingMiddleware:
         response = self.get_response(request)
         
         # Logging logic after processing the request
-        self.logger.info('Response: {} {}'.format(response.status_code, response.reason_phrase))
+        if isinstance(response, HttpResponse):
+            self.logger.info('Response: {} {}'.format(response.status_code, response.reason_phrase))
+        else:
+            self.logger.warning('Response: {}'.format(response))
 
         return response

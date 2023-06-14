@@ -51,7 +51,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'app1.middleware.RedirectHomeMiddleware',
     'app1.middleware.LoggingMiddleware',
-    # 'app1.middleware.PermissionMiddleware',
 ]
 
 ROOT_URLCONF = 'EndHunger.urls'

@@ -4,10 +4,13 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import *
 from django.contrib.auth.admin import UserAdmin
-class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('name','user','location','contact_email','contact_phone')
-    readonly_fields = ( )
-    
+from django import forms
+from django.shortcuts import render
+from .forms import SMSForm
+import requests 
+from django.core.mail import send_mail
+
+
 class NGOAdmin(admin.ModelAdmin):
     list_display = ('name','user','location','contact_email','contact_phone','review','category')
     readonly_fields = ( )
@@ -65,7 +68,6 @@ class DonationRequestAdmin(admin.ModelAdmin):
 
 admin.site.register(Donation, DonationAdmin)
 admin.site.register(DonationRequest, DonationRequestAdmin)
-admin.site.register(Restaurant,RestaurantAdmin)
 admin.site.register(NGO, NGOAdmin)
 
     
@@ -127,3 +129,67 @@ admin.site.register(NGO, NGOAdmin)
 
 
 
+
+from django.template.loader import render_to_string
+from django.http import HttpResponse, HttpResponseRedirect
+
+
+class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ('name', 'user', 'location', 'contact_email', 'contact_phone')
+    actions = ['send_sms_to_restaurants', 'send_email_to_restaurants']
+    readonly_fields = ()
+
+    def send_sms_to_restaurants(self, request, queryset):
+        if request.method == 'POST':
+            form = SMSForm(request.POST)
+            if form.is_valid():
+                message = form.cleaned_data['message']
+                username = "naderbakir@gmail.com"
+                password = "qfzjui"
+
+                for restaurant in queryset:
+                    number = restaurant.contact_phone
+                    name = restaurant.name
+
+                    url = f"http://unosms.us/api.php?user={username}&pass={password}&to={number}&from=fsegorg&msg={message}"
+
+                    response = requests.get(url)
+
+                    if response.status_code == 200:
+                        messages.success(request, f"SMS sent to {number} successfully!")
+                    else:
+                        messages.error(request, f"Failed to send SMS to {number}. Error: {response.text}")
+                
+                return redirect('admin:app_restaurant_changelist')
+        else:
+            form = SMSForm()
+
+        context = {
+            'form': form,
+            'queryset': queryset,
+        }
+        
+        return render(request, 'send_sms.html', context)
+
+    send_sms_to_restaurants.short_description = "Send SMS to selected restaurants"
+
+
+    def send_email_to_restaurants(modeladmin, request, queryset):
+        for restaurant in queryset:
+            email = restaurant.contact_email
+            name = restaurant.name
+
+            subject = f"Hello, {name}!"
+            message = f"Dear {name},\n\nThis is a personalized message for your restaurant."
+            from_email = "endhunger4@gmail.com"  # Replace with your email address or a valid sender email
+            recipient_list = [email]
+
+            send_mail(subject, message, from_email, recipient_list)
+
+        # Provide a feedback message for the admin action
+        message = f"Email sent to selected restaurants: {', '.join([restaurant.name for restaurant in queryset])}"
+        modeladmin.message_user(request, message)
+
+    send_email_to_restaurants.short_description = "Send Email to selected restaurants"
+
+admin.site.register(Restaurant,RestaurantAdmin)

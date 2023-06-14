@@ -1,4 +1,5 @@
 from email.message import EmailMessage
+from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from app1.forms import PasswordResetConfirmationForm, PasswordResetRequestForm
@@ -31,6 +32,11 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetCompleteView,
 )
+from django.shortcuts import render
+from django.http import HttpResponse
+from .forms import SMSForm
+import requests 
+from django.http import HttpRequest
 
 
 
@@ -245,17 +251,39 @@ class PasswordResetRequestView(PasswordResetView):
     def form_valid(self, form):
         email = form.cleaned_data['email']
         subject = 'Password Reset'
-        from_email = 'endhunger4@gmail.com'
         recipient_list = [email]
-
-        # Render the password reset email template
-        context = {
-            'email': email,
-            'reset_url': 'password_reset/confirm/<uidb64>/<token>/',  # Replace with your password reset URL
-        }
-        message = render_to_string('password_reset_email.html', context)
-
-        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        try:
+            ngo = NGO.objects.get(contact_email=email)
+            user = ngo.user
+        except NGO.DoesNotExist:
+            # User not found in the NGO model, search in the Restaurant model
+            try:
+                restaurant = Restaurant.objects.get(contact_email=email)
+                user = restaurant.user
+            except Restaurant.DoesNotExist:
+                # User not found in both the NGO and Restaurant models
+                # Handle the case when the user does not exist
+                # You can show an error message or redirect the user to an appropriate page
+                return HttpResponse("User does not exist.")
+        
+        current_site = get_current_site(self.request)
+        
+        message = render_to_string('password_reset_email.html', {
+            'user': user,
+            'protocol': 'http',
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': default_token_generator.make_token(user),
+        })
+        email_message = EmailMessage(
+        subject= subject,
+        body=message,
+        from_email='endhunger4@gmail.com',
+        to=recipient_list,
+        )
+        email_message.content_subtype = 'html'
+        email_message.send()
+        
         return super().form_valid(form)
 
 
@@ -265,10 +293,9 @@ class PasswordResetConfirmationView(PasswordResetConfirmView):
     form_class = PasswordResetConfirmationForm
     template_name = 'password_reset_confirm.html'
     success_url = '/password_reset/complete/'
+    print("done")
+    
 
-
-class CustomPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'password_reset_done.html'
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
@@ -347,3 +374,33 @@ def confirm_donation(request, donation_id):
     donation.save()
     return redirect('/donate/') 
 
+
+
+
+# def send_sms_to_restaurants(request):
+#     username = "naderbakir@gmail.com"
+#     password = "qfzjui1"
+
+#     if request.method == 'POST':
+#         form = SMSForm(request.POST)
+#         if form.is_valid():
+#             message = form.cleaned_data['message']
+
+#             for restaurant in Restaurant.objects.all():
+#                 number = restaurant.contact_phone
+#                 name = restaurant.name
+
+#                 url = f"http://unosms.us/api.php?user={username}&pass={password}&to={number}&from=fsegorg&msg={message}"
+
+#                 response = requests.get(url)
+
+#                 if response.status_code == 200:
+#                     print(f"SMS sent to {number} successfully!")
+#                 else:
+#                     print(f"Failed to send SMS to {number}. Error: {response.text}")
+                    
+#             return HttpResponse("SMS sent successfully!")  # Return a success message after sending the SMS
+#     else:
+#         form = SMSForm()
+
+#     return render(request, 'send_sms.html', {'form': form})
