@@ -42,32 +42,9 @@ class DonationAdmin(admin.ModelAdmin):
 
         return self.readonly_fields
     
-class DonationRequestAdmin(admin.ModelAdmin):
-    list_display = ('donation', 'ngo','confirmed')
-    readonly_fields = ()
 
-    def get_queryset(self, request):
-        # Only display donation requests for the current user
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            # Superusers can see all donation requests
-            return qs
-        elif hasattr(request.user, 'ngo'):
-            return qs.filter(ngo=request.user.ngo)
-        elif hasattr(request.user, 'restaurant'):
-            return qs.filter(donation__restaurant=request.user.restaurant)
-        else:
-            # Non-ngo or Non-restaurant users won't see any donation requests
-            return qs.none()
-
-    def get_readonly_fields(self, request, obj=None):
-        if hasattr(request.user, 'ngo'):  # Editing an existing NGO user
-            return self.readonly_fields + ('confirmed',)
-
-        return self.readonly_fields
 
 admin.site.register(Donation, DonationAdmin)
-admin.site.register(DonationRequest, DonationRequestAdmin)
 admin.site.register(NGO, NGOAdmin)
 
     

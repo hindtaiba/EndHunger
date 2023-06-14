@@ -51,11 +51,3 @@ class NGO(models.Model):
     def __str__(self):
         return self.name
 
-
-class DonationRequest(models.Model):
-    donation = models.ForeignKey('Donation', on_delete=models.CASCADE, related_name='donation_requests')
-    ngo = models.ForeignKey('NGO', on_delete=models.CASCADE, related_name='donation_requests_received')
-    confirmed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"Donation Request - NGO: {self.ngo.name}, Donation: {self.donation.name}"
