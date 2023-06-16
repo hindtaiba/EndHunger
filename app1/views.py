@@ -371,24 +371,33 @@ def view_donations(request):
     
     return render(request, 'browse_donations.html', {'donations': donations, 'ngo': ngo})
 
-
-
 def request_donation(request, donation_name):
     donation = get_object_or_404(Donation, pk=donation_name)
-    # Mark the donation as requested by the NGO
-    donation.requested = True
-    donation.save()
+
+    if donation.confirmed:
+        # Donation is already confirmed, do nothing
+        pass
+    elif donation.requested:
+        # Undo the donation request
+        donation.requested = False
+        donation.save()
+    else:
+        # Mark the donation as requested by the NGO
+        donation.requested = True
+        donation.save()
+
     return redirect('/browse_donations/')
 
 
 def confirm_donation(request, donation_id):
     donation = get_object_or_404(Donation, pk=donation_id)
-    donation.confirmed = True
-    donation.save()
-    return redirect('/donate/') 
 
+    if not donation.confirmed and donation.requested:
+        # Confirm the donation
+        donation.confirmed = True
+        donation.save()
 
-
+    return redirect('/donate/')
 
 # def send_sms_to_restaurants(request):
 #     username = "naderbakir@gmail.com"

@@ -56,16 +56,29 @@
                 {% if donation.confirmed %}
                 <p>Confirmed</p>
                 {% else %}
-                <p>Pending Confirmation</p>
+                    {% if donation.requested %}
+                    <p>Pending Confirmation</p>
+                    <form method="POST" action="{% url 'request_donation' donation.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Undo Request</button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{% url 'request_donation' donation.id %}">
+                        {% csrf_token %}
+                        <button type="submit">
+                            {% if donation.confirmed %}
+                            Confirmed
+                            {% else %}
+                            Request
+                            {% endif %}
+                        </button>
+                    </form>
+                    {% endif %}
                 {% endif %}
-                <form method="POST" action="{% url 'request_donation' donation.id %}">
-                    {% csrf_token %}
-                    <button type="submit">Request</button>
-                </form>
             </div>
             {% endfor %}
         </div>
         <!-- End Donations List -->
     </div>
 </body>
-</html>>
+</html>
