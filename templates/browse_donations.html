@@ -16,6 +16,7 @@
             padding: 10px;
             margin: 10px;
             width: 200px;
+            display: block;  /* Initially show all cards */
         }
         
         .donation-card h4 {
@@ -38,47 +39,144 @@
             margin-top: 10px;
             cursor: pointer;
         }
+
+        .category-buttons {
+            margin-bottom: 10px;
+        }
+
+        .category-buttons button {
+            background-color: transparent;
+            color: black;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .category-buttons button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <div class="category-buttons">
+        <button id="allButton" class="active">All</button>
+        <button id="requestsButton">Requests</button>
+        <button id="pendingButton">Pending</button>
+        <button id="confirmedButton">Confirmed</button>
+    </div>
+
     <div class="card">
         <!-- Donations List -->
         <h3>Donations</h3>
         <div style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
             {% for donation in donations %}
-            <div class="donation-card">
-                <h4>{{ donation.name }}</h4>
-                <p>Restaurant: {{ donation.restaurant.name }}</p>
-                <p>Donation Date: {{ donation.donation_date }}</p>
-                <p>Delivery Time: {{ donation.delivery_time }}</p>
-                <p>Created On: {{ donation.created_on }}</p>
-                <p>Expiration Date: {{ donation.expiration_date }}</p>
-                {% if donation.confirmed %}
-                <p>Confirmed</p>
-                {% else %}
-                    {% if donation.requested %}
-                    <p>Pending Confirmation</p>
-                    <form method="POST" action="{% url 'request_donation' donation.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Undo Request</button>
-                    </form>
+                <div class="donation-card">
+                    <h4>{{ donation.name }}</h4>
+                    <p>Restaurant: {{ donation.restaurant.name }}</p>
+                    <p>Donation Date: {{ donation.donation_date }}</p>
+                    <p>Delivery Time: {{ donation.delivery_time }}</p>
+                    <p>Created On: {{ donation.created_on }}</p>
+                    <p>Expiration Date: {{ donation.expiration_date }}</p>
+                    {% if donation.confirmed %}
+                        <p>Confirmed</p>
                     {% else %}
-                    <form method="POST" action="{% url 'request_donation' donation.id %}">
-                        {% csrf_token %}
-                        <button type="submit">
-                            {% if donation.confirmed %}
-                            Confirmed
-                            {% else %}
-                            Request
-                            {% endif %}
-                        </button>
-                    </form>
+                        {% if donation.requested %}
+                            <p>Pending Confirmation</p>
+                            <form method="POST" action="{% url 'request_donation' donation.id %}">
+                                {% csrf_token %}
+                                <button class="undo-request-button" type="submit">Undo Request</button>
+                            </form>
+                        {% else %}
+                            <form method="POST" action="{% url 'request_donation' donation.id %}">
+                                {% csrf_token %}
+                                <button class="request-button" type="submit">Request</button>
+                            </form>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            </div>
+                </div>
             {% endfor %}
         </div>
         <!-- End Donations List -->
     </div>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const allButton = document.getElementById('allButton');
+    const requestsButton = document.getElementById('requestsButton');
+    const pendingButton = document.getElementById('pendingButton');
+    const confirmedButton = document.getElementById('confirmedButton');
+    const donationCards = document.querySelectorAll('.donation-card');
+    const categoryButtons = document.querySelectorAll('.category-buttons button');
+
+    // Show all donations
+    allButton.addEventListener('click', function () {
+        donationCards.forEach(function (card) {
+            card.style.display = 'block';
+        });
+        setActiveCategory(allButton);
+    });
+
+    // Show only requests
+    requestsButton.addEventListener('click', function () {
+        donationCards.forEach(function (card) {
+            const requestButton = card.querySelector('.request-button');
+            const undoRequestButton = card.querySelector('.undo-request-button');
+
+            if (requestButton) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        setActiveCategory(requestsButton);
+    });
+
+    // Show only pending requests
+    pendingButton.addEventListener('click', function () {
+        donationCards.forEach(function (card) {
+            const undoRequestButton = card.querySelector('.undo-request-button');
+
+            if (undoRequestButton) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        setActiveCategory(pendingButton);
+    });
+
+    // Show only confirmed donations
+    confirmedButton.addEventListener('click', function () {
+        donationCards.forEach(function (card) {
+            const requestButton = card.querySelector('.request-button');
+            const undoRequestButton = card.querySelector('.undo-request-button');
+
+            if (!requestButton && !undoRequestButton) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        setActiveCategory(confirmedButton);
+    });
+
+    // Function to set the active category button
+    function setActiveCategory(activeButton) {
+        categoryButtons.forEach(function (button) {
+            if (button === activeButton) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
