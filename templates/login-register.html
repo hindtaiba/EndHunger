@@ -7804,6 +7804,33 @@ color: #eec857; }
     100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+.input-field {
+    position: relative;
+}
+
+.input-field input[type="password"] {
+    padding-right: 30px;
+}
+
+.input-field input[type="text"] {
+    padding-right: 50px;
+}
+
+.input-field .fa-eye,
+.input-field .fa-eye-slash {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.input-field .fa-eye,
+.input-field .fa-eye-slash {
+    right: 30px;
+}
+
+
     </style>
     <title>Food Bridge</title>
 </head>
@@ -7846,76 +7873,97 @@ color: #eec857; }
                 <input type="submit" value="Login" class="btn solid" />
                 <p class="social-text"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
             </form>
-            <!-- sign up -->
-            <form method="post" class="sign-up-form" action="{% url 'register' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <h2 class="title">Sign up</h2>
-                <div class="input-field">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Username" name="name"  />
-                </div>
-                <div class="input-field">
-                <i class="fas fa-envelope"></i>
-                <input type="email" placeholder="Email" name="email"/>
-                </div>
-                <div class="input-field">
-                <i class="fas fa-mobile"></i>
-                <input type="tel" placeholder="Phone Number" name="phone" />
-                </div>
-                <div class="input-field">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password" name="password" />
-                </div>
-                <div class="radio-container">
-                    <div style="margin-right: 20px;">
-                        <input type="radio" id="restaurant" name="choice" value="Restaurant">
-                        <label for="restaurant"> Restaurant</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="charity" name="choice" value="Charity">
-                        <label for="charity"> Charity</label>
-                    </div>
-                </div>
-                <input type="submit" class="btn" value="Sign up" />
-            </form>
+    <!-- sign up -->
+    <form method="post" class="sign-up-form" action="{% url 'register' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <h2 class="title">Sign up</h2>
+        <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" name="name" />
+        </div>
+        <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="Email" name="email" />
+        </div>
+        <div class="input-field">
+            <i class="fas fa-mobile"></i>
+            <input type="tel" placeholder="Phone Number" name="phone" />
+        </div>
+        <div class="input-field">
+            <i class="fas fa-map-marker-alt"></i>
+            <input type="text" placeholder="Location" name="location" id="location-input" />
+        </div>
+        <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" name="password" id="password" />
+            <i class="fas fa-eye" id="toggle-password"></i>
+        </div>
+        <div class="radio-container">
+            <div style="margin-right: 20px;">
+                <input type="radio" id="restaurant" name="choice" value="Restaurant">
+                <label for="restaurant"> Restaurant</label>
+            </div>
+            <div>
+                <input type="radio" id="charity" name="choice" value="Charity">
+                <label for="charity"> Charity</label>
             </div>
         </div>
+        <input type="submit" class="btn" value="Sign up" />
+    </form>
+</div>
+</div>
 
-        <div class="panels-container">
-            <div class="panel left-panel">
-            <div class="content">
-                <h3 style="margin-bottom: 20px;">New here ?</h3>
-                <button class="btn transparent" id="sign-up-btn">
+<div class="panels-container">
+    <div class="panel left-panel">
+        <div class="content">
+            <h3 style="margin-bottom: 20px;">New here ?</h3>
+            <button class="btn transparent" id="sign-up-btn">
                 Sign up
-                </button>
-            </div>
-            <img src="../../media/media/login1.png" class="image" alt="" />
-            </div>
-            <div class="panel right-panel">
-            <div class="content">
-                <h3>One of us ?</h3>
-                <button class="btn transparent" id="sign-in-btn">
-                Sign in
-                </button>
-            </div>
-            <img src="../../media/media/register1.png" class="image" alt="" />
-            </div>
+            </button>
         </div>
+        <img src="../../media/media/login1.png" class="image" alt="" />
     </div>
+    <div class="panel right-panel">
+        <div class="content">
+            <h3>One of us ?</h3>
+            <button class="btn transparent" id="sign-in-btn">
+                Sign in
+            </button>
+        </div>
+        <img src="../../media/media/register1.png" class="image" alt="" />
+    </div>
+</div>
+</div>
+<script src="https://www.mapquestapi.com/sdk/js/v7.2.s/mqa.toolkit.js?key=YAvTSylIsyn8yjTJgYNIviQFtIewVdRX"></script>
+<script>
+  const sign_in_btn = document.querySelector("#sign-in-btn");
+  const sign_up_btn = document.querySelector("#sign-up-btn");
+  const container = document.querySelector(".container");
 
-    <script>
-    const sign_in_btn = document.querySelector("#sign-in-btn");
-    const sign_up_btn = document.querySelector("#sign-up-btn");
-    const container = document.querySelector(".container");
+  sign_up_btn.addEventListener("click", () => {
+    container.classList.add("sign-up-mode");
+  });
 
-    sign_up_btn.addEventListener("click", () => {
-        container.classList.add("sign-up-mode");
-    });
+  sign_in_btn.addEventListener("click", () => {
+    container.classList.remove("sign-up-mode");
+  });
 
-    sign_in_btn.addEventListener("click", () => {
-        container.classList.remove("sign-up-mode");
-    });
-    </script>
-</body>
-</html>
+  // Toggle password visibility
+  const passwordInput = document.querySelector("#password");
+  const togglePassword = document.querySelector("#toggle-password");
+
+  togglePassword.addEventListener("click", () => {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      togglePassword.classList.remove("fa-eye");
+      togglePassword.classList.add("fa-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      togglePassword.classList.remove("fa-eye-slash");
+      togglePassword.classList.add("fa-eye");
+    }
+  });
+
+  
+</script>

@@ -24,6 +24,13 @@
 	<link rel="stylesheet" href="../../media/media/style.css">
 </head>
 <body>
+	{% if show_get_started_modal %}
+        <script>
+            $(document).ready(function() {
+                $('#get-started-modal').modal('show');
+            });
+        </script>
+    {% endif %}
 	<div class="wrap">
 		<div class="container">
 			<div class="row">

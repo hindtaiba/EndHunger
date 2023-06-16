@@ -39,7 +39,6 @@ import requests
 from django.http import HttpRequest
 
 
-
 # Create your views here.
 def home(request):
     return render(request, 'index.html')
@@ -98,6 +97,7 @@ def register(request):
         name = request.POST['name']
         email = request.POST['email']
         phone = request.POST['phone']
+        location=request.POST['location']
         choice = request.POST.get('choice')
 
         try:
@@ -109,11 +109,11 @@ def register(request):
 
             print()
             if choice == 'Restaurant':
-                restaurant = Restaurant(name=name, contact_email=email, contact_phone=phone, user=user, is_verified= False)
+                restaurant = Restaurant(name=name, contact_email=email, contact_phone=phone, user=user,location=location, is_verified= False)
                 restaurant.save()
                 print('Registered as a Restaurant')
             elif choice == 'Charity':
-                ngo = NGO(name=name, contact_email=email, contact_phone=phone, user=user, is_verified= False)
+                ngo = NGO(name=name, contact_email=email, contact_phone=phone, user=user,location=location,is_verified= False)
                 ngo.save()
                 print('Registered as an NGO')
             else:
@@ -223,6 +223,19 @@ def login(request):
             return render(request, 'login-register.html')
     else:
         return render(request, 'login-register.html', {"user": None})
+    
+# def dashboard(request, user):
+#     if user == "AnonymousUser":
+#         return redirect('home')
+
+#     show_get_started_modal = False
+#     if request.user.is_authenticated and not (request.user.is_superuser or request.user.profile.is_modal_displayed):
+#         show_get_started_modal = True
+#         request.user.profile.is_modal_displayed = True
+#         request.user.profile.save()
+
+#     return render(request, 'index.html', {'user': user, 'show_get_started_modal': show_get_started_modal})
+
 
 def dashboard(request, user):
     print(user)
