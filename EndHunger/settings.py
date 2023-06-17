@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_cron',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EET'
 
 USE_I18N = True
 
@@ -147,3 +148,9 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = 'endhunger4@gmail.com'
 APPEND_SLASH=False
+
+
+CRON_CLASSES = [
+    "app1.cron.DeleteExpiredDonations",  
+]
+
