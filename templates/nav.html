@@ -25,14 +25,12 @@
             <li class="nav-item"><a href="/contact/" class="nav-link">Contact</a></li>
             {% if request.user.is_authenticated %}
                 {% if user == "R" and status %}
-                    <li class="nav-item"><a href="/requestsR/" class="nav-link">Requests</a></li>
                     <li class="nav-item"><a href="/donate/" class="nav-link">Donate</a></li>
-                    <li class="nav-item"><a href="/charity/" class="nav-link">Charity</a></li>
+                    <li class="nav-item"><a href="/charity/" class="nav-link">Charities</a></li>
                     <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
                 {% elif user == "N" and status %}
                     <li class="nav-item"><a href="/browse_donations/" class="nav-link">Browse Donations</a></li>
-                    <li class="nav-item"><a href="/restaurant/" class="nav-link">Restaurant</a></li>
-                    <li class="nav-item"><a href="/requestsN/" class="nav-link">Requests</a></li>
+                    <li class="nav-item"><a href="/restaurant/" class="nav-link">Restaurants</a></li>
                     <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
                 {% else %}
                     <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>

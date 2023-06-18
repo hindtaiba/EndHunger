@@ -1,182 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Bridge</title>
+	<title>Food Bridge</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../../media/media/animate.css">
+	
+	<link rel="stylesheet" href="../../media/media/owl.carousel.min.css">
+	<link rel="stylesheet" href="../../media/media/owl.theme.default.min.css">
+	<link rel="stylesheet" href="../../media/media/magnific-popup.css">
+
+
+	<link rel="stylesheet" href="../../media/media/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="../../media/media/jquery.timepicker.css">
+
+	<link rel="stylesheet" href="../media/media/flaticon.css">
+	<link rel="stylesheet" href="../../media/media/style.css">
     <style>
         .card {
             display: flex;
             flex-wrap: wrap;
+            border: none !important;
+            margin-left: 10px;
+            justify-content: center;
         }
-        
+
         .donation-card {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin: 10px;
-            width: 200px;
-            display: block;  /* Initially show all cards */
+            width: 300px;
+            transition: box-shadow 0.3s ease;
         }
-        
+
+        .donation-card:hover {
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
         .donation-card h4 {
             margin-top: 0;
+            font-size: 18px;
+            font-weight: 500;
         }
-        
+
         .donation-card p {
             margin-bottom: 5px;
+            font-size: 14px;
+            color: #555555;
         }
-        
+
         .donation-card button {
-            background-color: #4CAF50;
+            background-color: #18a577;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 4px 12px;
             text-align: center;
             text-decoration: none;
-            display: inline-block;
             font-size: 14px;
-            margin-top: 10px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 5px;
+            border: solid #18a577;
+        }
+
+        .donation-card button:hover {
+            background-color: transparent;
+            color: #18a577;
         }
 
         .category-buttons {
             margin-bottom: 10px;
         }
 
+        .category-buttons {
+            display: flex;
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+
         .category-buttons button {
-            background-color: transparent;
-            color: black;
+            padding: 12px 20px;
             border: none;
-            padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
+            background-color: #f2f2f2;
+            color: #555;
             font-size: 14px;
-            margin-top: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
             cursor: pointer;
+            outline: none;
+        }
+
+        .category-buttons button:hover {
+            background-color: #ddd;
         }
 
         .category-buttons button.active {
-            background-color: #4CAF50;
+            background-color: #18a577;
             color: white;
         }
+
+        #confirmed {
+            color: #18a577;
+            font-weight: 500;
+        }
+
+        #pending {
+            color: #eec857;
+            font-weight: 500;
+        }
+
+        .ag-format-container {
+            margin: 0 auto;
+            }
+
+.ag-courses_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.ag-courses_item {
+  -ms-flex-preferred-size: calc(33.33333% - 30px);
+  flex-basis: calc(33.33333% - 30px);
+
+  overflow: hidden;
+
+  border-radius: 28px;
+}
+.ag-courses-item_link {
+  display: block;
+  padding: 10px 10px;
+  background-color: #fff;
+  height: 100%;
+
+  overflow: hidden;
+
+  position: relative;
+}
+.ag-courses-item_link:hover,
+.ag-courses-item_link:hover .ag-courses-item_date {
+  text-decoration: none;
+  color: #FFF;
+}
+.ag-courses-item_link:hover .ag-courses-item_bg {
+  -webkit-transform: scale(10);
+  -ms-transform: scale(10);
+  transform: scale(10);
+}
+.ag-courses-item_title {
+
+  overflow: hidden;
+
+  font-weight: bold;
+  font-size: 30px;
+  color: #fff;
+
+  z-index: 2;
+  position: relative;
+}
+.ag-courses-item_date-box {
+  font-size: 18px;
+  color: #fff;
+
+  z-index: 2;
+  position: relative;
+}
+.ag-courses-item_date {
+  font-weight: bold;
+  color: #f9b234;
+
+  -webkit-transition: color .5s ease;
+  -o-transition: color .5s ease;
+  transition: color .5s ease
+}
+.ag-courses-item_bg {
+  height: 128px;
+  width: 128px;
+  background-color: #f9b234;
+
+  z-index: 1;
+  position: absolute;
+  top: -75px;
+  right: -75px;
+
+  border-radius: 50%;
+
+  -webkit-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+}
+.ag-courses_item:nth-child(2n) .ag-courses-item_bg {
+  background-color: #3ecd5e;
+}
+.ag-courses_item:nth-child(3n) .ag-courses-item_bg {
+  background-color: #e44002;
+}
+.ag-courses_item:nth-child(4n) .ag-courses-item_bg {
+  background-color: #952aff;
+}
+.ag-courses_item:nth-child(5n) .ag-courses-item_bg {
+  background-color: #cd3e94;
+}
+.ag-courses_item:nth-child(6n) .ag-courses-item_bg {
+  background-color: #4c49ea;
+}
+
+
+
+@media only screen and (max-width: 979px) {
+  .ag-courses_item {
+    -ms-flex-preferred-size: calc(50% - 30px);
+    flex-basis: calc(50% - 30px);
+  }
+  .ag-courses-item_title {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .ag-format-container {
+    width: 96%;
+  }
+
+}
+@media only screen and (max-width: 639px) {
+  .ag-courses_item {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+  }
+  .ag-courses-item_title {
+    min-height: 72px;
+    line-height: 1;
+
+    font-size: 24px;
+  }
+  .ag-courses-item_link {
+    padding: 22px 40px;
+  }
+  .ag-courses-item_date-box {
+    font-size: 16px;
+  }
+}
     </style>
 </head>
 <body>
-    <div class="category-buttons">
-        <button id="allButton" class="active">All</button>
-        <button id="requestsButton">Requests</button>
-        <button id="pendingButton">Pending</button>
-        <button id="confirmedButton">Confirmed</button>
-    </div>
 
-    <div class="card">
-        <!-- Donations List -->
-        <h3>Donations</h3>
-        <div style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
-            {% for donation in donations %}
-                <div class="donation-card">
-                    <h4>{{ donation.name }}</h4>
-                    <p>Restaurant: {{ donation.restaurant.name }}</p>
-                    <p>Donation Date: {{ donation.donation_date }}</p>
-                    <p>Delivery Time: {{ donation.delivery_time }}</p>
-                    <p>Created On: {{ donation.created_on }}</p>
-                    <p>Expiration Date: {{ donation.expiration_date }}</p>
-                    {% if donation.confirmed %}
-                        <p>Confirmed</p>
-                    {% else %}
-                        {% if donation.requested %}
-                            <p>Pending Confirmation</p>
-                            <form method="POST" action="{% url 'request_donation' donation.id %}">
-                                {% csrf_token %}
-                                <button class="undo-request-button" type="submit">Undo Request</button>
-                            </form>
-                        {% else %}
-                            <form method="POST" action="{% url 'request_donation' donation.id %}">
-                                {% csrf_token %}
-                                <button class="request-button" type="submit">Request</button>
-                            </form>
-                        {% endif %}
-                    {% endif %}
-                </div>
-            {% endfor %}
+	<div class="wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex align-items-center">
+					<p class="mb-0 phone pl-md-2">
+						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a> 
+						<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+					</p>
+				</div>
+				<div class="col-md-6 d-flex justify-content-md-end">
+					<div class="social-media">
+						<p class="mb-0 d-flex">
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include 'nav.html' %}
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('../../media/media/medium-shot-man-holding-food-donations-box.jpg');" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span><span><a href="/contact/">Contact us <i class="ion-ios-arrow-forward"></i></a></span></p>
+					<h1 class="mb-0 bread">Browse Donations</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+        <div class="category-buttons">
+            <button id="allButton" class="active">All</button>
+            <button id="requestsButton">Requests</button>
+            <button id="pendingButton">Pending</button>
+            <button id="confirmedButton">Confirmed</button>
         </div>
-        <!-- End Donations List -->
-    </div>
+    
+        <div class="card">
+            <!-- Donations List -->
+            <h3>Donations</h3>
+            <div style="display: flex; flex-wrap: wrap;">
+                {% for donation in donations %}
+                <div class="ag-courses_item donation-card">
+                        <div class="ag-courses-item_link">
+                        <div class="ag-courses-item_bg"></div>
+                        <div class="ag-courses-item_title">{{ donation.name }}</div>
+                        <div class="ag-courses-item_date-box">
+                        <p>Restaurant: {{ donation.restaurant.name }}</p>
+                        <p>Donation Date: {{ donation.donation_date }}</p>
+                        <p>Delivery Time: {{ donation.delivery_time }}</p>
+                        <p>Expiration Date: {{ donation.expiration_date }}</p>
+                        {% if donation.confirmed %}
+                            <p>Confirmation Date: {{ donation.donation_date }}</p>
+                            <p id="confirmed">Confirmed</p>
+                        {% else %}
+                            {% if donation.requested %}
+                                <p id="pending">Pending Confirmation</p>
+                                <form method="POST" action="{% url 'request_donation' donation.id %}">
+                                    {% csrf_token %}
+                                    <button class="undo-request-button" type="submit">Undo Request</button>
+                                </form>
+                            {% else %}
+                                <form method="POST" action="{% url 'request_donation' donation.id %}">
+                                    {% csrf_token %}
+                                    <button class="request-button" type="submit">Request</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+            <!-- End Donations List -->
+        </div>
+    </section>
 
-    <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const allButton = document.getElementById('allButton');
-    const requestsButton = document.getElementById('requestsButton');
-    const pendingButton = document.getElementById('pendingButton');
-    const confirmedButton = document.getElementById('confirmedButton');
-    const donationCards = document.querySelectorAll('.donation-card');
-    const categoryButtons = document.querySelectorAll('.category-buttons button');
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h2 class="footer-heading">Food Bridge.</h2>
+					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+					<ul class="ftco-footer-social p-0">
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+					</ul>
+					<p><a href="#" class="btn btn-quarternary">Donate Now</a></p>
+				</div>
+				<div class="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
+					<h2 class="footer-heading">Quick Links</h2>
+					<ul class="list-unstyled">
+						<li><a href="#" class="py-2 d-block">Home</a></li>
+						<li><a href="#" class="py-2 d-block">About</a></li>
+						<li><a href="#" class="py-2 d-block">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h2 class="footer-heading">Have Questions?</h2>
+					<div class="block-23 mb-3">
+						<ul>
+							<li><span class="icon fa fa-map"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+							<li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+							<li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h3 class="footer-heading">Get in Touch</h3>
+					<p>Don’t miss any updates!</p>
+					<form action="#" class="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+						<input type="text" name="EMAIL" class="form-control memail form__field" placeholder="Email" id="email">
+						<p><button class="btn btn-quarternary" type="submit" style="margin-top: 20px;">Subscribe</button></p>
+						<p class="mchimp-errmessage" style="display: none;"></p>
+						<p class="mchimp-sucmessage" style="display: none;"></p>
+					</form>
+				</div>
+			</div>
+		</footer>
 
-    // Show all donations
-    allButton.addEventListener('click', function () {
-        donationCards.forEach(function (card) {
-            card.style.display = 'block';
-        });
-        setActiveCategory(allButton);
-    });
+		
+		
 
-    // Show only requests
-    requestsButton.addEventListener('click', function () {
-        donationCards.forEach(function (card) {
-            const requestButton = card.querySelector('.request-button');
-            const undoRequestButton = card.querySelector('.undo-request-button');
+		<!-- loader -->
+		<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-            if (requestButton) {
+
+		<script src="../../media/media/jquery.min.js"></script>
+		<script src="../../media/media/jquery-migrate-3.0.1.min.js"></script>
+		<script src="../../media/media/popper.min.js"></script>
+		<script src="../../media/media/bootstrap.min.js"></script>
+		<script src="../../media/media/jquery.easing.1.3.js"></script>
+		<script src="../../media/media/jquery.waypoints.min.js"></script>
+		<script src="../../media/media/jquery.stellar.min.js"></script>
+		<script src="../../media/media/jquery.animateNumber.min.js"></script>
+		<script src="../../media/media/bootstrap-datepicker.js"></script>
+		<script src="../../media/media/jquery.timepicker.min.js"></script>
+		<script src="../../media/media/owl.carousel.min.js"></script>
+		<script src="../../media/media/jquery.magnific-popup.min.js"></script>
+		<script src="../../media/media/scrollax.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+		<script src="../../media/media/google-map.js"></script>
+		<script src="../../media/media/main.js"></script>
+		
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const allButton = document.getElementById('allButton');
+        const requestsButton = document.getElementById('requestsButton');
+        const pendingButton = document.getElementById('pendingButton');
+        const confirmedButton = document.getElementById('confirmedButton');
+        const donationCards = document.querySelectorAll('.donation-card');
+        const categoryButtons = document.querySelectorAll('.category-buttons button');
+    
+        // Show all donations
+        allButton.addEventListener('click', function () {
+            donationCards.forEach(function (card) {
                 card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            });
+            setActiveCategory(allButton);
         });
-        setActiveCategory(requestsButton);
+    
+        // Show only requests
+        requestsButton.addEventListener('click', function () {
+            donationCards.forEach(function (card) {
+                const requestButton = card.querySelector('.request-button');
+                const undoRequestButton = card.querySelector('.undo-request-button');
+    
+                if (requestButton) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            setActiveCategory(requestsButton);
+        });
+    
+        // Show only pending requests
+        pendingButton.addEventListener('click', function () {
+            donationCards.forEach(function (card) {
+                const undoRequestButton = card.querySelector('.undo-request-button');
+    
+                if (undoRequestButton) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            setActiveCategory(pendingButton);
+        });
+    
+        // Show only confirmed donations
+        confirmedButton.addEventListener('click', function () {
+            donationCards.forEach(function (card) {
+                const requestButton = card.querySelector('.request-button');
+                const undoRequestButton = card.querySelector('.undo-request-button');
+    
+                if (!requestButton && !undoRequestButton) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            setActiveCategory(confirmedButton);
+        });
+    
+        // Function to set the active category button
+        function setActiveCategory(activeButton) {
+            categoryButtons.forEach(function (button) {
+                if (button === activeButton) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
     });
-
-    // Show only pending requests
-    pendingButton.addEventListener('click', function () {
-        donationCards.forEach(function (card) {
-            const undoRequestButton = card.querySelector('.undo-request-button');
-
-            if (undoRequestButton) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        setActiveCategory(pendingButton);
-    });
-
-    // Show only confirmed donations
-    confirmedButton.addEventListener('click', function () {
-        donationCards.forEach(function (card) {
-            const requestButton = card.querySelector('.request-button');
-            const undoRequestButton = card.querySelector('.undo-request-button');
-
-            if (!requestButton && !undoRequestButton) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        setActiveCategory(confirmedButton);
-    });
-
-    // Function to set the active category button
-    function setActiveCategory(activeButton) {
-        categoryButtons.forEach(function (button) {
-            if (button === activeButton) {
-                button.classList.add('active');
-            } else {
-                button.classList.remove('active');
-            }
-        });
-    }
-});
-</script>
+    </script>
 </body>
 </html>

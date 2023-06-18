@@ -59,17 +59,53 @@ def contact(request):
     return render(request, 'contact.html', {'user': user_type, 'status': status})
 
 def about(request):
-    return render(request, 'about.html')
+    if request.user.is_authenticated:
+        if Restaurant.objects.filter(user=request.user).exists():
+            user_type = "R"  # User is a restaurant
+            status = True
+        elif NGO.objects.filter(user=request.user).exists():
+            user_type = "N"  # User is an NGO
+            status = True
+        else:
+            user_type = None  # User doesn't have a recognized role
+            status = False
+    else:
+        user_type = None  # User is not authenticated
+    return render(request, 'about.html', {'user': user_type, 'status': status})
 
 def loginRegister(request):
     return render(request, 'login-register.html')
 
 
 def charity_view(request):
-    return render(request,'#')
+    if request.user.is_authenticated:
+        if Restaurant.objects.filter(user=request.user).exists():
+            user_type = "R"  # User is a restaurant
+            status = True
+        elif NGO.objects.filter(user=request.user).exists():
+            user_type = "N"  # User is an NGO
+            status = True
+        else:
+            user_type = None  # User doesn't have a recognized role
+            status = False
+    else:
+        user_type = None  # User is not authenticated
+    return render(request,'#', {'user': user_type, 'status': status})
 
 def restaurant_view(request):
-    return render(request,'#')
+    if request.user.is_authenticated:
+        if Restaurant.objects.filter(user=request.user).exists():
+            user_type = "R"  # User is a restaurant
+            status = True
+        elif NGO.objects.filter(user=request.user).exists():
+            user_type = "N"  # User is an NGO
+            status = True
+        else:
+            user_type = None  # User doesn't have a recognized role
+            status = False
+    else:
+        user_type = None  # User is not authenticated
+    return render(request,'#', {'user': user_type, 'status': status})
 
 
 def requestsR_view(request):
@@ -360,6 +396,18 @@ def add_donation(request):
 
 @login_required
 def view_donations(request):
+    if request.user.is_authenticated:
+        if Restaurant.objects.filter(user=request.user).exists():
+            user_type = "R"  # User is a restaurant
+            status = True
+        elif NGO.objects.filter(user=request.user).exists():
+            user_type = "N"  # User is an NGO
+            status = True
+        else:
+            user_type = None  # User doesn't have a recognized role
+            status = False
+    else:
+        user_type = None  # User is not authenticated
     # Check if the user is associated with a restaurant
     try:
         ngo = NGO.objects.get(user=request.user)
@@ -369,7 +417,7 @@ def view_donations(request):
     # Fetch the donations for the current restaurant
     donations = Donation.objects.filter(ngo=ngo)
     
-    return render(request, 'browse_donations.html', {'donations': donations, 'ngo': ngo})
+    return render(request, 'browse_donations.html', {'donations': donations, 'ngo': ngo, 'user': user_type, 'status': status} )
 
 def request_donation(request, donation_name):
     donation = get_object_or_404(Donation, pk=donation_name)

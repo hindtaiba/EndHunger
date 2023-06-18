@@ -46,15 +46,15 @@
         }
 
         .column1 {
-            border-top: solid 4px #18a577;
+            border-top: solid 4px #fd645b;
         }
 
         .column2 {
-            border-top: solid 4px #4c7bcb;
+            border-top: solid 4px #eec857;
         }
 
         .column3 {
-            border-top: solid 4px #fd645b;
+            border-top: solid 4px #18a577;
         }
     
         .kanban-column h3 {
@@ -269,8 +269,7 @@
                         </select>
                     </div>
                     <div class="input_field">
-                        <label for="donation_date" class="form-label">Donation Date</label>
-                        <input type="date" class="form-control input" id="donation_date" name="donation_date" required>
+                        
                     </div>
                     <div class="input_field">
                         <label for="delivery_time" class="form-label">Delivery Time</label>
@@ -303,7 +302,6 @@
         <div class="kanban-card" id="{{ donation.id }}">
             <h4>{{ donation.name }}</h4>
             <p>NGO: {{ donation.ngo.name }}</p>
-            <p>Donation Date: {{ donation.donation_date }}</p>
             <p>Delivery Time: {{ donation.delivery_time }}</p>
             <p>Expiration Date: {{ donation.expiration_date }}</p>
         </div>
@@ -318,7 +316,6 @@
         <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
             <h4>{{ donation.name }}</h4>
             <p>NGO: {{ donation.ngo.name }}</p>
-            <p>Donation Date: {{ donation.donation_date }}</p>
             <p>Delivery Time: {{ donation.delivery_time }}</p>
             <p>Expiration Date: {{ donation.expiration_date }}</p>
             <form method="POST" action="{% url 'confirm_donation' donation.id %}">
@@ -338,9 +335,9 @@
         <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
             <h4>{{ donation.name }}</h4>
             <p>NGO: {{ donation.ngo.name }}</p>
-            <p>Donation Date: {{ donation.donation_date }}</p>
             <p>Delivery Time: {{ donation.delivery_time }}</p>
             <p>Expiration Date: {{ donation.expiration_date }}</p>
+            <p>Confirmation Date: {{ donation.donation_date }}</p>
             <p>CONFIRMED</p>
         </div>
         {% empty %}

@@ -5,10 +5,10 @@ from datetime import date, timedelta
 
 
 class Donation(models.Model):
-    name = models.CharField(max_length=255, editable=False)
+    name = models.CharField(max_length=255, editable=False, unique=True)
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, related_name='donations')
     ngo = models.ForeignKey('NGO', on_delete=models.CASCADE, related_name='donations_received')
-    donation_date = models.DateField(default=timezone.now)
+    donation_date = models.DateField(default=date.today, null=True)
     delivery_time = models.TimeField(default=timezone.now)
     created_on = models.DateTimeField(default=timezone.now)
     expiration_date = models.DateField(default=date.today() + timedelta(days=3))
@@ -18,7 +18,18 @@ class Donation(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.name:
-            self.name = f"{self.restaurant.name}_{timezone.now().strftime('%Y%m%d')}"
+            base_name = f"{self.restaurant.name}_"
+            name_exists = True
+            unique_id = 1
+            while name_exists:
+                name_to_check = f"{base_name}{unique_id}"
+                name_exists = Donation.objects.filter(name=name_to_check).exists()
+                if not name_exists:
+                    self.name = name_to_check
+                else:
+                    unique_id += 1
+        if self.confirmed and not self.donation_date:  # If confirmed and donation_date not set
+            self.donation_date = timezone.now().date()  # Set donation_date to current date
         super().save(*args, **kwargs)
 
     def __str__(self):
