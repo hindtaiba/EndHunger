@@ -22,12 +22,59 @@
 	<link rel="stylesheet" href="../media/media/flaticon.css">
 	<link rel="stylesheet" href="../../media/media/style.css">
     <style>
+        .donation-card:hover button.request-button {
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 10px;
+            background-color: #fff !important;
+            color: #fd645b !important;
+            border: solid #fd645b !important;
+            transition: color .5s;
+        }
+
+        button.request-button {
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 10px;
+            background-color: #fd645b !important;
+            color: #fff !important;
+            border: solid #fd645b !important;
+            transition: color .5s;
+        }
+
+        .donation-card:hover button.undo-request-button:hover {
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 10px;
+            background-color: transparent;
+            color: #18a577;
+            border: solid #18a577;
+        }
         .card {
             display: flex;
             flex-wrap: wrap;
             border: none !important;
             margin-left: 10px;
             justify-content: center;
+            flex-wrap: nowrap;
         }
 
         .donation-card {
@@ -66,13 +113,14 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             outline: none;
-            border-radius: 5px;
+            border-radius: 10px;
             border: solid #18a577;
         }
 
         .donation-card button:hover {
             background-color: transparent;
-            color: #18a577;
+            color: #fff;
+            border: solid #fff;
         }
 
         .category-buttons {
@@ -121,138 +169,213 @@
             margin: 0 auto;
             }
 
-.ag-courses_box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-.ag-courses_item {
-  -ms-flex-preferred-size: calc(33.33333% - 30px);
-  flex-basis: calc(33.33333% - 30px);
+    .ag-courses_box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    }
+    .ag-courses_item {
+    -ms-flex-preferred-size: calc(33.33333% - 30px);
+    flex-basis: calc(33.33333% - 30px);
 
-  overflow: hidden;
+    overflow: hidden;
 
-  border-radius: 28px;
-}
-.ag-courses-item_link {
-  display: block;
-  padding: 10px 10px;
-  background-color: #fff;
-  height: 100%;
+    border-radius: 28px;
+    }
+    .ag-courses-item_link {
+    display: block;
+    padding: 10px 10px;
+    background-color: #fff;
+    height: 100%;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  position: relative;
-}
-.ag-courses-item_link:hover,
-.ag-courses-item_link:hover .ag-courses-item_date {
-  text-decoration: none;
-  color: #FFF;
-}
-.ag-courses-item_link:hover .ag-courses-item_bg {
-  -webkit-transform: scale(10);
-  -ms-transform: scale(10);
-  transform: scale(10);
-}
-.ag-courses-item_title {
+    position: relative;
+    }
 
-  overflow: hidden;
+    .ag-courses-item_link:hover .ag-courses-item_title {
+    color: white;
+    -webkit-transition: color .6s ease;
+    -o-transition: color .6s ease;
+    transition: color .4s ease;
+    }
+    .ag-courses-item_link:hover .ag-courses-item_date-box p {
+    color: white;
+    -webkit-transition: color .6s ease;
+    -o-transition: color .6s ease;
+    transition: color .4s ease;
+    }
 
-  font-weight: bold;
-  font-size: 30px;
-  color: #fff;
+    .ag-courses-item_link:hover,
+    .ag-courses-item_link:hover .ag-courses-item_date {
+    text-decoration: none;
+    color: #FFF;
+    }
+    .ag-courses-item_link:hover .ag-courses-item_bg {
+    -webkit-transform: scale(10);
+    -ms-transform: scale(10);
+    transform: scale(10);
+    }
+    .ag-courses-item_title {
 
-  z-index: 2;
-  position: relative;
-}
-.ag-courses-item_date-box {
-  font-size: 18px;
-  color: #fff;
+    overflow: hidden;
 
-  z-index: 2;
-  position: relative;
-}
-.ag-courses-item_date {
-  font-weight: bold;
-  color: #f9b234;
+    font-weight: bold;
+    font-size: 30px;
+    color: #000;
 
-  -webkit-transition: color .5s ease;
-  -o-transition: color .5s ease;
-  transition: color .5s ease
-}
-.ag-courses-item_bg {
-  height: 128px;
-  width: 128px;
-  background-color: #f9b234;
+    z-index: 2;
+    position: relative;
+    }
+    .ag-courses-item_date-box {
+    font-size: 18px;
+    color: #fff;
 
-  z-index: 1;
-  position: absolute;
-  top: -75px;
-  right: -75px;
+    z-index: 2;
+    position: relative;
+    }
+    .ag-courses-item_date {
+    font-weight: bold;
+    color: #f9b234;
 
-  border-radius: 50%;
+    -webkit-transition: color .5s ease;
+    -o-transition: color .5s ease;
+    transition: color .5s ease;
+    }
+    .ag-courses-item_bg {
+    height: 128px;
+    width: 128px;
 
-  -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
-}
-.ag-courses_item:nth-child(2n) .ag-courses-item_bg {
-  background-color: #3ecd5e;
-}
-.ag-courses_item:nth-child(3n) .ag-courses-item_bg {
-  background-color: #e44002;
-}
-.ag-courses_item:nth-child(4n) .ag-courses-item_bg {
-  background-color: #952aff;
-}
-.ag-courses_item:nth-child(5n) .ag-courses-item_bg {
-  background-color: #cd3e94;
-}
-.ag-courses_item:nth-child(6n) .ag-courses-item_bg {
-  background-color: #4c49ea;
-}
+    z-index: 1;
+    position: absolute;
+    top: -75px;
+    right: -75px;
+
+    border-radius: 50%;
+
+    -webkit-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+    }
+
+    .confirmed {
+    background-color: #18a577;
+    }
+
+    .pending {
+    background-color: #eec857;
+    }
+
+    .not-confirmed {
+    background-color: #fd645b;
+    }
 
 
 
-@media only screen and (max-width: 979px) {
-  .ag-courses_item {
-    -ms-flex-preferred-size: calc(50% - 30px);
-    flex-basis: calc(50% - 30px);
-  }
-  .ag-courses-item_title {
-    font-size: 24px;
-  }
-}
+    @media only screen and (max-width: 979px) {
+    .ag-courses_item {
+        -ms-flex-preferred-size: calc(50% - 30px);
+        flex-basis: calc(50% - 30px);
+    }
+    .ag-courses-item_title {
+        font-size: 24px;
+    }
+    }
 
-@media only screen and (max-width: 767px) {
-  .ag-format-container {
-    width: 96%;
-  }
+    @media only screen and (max-width: 767px) {
+        .ag-format-container {
+            width: 96%;
+        }
 
-}
-@media only screen and (max-width: 639px) {
-  .ag-courses_item {
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
-  }
-  .ag-courses-item_title {
-    min-height: 72px;
-    line-height: 1;
+    }
 
-    font-size: 24px;
-  }
-  .ag-courses-item_link {
-    padding: 22px 40px;
-  }
-  .ag-courses-item_date-box {
-    font-size: 16px;
-  }
-}
+    @media only screen and (max-width: 830px) {
+        .hide-on-small-screen {
+            display: none;
+        }
+
+    }
+    @media only screen and (max-width: 639px) {
+        .ag-courses_item {
+            -ms-flex-preferred-size: 100%;
+            flex-basis: 100%;
+        }
+        .ag-courses-item_title {
+            min-height: 72px;
+            line-height: 1;
+
+            font-size: 24px;
+        }
+        .ag-courses-item_link {
+            padding: 22px 40px;
+        }
+        .ag-courses-item_date-box {
+            font-size: 16px;
+        }
+        .category-buttons {
+            flex-wrap: wrap;
+        }
+
+        .category-buttons button {
+            flex-basis: 50%;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+    }
+
+        @media (device-width: 768px) and (device-height: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait),
+            (device-width: 1024px) and (device-height: 768px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+        .hide-on-small-screen {
+        display: none;
+        }
+    }
+
+    /* Hide the image on Nest Hub */
+    @media (max-width: 1280px) and (max-height: 800px) {
+        .hide-on-small-screen {
+        display: none;
+        }
+    }
+
+    @media (width: 540px) and (height: 720px) {
+        .hide-on-small-screen {
+        display: block;
+        }
+    }
+
+    @media (min-width: 980px) and (max-width: 1300px) {
+        .hide-on-small-screen {
+            display: none;
+        }
+    }
+
+    @media (min-width: 520px) and (max-width: 636px) {
+        .hide-on-small-screen {
+            display: block;
+        }
+    }
+
+    @media (max-width: 330px) {
+        .donation-card{
+            width: auto;
+        }
+        .ag-courses-item_link {
+            padding: 22px 15px;
+        }
+    }
+
+    .fleximg {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 24px;
+    }
     </style>
 </head>
 <body>
@@ -303,35 +426,38 @@
         <div class="card">
             <!-- Donations List -->
             <h3>Donations</h3>
-            <div style="display: flex; flex-wrap: wrap;">
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline;">
                 {% for donation in donations %}
                 <div class="ag-courses_item donation-card">
                         <div class="ag-courses-item_link">
-                        <div class="ag-courses-item_bg"></div>
+                        <div class="ag-courses-item_bg {% if donation.confirmed %} confirmed{% elif donation.requested %} pending{% else %} not-confirmed{% endif %}"></div>
                         <div class="ag-courses-item_title">{{ donation.name }}</div>
-                        <div class="ag-courses-item_date-box">
-                        <p>Restaurant: {{ donation.restaurant.name }}</p>
-                        <p>Donation Date: {{ donation.donation_date }}</p>
-                        <p>Delivery Time: {{ donation.delivery_time }}</p>
-                        <p>Expiration Date: {{ donation.expiration_date }}</p>
-                        {% if donation.confirmed %}
-                            <p>Confirmation Date: {{ donation.donation_date }}</p>
-                            <p id="confirmed">Confirmed</p>
-                        {% else %}
-                            {% if donation.requested %}
-                                <p id="pending">Pending Confirmation</p>
-                                <form method="POST" action="{% url 'request_donation' donation.id %}">
-                                    {% csrf_token %}
-                                    <button class="undo-request-button" type="submit">Undo Request</button>
-                                </form>
-                            {% else %}
-                                <form method="POST" action="{% url 'request_donation' donation.id %}">
-                                    {% csrf_token %}
-                                    <button class="request-button" type="submit">Request</button>
-                                </form>
-                            {% endif %}
-                        {% endif %}
-                    </div>
+                        <div class="fleximg">
+                            <div class="ag-courses-item_date-box">
+                                <p>Restaurant: {{ donation.restaurant.name }}</p>
+                                <p>Donation Date: {{ donation.donation_date }}</p>
+                                <p>Delivery Time: {{ donation.delivery_time }}</p>
+                                <p>Expiration Date: {{ donation.expiration_date }}</p>
+                                {% if donation.confirmed %}
+                                    <p>Confirmation Date: {{ donation.donation_date }}</p>
+                                    <p id="confirmed">Confirmed</p>
+                                {% else %}
+                                    {% if donation.requested %}
+                                        <p id="pending">Pending Confirmation</p>
+                                        <form method="POST" action="{% url 'request_donation' donation.id %}">
+                                            {% csrf_token %}
+                                            <button class="undo-request-button" type="submit">Undo Request</button>
+                                        </form>
+                                    {% else %}
+                                        <form method="POST" action="{% url 'request_donation' donation.id %}">
+                                            {% csrf_token %}
+                                            <button class="request-button" type="submit">Request</button>
+                                        </form>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <img class="random-image hide-on-small-screen" src="" alt="" style="position: relative; width: 150px; z-index: 2;">
+                        </div>
                 </div>
             </div>
                 {% endfor %}
@@ -480,6 +606,23 @@
             });
         }
     });
+
+    var imageUrls = [
+        "../media/media/register1.png",
+        "../media/media/login1.png",
+        // Add more image URLs as needed
+    ];
+
+    // Get all elements with class "random-image"
+    var imageElements = document.getElementsByClassName("random-image");
+
+    // Loop through each image element and set a random image URL
+    for (var i = 0; i < imageElements.length; i++) {
+        var randomImageUrl = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+        imageElements[i].src = randomImageUrl;
+    }
+
+    
     </script>
 </body>
 </html>
