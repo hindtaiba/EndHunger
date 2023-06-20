@@ -14,6 +14,9 @@ class Donation(models.Model):
     expiration_date = models.DateField(default=date.today() + timedelta(days=3))
     confirmed = models.BooleanField(default=False)
     requested = models.BooleanField(default=False)
+    transportation = models.CharField(max_length=255,default='')
+    packaging = models.CharField(max_length=255,default='')
+    quantity = models.CharField(max_length=255,default='')
 
 
     def save(self, *args, **kwargs):
