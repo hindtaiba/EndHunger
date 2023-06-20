@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 
 
 class NGOAdmin(admin.ModelAdmin):
-    list_display = ('name','user','location','contact_email','contact_phone','review','category')
+    list_display = ('name','user','location','contact_email','contact_phone','capacity')
     readonly_fields = ( )
 
 class DonationAdmin(admin.ModelAdmin):
@@ -112,7 +112,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('name', 'user', 'location', 'contact_email', 'contact_phone')
+    list_display = ('name', 'user', 'location', 'contact_email', 'contact_phone','cuisine_type')
     actions = ['send_sms_to_restaurants', 'send_email_to_restaurants']
     readonly_fields = ()
 

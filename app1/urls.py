@@ -27,4 +27,6 @@ urlpatterns = [
     path('password_reset/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('donation/request/<str:donation_name>/',request_donation, name='request_donation'),
     path('confirm_donation/<int:donation_id>/', confirm_donation, name='confirm_donation'),
+    path('update-profile/',update_profile, name='update_profile'),
+
 ]

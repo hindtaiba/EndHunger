@@ -447,6 +447,43 @@ def confirm_donation(request, donation_id):
 
     return redirect('/donate/')
 
+
+
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        profile_picture = request.FILES.get('profile_picture')
+
+        if hasattr(request.user, 'restaurant'):
+            restaurant = request.user.restaurant
+            restaurant.profile_picture = profile_picture
+            restaurant.cuisine_type = request.POST.get('cuisine_type')
+            restaurant.save()
+        elif hasattr(request.user, 'ngo'):
+            ngo = request.user.ngo
+            ngo.profile_picture = profile_picture
+            ngo.capacity = request.POST.get('capacity')
+            ngo.save()
+
+        return redirect('home')
+
+    if hasattr(request.user, 'restaurant'):
+        return render(request, 'update_restaurant_profile.html')
+    elif hasattr(request.user, 'ngo'):
+        return render(request, 'update_ngo_profile.html')
+    else:
+        # Handle the case when the user does not belong to either type
+        return redirect('profile')
+
+
+
+
+
+
+
+
+
 # def send_sms_to_restaurants(request):
 #     username = "naderbakir@gmail.com"
 #     password = "qfzjui1"
