@@ -3654,6 +3654,7 @@ input[type="button"].btn-block {
   -ms-flex-direction: column;
   flex-direction: column;
   padding-left: 0;
+  align-items: center;
   margin-bottom: 0;
   list-style: none; }
   .navbar-nav .nav-link {
@@ -8405,7 +8406,7 @@ h1, h2, h3, h4, h5,
 .ftco-navbar-light {
   background: transparent !important;
   position: absolute;
-  text-shadow: 2px 2px 5px #000;
+  text-shadow: 2px 2px 8px #000;
   top: 40px;
   left: 0;
   right: 0;
@@ -8433,7 +8434,7 @@ h1, h2, h3, h4, h5,
     padding-right: 20px;
     color: #fff;
     font-weight: 600;
-    text-shadow: 2px 2px 2px #000;
+    text-shadow: 2px 2px 4px #000;
     opacity: 1 !important; }
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
       color: #eec857; }

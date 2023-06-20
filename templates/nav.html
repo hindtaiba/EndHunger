@@ -25,35 +25,32 @@
                         <li class="nav-item"><a href="/donate/" class="nav-link">Donate</a></li>
                         <li class="nav-item"><a href="/charity/" class="nav-link">Charities</a></li>
                         <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
-                    {% elif user == "N" and status %}
-                        <li class="nav-item"><a href="/browse_donations/" class="nav-link">Browse Donations</a></li>
-                        <li class="nav-item"><a href="/restaurant/" class="nav-link">Restaurants</a></li>
-                        <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
-                    {% else %}
-                        <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
-                    {% endif %}
-                    {% if user == "R" %}
                         <li class="nav-item">
                             <a href="{% url 'update_profile' %}" class="nav-link">
                                 {% if request.user.restaurant.profile_picture %}
                                     <img src="{{ request.user.restaurant.profile_picture.url }}" alt="Profile Picture" class="profile-img">
                                 {% else %}
                                     <!-- Display a default icon if the profile picture is not set -->
-                                    <img src="../../media/media/default-profile.png" alt="Default Icon">
+                                    <img src="../../media/media/default-profile.png" alt="Default Icon" style="width: 30px !important;">
                                 {% endif %}
                             </a>
                         </li>
-                    {% elif user == "N" %}
+                    {% elif user == "N" and status %}
+                        <li class="nav-item"><a href="/browse_donations/" class="nav-link">Browse Donations</a></li>
+                        <li class="nav-item"><a href="/restaurant/" class="nav-link">Restaurants</a></li>
+                        <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
                         <li class="nav-item">
                             <a href="{% url 'update_profile' %}" class="nav-link">
                                 {% if request.user.ngo.profile_picture %}
                                     <img src="{{ request.user.ngo.profile_picture.url }}" alt="Profile Picture" class="profile-img">
                                 {% else %}
                                     <!-- Display a default icon if the profile picture is not set -->
-                                    <img src="../../media/media/default-profile.png" alt="Default Icon">
+                                    <img src="../../media/media/default-profile.png" alt="Default Icon" class="profile" style="width: 30px !important;">
                                 {% endif %}
                             </a>
                         </li>
+                    {% else %}
+                        <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
                     {% endif %}
                 {% else %}
                     <li class="nav-item cta"><a href="/login-register/" class="nav-link">Log In</a></li>
