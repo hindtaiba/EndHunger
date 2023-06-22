@@ -363,6 +363,16 @@ def add_donation(request):
     inprogress_donations = donations.filter(requested=True, confirmed=False)
     done_donations = donations.filter(requested=True, confirmed=True)
 
+    if Restaurant.objects.filter(user=request.user).exists():
+            user_type = "R"  # User is a restaurant
+            status = True
+    elif NGO.objects.filter(user=request.user).exists():
+        user_type = "N"  # User is an NGO
+        status = True
+    else:
+        user_type = None  # User doesn't have a recognized role
+        status = False
+
     if request.method == 'POST':
         ngo_name = request.POST.get('ngo')
         donation_date = request.POST.get('donation_date')
@@ -370,6 +380,9 @@ def add_donation(request):
         expiration_date = request.POST.get('expiration_date')
 
         ngo = get_object_or_404(NGO, name=ngo_name)
+        
+        
+        
 
         # Create a new Donation object
         donation = Donation.objects.create(
@@ -388,7 +401,9 @@ def add_donation(request):
         'todo_donations': todo_donations,
         'inprogress_donations': inprogress_donations,
         'done_donations': done_donations,
-        'ngos': ngos
+        'ngos': ngos,
+        'user': user_type,
+        'status': status
     }
 
     return render(request, 'donations.html', context)
