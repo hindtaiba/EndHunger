@@ -1,9 +1,9 @@
 <style>
 .profile-image {
-    width: 30px; /* Adjust the width as desired */
-    height: 30px; /* Adjust the height as desired */
-    border-radius: 50%; /* To create a circular profile image */
-    object-fit: cover; /* To maintain the aspect ratio and prevent distortion */
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%;
+    object-fit: cover; 
 }
 
 
@@ -27,14 +27,14 @@
                         <li class="nav-item"><a href="/logout/" class="nav-link">Log Out</a></li>
                         <li class="nav-item">
                             <a href="{% url 'update_profile' %}" class="nav-link">
-                                {% if request.user.restaurant.profile_picture %}
-                                    <img src="{{ request.user.restaurant.profile_picture.url }}" alt="Profile Picture" class="profile-img">
-                                {% else %}
-                                    <!-- Display a default icon if the profile picture is not set -->
-                                    <img src="../../media/media/default-profile.png" alt="Default Icon" style="width: 30px !important;">
-                                {% endif %}
+                              {% if request.user.restaurant.profile_picture %}
+                                <img src="{{ request.user.restaurant.profile_picture.url }}" alt="Profile Picture" class="profile-image" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                              {% else %}
+                                <!-- Display a default icon if the profile picture is not set -->
+                                <img src="../../media/media/default-profile.png" alt="Default Icon" style="width: 30px;">
+                              {% endif %}
                             </a>
-                        </li>
+                          </li>
                     {% elif user == "N" and status %}
                         <li class="nav-item"><a href="/browse_donations/" class="nav-link">Browse Donations</a></li>
                         <li class="nav-item"><a href="/restaurant/" class="nav-link">Restaurants</a></li>
@@ -42,7 +42,7 @@
                         <li class="nav-item">
                             <a href="{% url 'update_profile' %}" class="nav-link">
                                 {% if request.user.ngo.profile_picture %}
-                                    <img src="{{ request.user.ngo.profile_picture.url }}" alt="Profile Picture" class="profile-img">
+                                    <img src="{{ request.user.ngo.profile_picture.url }}" alt="Profile Picture" class="profile-img"  style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
                                 {% else %}
                                     <!-- Display a default icon if the profile picture is not set -->
                                     <img src="../../media/media/default-profile.png" alt="Default Icon" class="profile" style="width: 30px !important;">

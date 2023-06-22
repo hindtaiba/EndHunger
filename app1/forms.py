@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.forms import SetPasswordForm
-
+from .models import *
 class PasswordResetRequestForm(PasswordResetForm):
     email = forms.EmailField(label='Email')
     
@@ -27,3 +27,5 @@ class SMSForm(forms.Form):
             self.add_error('message', 'Please enter a message.')
 
         return cleaned_data
+    
+

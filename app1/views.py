@@ -449,7 +449,6 @@ def confirm_donation(request, donation_id):
 
 
 
-
 @login_required
 def update_profile(request):
     if request.method == 'POST':
@@ -458,30 +457,52 @@ def update_profile(request):
         if hasattr(request.user, 'restaurant'):
             restaurant = request.user.restaurant
             restaurant.profile_picture = profile_picture
-            restaurant.cuisine_type = request.POST.get('cuisine_type')
+            restaurant.name = request.POST.get('name', restaurant.name)
+            restaurant.contact_phone = request.POST.get('contact_phone', restaurant.contact_phone)
+            restaurant.location = request.POST.get('location', restaurant.location)
+            restaurant.cuisine_type = request.POST.get('cuisine_type', restaurant.cuisine_type)
             restaurant.save()
+             # Update the username in the User model
+            user = restaurant.user
+            user.username = restaurant.name  # Update the username with the new name
+            user.save()
+            
         elif hasattr(request.user, 'ngo'):
             ngo = request.user.ngo
             ngo.profile_picture = profile_picture
+            ngo.name = request.POST.get('name', ngo.name)
+            ngo.contact_phone = request.POST.get('contact_phone', ngo.contact_phone)
+            ngo.location = request.POST.get('location', ngo.location)
             ngo.capacity = request.POST.get('capacity')
             ngo.save()
-
+          # Update the username in the User model
+            user = ngo.user
+            user.username = ngo.name  # Update the username with the new name
+            user.save()
         return redirect('home')
 
     if hasattr(request.user, 'restaurant'):
-        return render(request, 'update_restaurant_profile.html')
+        restaurant = request.user.restaurant
+        initial_data = {
+            'name': restaurant.name,
+            'contact_phone': restaurant.contact_phone,
+            'location': restaurant.location,
+            'cuisine_type': restaurant.cuisine_type,
+            'profile_picture_url': restaurant.profile_picture.url if restaurant.profile_picture else '',
+        }
+        return render(request, 'profile.restaurant.html', initial_data)
     elif hasattr(request.user, 'ngo'):
-        return render(request, 'update_ngo_profile.html')
+        ngo = request.user.ngo
+        initial_data = {
+            'name': ngo.name,
+            'contact_phone': ngo.contact_phone,
+            'location': ngo.location,
+            'capacity': ngo.capacity,
+            'profile_picture_url': ngo.profile_picture.url if ngo.profile_picture else '',
+        }
+        return render(request, 'profile.ngo.html', initial_data)
     else:
-        # Handle the case when the user does not belong to either type
-        return redirect('profile')
-
-
-
-
-
-
-
+        return redirect('home')
 
 
 # def send_sms_to_restaurants(request):
