@@ -112,7 +112,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('user','location', 'contact_email', 'contact_phone','cuisine_type')
+    list_display = ('name','location', 'contact_email', 'contact_phone','cuisine_type')
     actions = ['send_sms_to_restaurants', 'send_email_to_restaurants']
     readonly_fields = ()
 

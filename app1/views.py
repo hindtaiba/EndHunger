@@ -26,6 +26,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.contrib.sessions.models import Session
+from django.conf import settings
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
@@ -169,7 +170,7 @@ def register(request):
             email_message = EmailMessage(
             subject=mail_subject,
             body=message,
-            from_email='endhunger4@gmail.com',
+            from_email=settings.DEFAULT_FROM_EMAIL,
             to=[email],
             )
             email_message.content_subtype = 'html'
@@ -327,7 +328,7 @@ class PasswordResetRequestView(PasswordResetView):
         email_message = EmailMessage(
         subject= subject,
         body=message,
-        from_email='endhunger4@gmail.com',
+        from_email=settings.DEFAULT_FROM_EMAIL,
         to=recipient_list,
         )
         email_message.content_subtype = 'html'
@@ -459,9 +460,33 @@ def confirm_donation(request, donation_id):
         # Confirm the donation
         donation.confirmed = True
         donation.save()
+        
+        #Send confirmation email to NGO
+        ngo_email= donation.ngo.contact_email
+        restaurant_location= donation.restaurant.location 
+        restaurant_number=donation.restaurant.contact_phone
+        ngo_name=donation.ngo.name
+        restaurant_name=donation.restaurant.name
+       
+        send_confirmation_email(ngo_email,restaurant_location,restaurant_number,ngo_name,restaurant_name)
 
     return redirect('/donate/')
 
+def send_confirmation_email(ngo_email, restaurant_location,restaurant_number,ngo_name,restaurant_name):
+    subject = 'Donation Confirmation'
+    template = 'donation_confirmation.html'  # Path to your email template
+
+    context = {
+        'restaurant_location': restaurant_location,
+        'restaurant_number': restaurant_number,
+        'ngo_name': ngo_name,
+        'restaurant_name':restaurant_name
+    }
+    email_body = render_to_string(template, context)
+
+    email = EmailMessage(subject, email_body, from_email=settings.DEFAULT_FROM_EMAIL, to=[ngo_email])
+    email.content_subtype = 'html'
+    email.send()
 
 
 @login_required
