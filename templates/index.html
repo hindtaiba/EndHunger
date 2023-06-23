@@ -85,7 +85,15 @@
 								<h2>Help the poor in need</h2>
 								<h1 class="mb-3">Lend the helping hand get involved</h1>
 								<div class="d-flex meta">
-									<div class=""><p class="mb-0"><a href="login-register.html" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% if request.user.is_authenticated %}
+										{% if user == "N" or user == "R" %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome {{ user_name }}</a></p></div>
+										{% else %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome!</a></p></div>
+										{% endif %}
+									{% else %}
+										<div class=""><p class="mb-0"><a href="/login-register/" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% endif %}
 									<a href="#" class="d-flex align-items-center button-link">
 										<div class="button-video d-flex align-items-center justify-content-center">
 											<span class="fa fa-play"></span>
@@ -108,7 +116,15 @@
 								<h2>Raising Hope</h2>
 								<h1 class="mb-3">Discover Non-Profit Charity Platform</h1>
 								<div class="d-flex meta">
-									<div class=""><p class="mb-0"><a href="login-register.html" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% if request.user.is_authenticated %}
+										{% if user == "N" or user == "R" %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome {{ user_name }}</a></p></div>
+										{% else %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome!</a></p></div>
+										{% endif %}
+									{% else %}
+										<div class=""><p class="mb-0"><a href="/login-register/" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% endif %}
 									<a href="#" class="d-flex align-items-center button-link">
 										<div class="button-video d-flex align-items-center justify-content-center">
 											<span class="fa fa-play"></span>
@@ -131,7 +147,15 @@
 								<h2>Raising Hope</h2>
 								<h1 class="mb-3">Giving Hope to the Homeless People</h1>
 								<div class="d-flex meta">
-									<div class=""><p class="mb-0"><a href="login-register.html" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% if request.user.is_authenticated %}
+										{% if user == "N" or user == "R" %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome {{ user_name }}</a></p></div>
+										{% else %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome!</a></p></div>
+										{% endif %}
+									{% else %}
+										<div class=""><p class="mb-0"><a href="/login-register/" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% endif %}
 									<a href="#" class="d-flex align-items-center button-link">
 										<div class="button-video d-flex align-items-center justify-content-center">
 											<span class="fa fa-play"></span>
@@ -550,7 +574,7 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-4 d-flex align-items-center justify-content-end">
-					<p class="mb-0"><a href="#" class="btn btn-primary py-3 px-4">Join Us</a></p>
+					<p class="mb-0"><a href="/login-register/" class="btn btn-primary py-3 px-4">Join Us</a></p>
 				</div>
 			</div>
 		</div>

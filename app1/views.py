@@ -278,11 +278,20 @@ def dashboard(request, user):
     print(user)
     status = False
     if request.user:
+        if user == "R":
+            restaurant = Restaurant.objects.get(user=request.user)
+            print(restaurant)
+            name = restaurant
+        elif user == "N":
+            ngo = NGO.objects.get(user=request.user)
+            name = ngo
         status = request.user
     if user == "AnonymousUser":
+        name=""
         return redirect('home')
+    user_name=""
 
-    return render(request, 'index.html', {'user': user, "status": status})
+    return render(request, 'index.html', {'user': user, "status": status, 'user_name':name})
 
 
 def logout_view(request):

@@ -8,9 +8,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff; }
+
+
+    .wrap {
+    background: rgba(0, 0, 0, 0.1);
+    background: #00043c;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    width: 100%; }
+
+    .row1 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px; 
+    }
+
+
+    .social-media {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .social-media p a {
+        width: 34px;
+        height: 34px;
+        margin-right: 1px; }
+    .social-media p a span {
+        color: #fff; }
+
+
+        .btn, .btn:hover, .btn:focus {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            background: rgb(24, 165, 119);
+            border: 2px solid rgb(24, 165, 119);
+            color: #fff;
+            margin-right: 15px;
+
+        }
+        
+    </style>
 </head>
 
-<hr>
+<div class="wrap">
+    <div class="container1">
+        <div class="social-media">
+            <p style="margin: 8px;">
+                <a href="/" class="mr-2"><span>FoodBridge</span></a>
+            </p>
+            <p style="margin: 8px;">
+                <a href="/" class="mr-2"><span>Home</span></a>
+            </p>
+        </div>
+    </div>
+</div>
+
 <div class="container bootstrap snippet">
     <div class="row">
         <div class="col-sm-10"><h1 style="font-size: 25px; margin-left: 41px ;">Account Settings</h1></div>
@@ -72,10 +185,10 @@
                           
                         <div class="form-group">
                             <div class="col-xs-12">
-                              <br>
-                              <p class="social-text"><a href="/password_reset/">Reset your password </a></p>
+                                <br>
                                 <br>
                                 <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                <a class="btn" href="/password_reset/">Reset your password </a>
                             </div>
                         </div>
                     </form>
