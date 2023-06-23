@@ -475,16 +475,25 @@
             {% for donation in done_donations %}
             <div class="kanban-card" ondragstart="drag(event)" draggable="false" id="{{ donation.id }}">
                 <h4 draggable="false">{{ donation.name }}</h4>
-                <p draggable="false"><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
-                <p draggable="false"><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
-                <p draggable="false"><span class="boldtext">Expiration Date:</span> {{ donation.expiration_date }}</p>
-                <p draggable="false"><span class="boldtext">Confirmation Date:</span> {{ donation.donation_date }}</p>
-                <p draggable="false">CONFIRMED</p>
-                {% if donation.ngo.profile_picture %}
-                    <img src="{{ donation.ngo.profile_picture.url }}" alt="{{ donation.ngo.name }} Profile Picture" style="     width: 9%;
-                    position: relative;
-                    transform: translate(197%, -135%);" draggable="false">
-                {% endif %}
+                <div class="fleximg" style="display: flex;
+                width: 100%;
+                align-items: center;">
+                
+                    <div>
+                        <p draggable="false"><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
+                        <p draggable="false"><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
+                        <p draggable="false"><span class="boldtext">Expiration Date:</span> {{ donation.expiration_date }}</p>
+                        <p draggable="false"><span class="boldtext">Confirmation Date:</span> {{ donation.donation_date }}</p>
+                        <p draggable="false">CONFIRMED</p>
+                    </div>
+                    {% if donation.ngo.profile_picture %}
+                        <img src="{{ donation.ngo.profile_picture.url }}" alt="{{ donation.ngo.name }} Profile Picture" style="
+                        width: 33%;
+                        position: relative;
+                        top: 3px;
+                        left: 28px;" draggable="false">
+                    {% endif %}
+                </div>
             </div>
             {% empty %}
             <p style="margin-left: 10px;">No donations in this column.</p>
