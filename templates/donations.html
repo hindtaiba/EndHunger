@@ -92,7 +92,7 @@
         .fa-xmark {
             font-size: 26px !important;
             position: absolute !important;
-            transform: translate(1850%, -150%) !important;
+            transform: translate(1271%, -150%) !important;
         }
 
         .fa-solid {
@@ -152,11 +152,12 @@
             border-left: 4px solid #ffc107 !important;
         }
     
-        .btn-primary {
+        .btn-primary1 {
             color: #fff !important;
             border: none !important;
             padding: 10px 20px !important;
             cursor: pointer !important;
+            outline: none !important;
         }
     
         .btn-add-donation {
@@ -177,9 +178,8 @@
             background: #fff !important;
             padding: 60px 60px !important;
             position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%,-50%) !important;
+            top: 115% !important;
+            left: 38.6% !important;
             border-radius: 20px !important;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
             }
@@ -196,27 +196,57 @@
         .wrapper .form .input_field{
             position: relative !important;
             margin-bottom: 10px !important;
+            width: 100% !important;
             }
 
         .wrapper .form .input_field .input{
-            width: 100%;
-            padding: 12px;
-            padding-left: 30px;
-            border: none ;
-            background: #eeeeee ;
+            width: 100% !important;
+            padding: 12px !important;
+            padding-left: 30px !important;
+            border: none !important;
+            background: #eeeeee  !important;
+            color: black !important;
             }
 
-        .wrapper .form .btn {
-            /* margin-left: 17%; */
+        .wrapper .form .btn1 {
             width: 70% !important;
             /* margin: 20px auto 0; */
             background: #18a577 !important;
             text-align: center !important;
             /* padding: 12px; */
             border-radius: 25px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            align-items: center;
         }
 
-        .wrapper .form .btn a{
+        .wrapper .form .btn1,
+        .wrapper .form .btn1:active,
+        .wrapper .form .btn1:focus {
+            border: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-focus-ring-color: transparent !important;
+        }
+        .wrapper .form .btn-primary1,
+        .wrapper .form .btn-primary1:active,
+        .wrapper .form .btn-primary1:focus {
+            border: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-focus-ring-color: transparent !important;
+        }
+
+        .wrapper .form .btn1::-moz-focus-inner {
+            border: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-focus-ring-color: transparent !important;
+        }
+
+        .wrapper .form .btn1 a{
             color: #fff !important;
             }
 
@@ -271,7 +301,10 @@
         }
 
         .active {
-            display: block !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center;
+            justify-content: space-evenly;
         }
 
         .checkmark-btn {
@@ -334,7 +367,7 @@
 	</section>
     <section>
         <div class="container1">
-            <div class="card">
+            <div class="card1">
                 <!-- Donation Form (hidden by default) -->
     
                 <div class="wrapper" id="donationForm" style="display: none;">
@@ -358,8 +391,8 @@
                             <label for="food_quantity" class="form-label">Quantity of Food</label>
                             <input type="number" class="form-control input" id="food_quantity" name="food_quantity" min="1" required>
                         </div>
-                        <div class="btn">
-                            <button type="button" name="next" class="btn btn-primary" onclick="showAdditionalFields()">Next</button>
+                        <div class="btn1">
+                            <button type="button" name="next" class="btn1 btn-primary1" onclick="showAdditionalFields()">Next</button>
                         </div>
                     </form>
                     
@@ -374,11 +407,11 @@
                             </select>
                         </div>
                         <div class="buttons" style="display: flex !important;">
-                            <div class="btn">
-                                <button type="button" name="back" class="btn btn-primary" onclick="goBack()" style="width: auto !important;">Back</button>
+                            <div class="btn1" style="margin-right: 10px;">
+                                <button type="button" name="back" class="btn1 btn-primary1" onclick="goBack()" style="width: auto !important; ">Back</button>
                             </div>
-                            <div class="btn">
-                                <button type="submit" name="submit" class="btn btn-primary" style="width: auto !important;">Donate</button>
+                            <div class="btn1" style="margin-right: 10px;">
+                                <button type="submit" name="submit" class="btn1 btn-primary1" style="width: auto !important;">Donate</button>
                             </div>
                         </div>
                     </form>
