@@ -182,9 +182,19 @@ body {
                            <br>
                            <br>
                         <div class="form-group">
-                            <div class="col-xs-6">
+                            <div class="col-xs-6" style="width: 100% !important;">
                                 <label for="description"><h4>Description</h4></label>
-                                <textarea class="form-control" name="description" id="description" placeholder="enter description"  title="enter your phone number if any.">{{ description }}</textarea>
+                                <textarea class="form-control" name="description" id="description" placeholder="enter description" title="enter your phone number if any." style="width: 100%;
+                                height: 150px;
+                                padding: 12px 20px;
+                                box-sizing: border-box;
+                                border: 2px solid #ccc;
+                                border-radius: 4px;
+                                background-color: #f8f8f8;
+                                font-size: 16px;
+                                overflow: hidden;
+                                resize: none;" maxlength="255">{{ description }}</textarea>
+                                <p id="character-count">0/255 characters</p>
                             </div>
                         </div>
 
@@ -221,6 +231,17 @@ body {
             $(".file-upload").on('change', function(){
                 readURL(this);
             });
+        });
+
+        // Character count update
+        
+        var initialLength = $("#description").val().length;
+        $("#character-count").text(initialLength + "/255 characters");
+
+        $("#description").on("input", function() {
+            var currentLength = $(this).val().length;
+            
+            $("#character-count").text(currentLength + "/255 characters");
         });
     </script>
 
