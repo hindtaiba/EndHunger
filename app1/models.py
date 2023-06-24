@@ -17,6 +17,8 @@ class Donation(models.Model):
     transportation = models.CharField(max_length=255,default='')
     packaging = models.CharField(max_length=255,default='')
     quantity = models.CharField(max_length=255,default='')
+    food_condition = models.CharField(max_length=100, default='')
+    
     def get_quantity_category(self):
         if self.quantity.isdigit():
             quantity_value = int(self.quantity)
