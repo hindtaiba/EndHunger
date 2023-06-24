@@ -48,6 +48,7 @@ class Restaurant(models.Model):
     is_verified = models.BooleanField(default=False)
     cuisine_type= models.CharField(max_length=255, default='')
     profile_picture = models.ImageField(upload_to='restaurant_profiles', blank=True, null=True)
+    description = models.CharField(max_length=255, default='')
 
 
     def __str__(self):
@@ -63,6 +64,7 @@ class NGO(models.Model):
     capacity =  models.CharField(max_length=20)
     is_verified = models.BooleanField(default=False)
     profile_picture = models.ImageField(upload_to='ngo_profiles', blank=True, null=True)
+    description = models.CharField(max_length=255, default='')
 
     def __str__(self):
         return self.name

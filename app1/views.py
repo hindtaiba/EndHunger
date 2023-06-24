@@ -510,6 +510,7 @@ def update_profile(request):
             restaurant.contact_phone = request.POST.get('contact_phone', restaurant.contact_phone)
             restaurant.location = request.POST.get('location', restaurant.location)
             restaurant.cuisine_type = request.POST.get('cuisine_type', restaurant.cuisine_type)
+            restaurant.description = request.POST.get('description', restaurant.description)
             restaurant.save()
              # Update the username in the User model
             user = restaurant.user
@@ -523,6 +524,7 @@ def update_profile(request):
             ngo.contact_phone = request.POST.get('contact_phone', ngo.contact_phone)
             ngo.location = request.POST.get('location', ngo.location)
             ngo.capacity = request.POST.get('capacity')
+            ngo.description = request.POST.get('description')
             ngo.save()
           # Update the username in the User model
             user = ngo.user
@@ -537,6 +539,7 @@ def update_profile(request):
             'contact_phone': restaurant.contact_phone,
             'location': restaurant.location,
             'cuisine_type': restaurant.cuisine_type,
+            'description': restaurant.description,
             'profile_picture_url': restaurant.profile_picture.url if restaurant.profile_picture else '',
         }
         return render(request, 'profile.restaurant.html', initial_data)
@@ -547,6 +550,7 @@ def update_profile(request):
             'contact_phone': ngo.contact_phone,
             'location': ngo.location,
             'capacity': ngo.capacity,
+            'description': ngo.description,
             'profile_picture_url': ngo.profile_picture.url if ngo.profile_picture else '',
         }
         return render(request, 'profile.ngo.html', initial_data)
