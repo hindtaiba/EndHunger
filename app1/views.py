@@ -387,7 +387,22 @@ def add_donation(request):
         ngo_name = request.POST.get('ngo')
         delivery_time = request.POST.get('delivery_time')
         expiration_date = request.POST.get('expiration_date')
+        quantity_value = int(request.POST.get('quantity'))
 
+        if quantity_value < 50:
+            quantity_category = "less than 50"
+
+        elif 50 <= quantity_value < 100:
+            quantity_category = "50-100"
+
+        elif 100 <= quantity_value < 200:
+            quantity_category = "100-200"
+
+        elif 200 <= quantity_value < 500:
+            quantity_category = "200-500"
+            
+        else:
+            quantity_category = "more than 500"
         ngo = get_object_or_404(NGO, name=ngo_name)
         
         
@@ -397,9 +412,9 @@ def add_donation(request):
         donation = Donation.objects.create(
             restaurant=restaurant,
             ngo=ngo,
-            donation_date=donation_date,
             delivery_time=delivery_time,
-            expiration_date=expiration_date
+            expiration_date=expiration_date,
+            quantity=quantity_category
         )
 
     ngos = NGO.objects.all()

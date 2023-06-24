@@ -17,7 +17,20 @@ class Donation(models.Model):
     transportation = models.CharField(max_length=255,default='')
     packaging = models.CharField(max_length=255,default='')
     quantity = models.CharField(max_length=255,default='')
-
+    def get_quantity_category(self):
+        if self.quantity.isdigit():
+            quantity_value = int(self.quantity)
+            if quantity_value < 50:
+                return "less than 50"
+            elif 50 <= quantity_value < 100:
+                return "50-100"
+            elif 100 <= quantity_value < 200:
+                return "100-200"
+            elif 200 <= quantity_value < 500:
+                return "200-500"
+            else:
+                return "more than 500"
+        return ""
 
     def save(self, *args, **kwargs):
         if not self.name:
