@@ -12,12 +12,12 @@ from django.core.mail import send_mail
 
 
 class NGOAdmin(admin.ModelAdmin):
-    list_display = ('name','location','contact_email','contact_phone','capacity')
+    list_display = ('name','location','contact_email','contact_phone','capacity','description')
     readonly_fields = ( )
 
 class DonationAdmin(admin.ModelAdmin):
     confirmed = models.BooleanField(default=False)
-    list_display = ('name','restaurant', 'ngo', 'donation_date', 'delivery_time','created_on','confirmed','expiration_date','requested')
+    list_display = ('name','restaurant', 'ngo', 'delivery_time','created_on','confirmed','expiration_date','requested')
     readonly_fields = ()
 
     def get_queryset(self, request):
@@ -112,7 +112,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('name','location', 'contact_email', 'contact_phone','cuisine_type')
+    list_display = ('name','location', 'contact_email', 'contact_phone','cuisine_type','description')
     actions = ['send_sms_to_restaurants', 'send_email_to_restaurants']
     readonly_fields = ()
 

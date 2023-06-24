@@ -385,7 +385,6 @@ def add_donation(request):
 
     if request.method == 'POST':
         ngo_name = request.POST.get('ngo')
-        donation_date = request.POST.get('donation_date')
         delivery_time = request.POST.get('delivery_time')
         expiration_date = request.POST.get('expiration_date')
 
