@@ -7870,11 +7870,11 @@ color: #eec857; }
                 <h2 class="title">Sign in</h2>
                 <div class="input-field">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Username" name="username" />
+                <input type="text" placeholder="Username" name="username" required/>
                 </div>
                 <div class="input-field">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password" name="password" />
+                <input type="password" placeholder="Password" name="password" required/>
                 </div>
                 <input type="submit" value="Login" class="btn solid" />
                 <p class="social-text"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
@@ -7886,19 +7886,42 @@ color: #eec857; }
         <h2 class="title">Sign up</h2>
         <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" name="name" />
+            <input type="text" placeholder="Username" name="name" required/>
         </div>
         <div class="input-field">
             <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Email" name="email" />
+            <input type="email" placeholder="Email" name="email" required/>
         </div>
         <div class="input-field">
             <i class="fas fa-mobile"></i>
-            <input type="tel" placeholder="Phone Number" name="phone" />
+            <input type="tel" placeholder="Phone Number" name="phone" required/>
         </div>
         <div class="input-field">
             <i class="fas fa-map-marker-alt"></i>
-            <input type="text" placeholder="Location" name="location" id="location-input" />
+            <select name="location" id="location-input" style="border: none;
+            outline: none;
+            background-color: transparent; line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem; color: #aaa;" required>
+                <option value="" disabled selected hidden id="option-hidden">Location</option>
+                <option value="Al Beddaoui" style="color: #333 !important;">Al Beddaoui</option>
+                <option value="Al- Soueka" style="color: #333 !important;">Al- Soueka</option>
+                <option value="Al-Kobbe" style="color: #333 !important;">Al-Kobbe</option>
+                <option value="Al-Mina" style="color: #333 !important;">Al-Mina</option>
+                <option value="Al-Mouhaitra" style="color: #333 !important;">Al-Mouhaitra</option>
+                <option value="Al-Nouri" style="color: #333 !important;">Al-Nouri</option>
+                <option value="Al-Tabbaneh" style="color: #333 !important;">Al-Tabbaneh</option>
+                <option value="Al-Tal" style="color: #333 !important;">Al-Tal</option>
+                <option value="Al-Zehrieh" style="color: #333 !important;">Al-Zehrieh</option>
+                <option value="Dam w Farez" style="color: #333 !important;">Dam w Farez</option>
+                <option value="Kousba / Koura" style="color: #333 !important;">Kousba / Koura</option>
+                <option value="Ras Maska" style="color: #333 !important;">Ras Maska</option>
+                <option value="Tripoli Al-Haddadin" style="color: #333 !important;">Tripoli Al-Haddadin</option>
+                <option value="Tripoli Al-Hadid" style="color: #333 !important;">Tripoli Al-Hadid</option>
+                <option value="Tripoli Al-Rammaneh" style="color: #333 !important;">Tripoli Al-Rammaneh</option>
+                <option value="Tripoli Zeitoun" style="color: #333 !important;">Tripoli Zeitoun</option>
+                <option value="Zgharta" style="color: #333 !important;">Zgharta</option>
+            </select>
         </div>
         <div class="input-field">
             <i class="fas fa-lock"></i>
