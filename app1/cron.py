@@ -1,13 +1,14 @@
 from django_cron import CronJobBase, Schedule
-from datetime import date
+from datetime import datetime, timedelta
 from .models import Donation
 
 class DeleteExpiredDonations(CronJobBase):
-    RUN_AT_TIMES = ['21:45']
+    run_at_times = ['21:35']  # Run at 12 AM every day
 
-    schedule = Schedule(run_at_times=RUN_AT_TIMES)
+    schedule = Schedule(run_at_times=run_at_times)
     code = 'app1.delete_expired_donations'
 
     def do(self):
-        expired_donations = Donation.objects.filter(expiration_date__lt=date.today())
+        two_days_ago = datetime.now() - timedelta(days=2)
+        expired_donations = Donation.objects.filter(created_on__lt=two_days_ago)
         expired_donations.delete()

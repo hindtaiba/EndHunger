@@ -92,7 +92,7 @@
         .fa-xmark {
             font-size: 26px !important;
             position: absolute !important;
-            transform: translate(1271%, -150%) !important;
+            transform: translate(1700%, -130%) !important;
         }
 
         .fa-solid {
@@ -172,14 +172,14 @@
 
         .wrapper{
             z-index: 2 !important;
-            max-width: 350px !important;
+            max-width: 450px !important;
             width: 100% !important;
             height: auto !important;
             background: #fff !important;
-            padding: 60px 60px !important;
+            padding: 50px 60px !important;
             position: absolute !important;
-            top: 115% !important;
-            left: 38.6% !important;
+            top: 110% !important;
+            left: 35% !important;
             border-radius: 20px !important;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
             }
@@ -195,7 +195,7 @@
 
         .wrapper .form .input_field{
             position: relative !important;
-            margin-bottom: 10px !important;
+            margin-bottom: 5px !important;
             width: 100% !important;
             }
 
@@ -331,6 +331,142 @@
         .boldtext {
             font-weight: bold;
         }
+        
+        .check {
+  cursor: pointer;
+  position: relative;
+  margin: auto;
+  width: 18px;
+  height: 18px;
+  -webkit-tap-highlight-color: transparent;
+  transform: translate3d(0, 0, 0);
+}
+
+.check:before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(34,50,84,0.03);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.check svg {
+  position: relative;
+  z-index: 1;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #c8ccd4;
+  stroke-width: 1.5;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+}
+
+.check svg path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+}
+
+.check svg polyline {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 66;
+}
+
+.check:hover:before {
+  opacity: 1;
+}
+
+.check:hover svg {
+  stroke: #4c7bcb;
+}
+
+#cbx:checked + .check svg {
+  stroke: #4c7bcb;
+}
+
+#cbx:checked + .check svg path {
+  stroke-dashoffset: 60;
+  transition: all 0.3s linear;
+}
+
+#cbx:checked + .check svg polyline {
+  stroke-dashoffset: 42;
+  transition: all 0.2s linear;
+  transition-delay: 0.15s;
+}
+
+
+        .tabs {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 2px 12px 0 rgba(24, 94, 224, 0.15);
+  padding: 0.75rem;
+  border-radius: 99px;
+  margin-bottom: 10px;
+}
+
+.tabs * {
+  z-index: 2;
+}
+
+#container input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 130px;
+  font-size: .8rem;
+  color: black;
+  font-weight: 500;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+}
+
+#container input[type="radio"]:checked + label {
+  color: #185ee0;
+}
+
+#container input[id="packaged"]:checked ~ .glider {
+  transform: translateX(0);
+}
+
+#container input[id="not-packaged"]:checked ~ .glider {
+  transform: translateX(100%);
+}
+
+#container input[id="partially-packaged"]:checked ~ .glider {
+  transform: translateX(200%);
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 30px;
+  width: 100px;
+  background-color: #e6eef9;
+  z-index: 1;
+  border-radius: 99px;
+  transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
+ 
+  .tabs {
+    transform: scale(0.6);
+  }
+}
+
 
     </style>
 </head>
@@ -384,24 +520,72 @@
                     <form id="mainForm" name="form_data" class="form active" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="input_field">
-                            <label for="delivery_time" class="form-label">Delivery Time</label>
-                            <input type="time" class="form-control input" id="delivery_time" name="delivery_time" required>
-                        </div>
-                        <div class="input_field">
-                            <label for="expiration_date" class="form-label">Expiration Date</label>
-                            <input type="date" class="form-control input" id="expiration_date" name="expiration_date" required>
-                        </div>
-                        <div class="input_field">
                             <label for="food_quantity" class="form-label">Quantity of Food</label>
-                            <input type="number" class="form-control input" id="food_quantity" name="food_quantity" min="1" required>
+                            <div style="display: flex; align-items: center; flex-wrap: nowrap;">
+                                <input type="number" class="form-control input" id="food_quantity" name="food_quantity" min="1" required style="width: 55% !important; margin-right: 20px !important;">
+                                <span>Persons</span>
+                            </div>
+                        </div>
+                        <div class="input_field">
+                            <label for="expiration_time" class="form-label">Expiration Time</label>
+                            <select class="form-control input" id="expiration_time" name="expiration_date" required>
+                                <option value="" selected disabled hidden></option>
+                                <option value="2-8h">2-8 hours</option>
+                                <option value="8-12h">8-12 hours</option>
+                                <option value="12-24h">12-24 hours</option>
+                                <option value="42h">42 hours</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input_field">
+                            <label for="food_condition" class="form-label">Food Condition</label>
+                            <select class="form-control input" id="food_condition" name="food_condition" required>
+                                <option value="" selected disabled hidden></option>
+                                <option value="Fresh">Fresh</option>
+                                <option value="slightly_bruised">Slightly Bruised</option>
+                                <option value="near_expiration">Near Expiration</option>
+                            </select>
+                        </div>
+                        <div class="input_field" id="container" style="line-height: 2;">
+                            <span style="margin-bottom: 5px;">Packaging</span>
+                            <div class="tabs">
+                                <input type="radio" class="form-control input" id="Packaged" name="packaging" required checked>
+                                <label for="Packaged" class="form-label tab" value="Packaged" style="margin-bottom: 0 !important; width: 100px;
+                                margin-right: 10px;">Packaged</label>
+                                <input type="radio" class="form-control input" id="not-packaged" name="packaging" required>
+                                <label for="not-packaged" class="form-label tab" value="not-packaged" style="margin-bottom: 0 !important; width: 100px;
+                                margin-right: 10px;">Not Packaged</label>
+                                <input type="radio" class="form-control input" id="partially-packaged" name="packaging" required>
+                                <label for="partially-packaged" class="form-label tab" value="partially-packaged" style="margin-bottom: 0 !important;width: 100px;margin-right: 10px;">Partially</label>
+                                <span class="glider"></span>
+                            </div>
+                        </div>
+                        <div class="input_field" style="display: flex !important; align-items: center; justify-content: space-between; margin-bottom: 15px !important;">
+                            Choose:
+                            <input type="radio" class="form-control input" id="Delivery" name="transportation" required style="width: 15px !important; height: 15px;">
+                            <label for="Delivery" class="form-label" value="Delivery" style="margin-bottom: 0 !important;">Delivery</label>
+                            <input type="radio" class="form-control input" id="pickup" name="transportation" required style="width: 15px !important; height: 15px;">
+                            <label for="pickup" class="form-label" value="pickup" style="margin-bottom: 0 !important;">Pick-Up</label>
                         </div>
                         <div class="btn1">
-                            <button type="button" name="next" class="btn1 btn-primary1" onclick="showAdditionalFields()">Next</button>
+                            <button type="submit" name="next" class="btn1 btn-primary1" onclick="showAdditionalFields()">Next</button>
                         </div>
                     </form>
                     
                     <form id="additionalFieldsForm" class="form" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <div class="input_field">
+                            <input type="checkbox" id="cbx" style="display: none;">
+                            <label for="cbx" class="check">
+                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                    <polyline points="1 9 7 14 15 4"></polyline>
+                                </svg>
+                                
+                            </label>
+                            Click to predict the best charities to donate for
+                            
+                        </div>
                         <div class="input_field">
                             <label for="ngo" class="form-label">NGO</label>
                             <select class="form-control input" id="ngo" name="ngo">
@@ -409,6 +593,10 @@
                                 <option value="{{ ngo.name }}">{{ ngo.name }}</option>
                                 {% endfor %}
                             </select>
+                        </div>
+                        <div class="input_field" style="margin-bottom: 10px !important;">
+                            <label for="delivery_time" class="form-label">Delivery Time</label>
+                            <input type="time" class="form-control input" id="delivery_time" name="delivery_time" required>
                         </div>
                         <div class="buttons" style="display: flex !important;">
                             <div class="btn1" style="margin-right: 10px;">
@@ -436,7 +624,7 @@
                 <h4>{{ donation.name }}</h4>
                 <p><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
                 <p><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
-                <p><span class="boldtext">Expiration Date:</span> {{ donation.expiration_date }}</p>
+                <p><span class="boldtext">Expiration Time:</span> {{ donation.expiration_date }}</p>
             </div>
                 {% if donation.ngo.profile_picture %}
                         <img src="{{ donation.ngo.profile_picture.url }}" alt="{{ donation.ngo.name }} Profile Picture" style="     width: 7%;
@@ -454,7 +642,7 @@
                 <h4>{{ donation.name }}</h4>
                 <p><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
                 <p><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
-                <p><span class="boldtext">Expiration Date:</span> {{ donation.expiration_date }}</p>
+                <p><span class="boldtext">Expiration Time:</span> {{ donation.expiration_date }}</p>
                 <form method="POST" action="{% url 'confirm_donation' donation.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="donation_id" value="{{ donation.id }}">
@@ -482,7 +670,7 @@
                     <div>
                         <p draggable="false"><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
                         <p draggable="false"><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
-                        <p draggable="false"><span class="boldtext">Expiration Date:</span> {{ donation.expiration_date }}</p>
+                        <p draggable="false"><span class="boldtext">Expiration Time:</span> {{ donation.expiration_date }}</p>
                         <p draggable="false"><span class="boldtext">Confirmation Date:</span> {{ donation.donation_date }}</p>
                         <p draggable="false">CONFIRMED</p>
                     </div>
@@ -618,31 +806,17 @@
     }
     
     function showAdditionalFields() {
-                var mainForm = document.getElementById('mainForm');
-                mainForm.classList.remove('active');
-    
-                var additionalFieldsForm = document.getElementById('additionalFieldsForm');
-                additionalFieldsForm.classList.add('active');
-            }
-    
-            document.getElementById('additionalFieldsForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-    
-                // Retrieve form data
-                var formData = new FormData(this);
-    
-                // Submit the form data
-                var xhr = new XMLHttpRequest();
-                xhr.open(this.method, this.action, true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Handle successful form submission
-                        console.log(xhr.responseText);
-                        // You can redirect or perform any other action here
-                    }
-                };
-                xhr.send(formData);
-            });
+        var mainForm = document.getElementById("mainForm");
+        var additionalFieldsForm = document.getElementById("additionalFieldsForm");
+
+        // Toggle the visibility of additionalFieldsForm
+        additionalFieldsForm.style.display = (additionalFieldsForm.style.display === "none") ? "block" : "none";
+
+        // Add or remove the "active" class to mainForm and additionalFieldsForm
+        mainForm.classList.toggle("active");
+        additionalFieldsForm.classList.toggle("active");
+    }
+
     
     function goBack() {
         var mainForm = document.getElementById('mainForm');

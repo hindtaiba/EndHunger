@@ -11,7 +11,7 @@ class Donation(models.Model):
     donation_date = models.DateField(default=date.today, null=True)
     delivery_time = models.TimeField(default=timezone.now)
     created_on = models.DateTimeField(default=timezone.now)
-    expiration_date = models.DateField(default=date.today() + timedelta(days=3))
+    expiration_date = models.CharField(max_length=255, default='')
     confirmed = models.BooleanField(default=False)
     requested = models.BooleanField(default=False)
     transportation = models.CharField(max_length=255,default='')
