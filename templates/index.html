@@ -574,7 +574,15 @@
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-4 d-flex align-items-center justify-content-end">
-					<p class="mb-0"><a href="/login-register/" class="btn btn-primary py-3 px-4">Join Us</a></p>
+					{% if request.user.is_authenticated %}
+						{% if user == "N" or user == "R" %}
+							<div class=""></div>
+						{% else %}
+							<div class=""></div>
+						{% endif %}
+					{% else %}
+						<div class=""><p class="mb-0"><a href="/login-register/" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -585,7 +593,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-					<h2 class="footer-heading">End Hunger.</h2>
+					<h2 class="footer-heading">Food Bridge.</h2>
 					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
 					<ul class="ftco-footer-social p-0">
 						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>

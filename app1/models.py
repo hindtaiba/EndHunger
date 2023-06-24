@@ -7,7 +7,7 @@ from datetime import date, timedelta
 class Donation(models.Model):
     name = models.CharField(max_length=255, editable=False, unique=True)
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, related_name='donations')
-    ngo = models.ForeignKey('NGO', on_delete=models.CASCADE, related_name='donations_received')
+    ngo = models.ForeignKey('NGO', on_delete=models.CASCADE, related_name='donations_received', null= True)
     donation_date = models.DateField(default=date.today, null=True)
     delivery_time = models.TimeField(default=timezone.now)
     created_on = models.DateTimeField(default=timezone.now)
