@@ -468,13 +468,39 @@ def request_donation(request, donation_name):
         # Undo the donation request
         donation.requested = False
         donation.save()
+
+        # Send email to the restaurant notifying them of the request undo
+        restaurant_email = donation.restaurant.contact_email
+        restaurant_name = donation.restaurant.name
+        ngo_name=donation.ngo.name
+        send_request_undo_email(restaurant_email, restaurant_name,ngo_name)
     else:
         # Mark the donation as requested by the NGO
         donation.requested = True
         donation.save()
 
+        # Send email to the restaurant notifying them of the new request
+        restaurant_email = donation.restaurant.contact_email
+        restaurant_name = donation.restaurant.name
+        ngo_name=donation.ngo.name
+        send_request_email(restaurant_email, restaurant_name,ngo_name)
+
     return redirect('/browse_donations/')
 
+
+def send_request_email(restaurant_email, restaurant_name, ngo_name):
+    subject = 'New Donation Request'
+    message = f'Dear {restaurant_name}, please check your FoodBridge account. You might have new requests available from {ngo_name}.'
+
+    email = EmailMessage(subject, message, from_email=settings.DEFAULT_FROM_EMAIL, to=[restaurant_email])
+    email.send()
+
+def send_request_undo_email(restaurant_email, restaurant_name, ngo_name):
+    subject = 'Donation Request Undone'
+    message = f'Dear {restaurant_name}, the donation request from {ngo_name} has been undone. Please check your FoodBridge account.'
+
+    email = EmailMessage(subject, message, from_email=settings.DEFAULT_FROM_EMAIL, to=[restaurant_email])
+    email.send()
 
 def confirm_donation(request, donation_id):
     donation = get_object_or_404(Donation, pk=donation_id)
