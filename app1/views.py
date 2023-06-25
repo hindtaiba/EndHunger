@@ -27,6 +27,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.contrib.sessions.models import Session
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
@@ -381,6 +382,7 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
 
 
+
 @login_required
 def add_donation(request):
     # Fetch the current restaurant
@@ -395,8 +397,8 @@ def add_donation(request):
     done_donations = donations.filter(requested=True, confirmed=True)
 
     if Restaurant.objects.filter(user=request.user).exists():
-            user_type = "R"  # User is a restaurant
-            status = True
+        user_type = "R"  # User is a restaurant
+        status = True
     elif NGO.objects.filter(user=request.user).exists():
         user_type = "N"  # User is an NGO
         status = True
@@ -405,38 +407,65 @@ def add_donation(request):
         status = False
 
     if request.method == 'POST':
-        ngo_name = request.POST.get('ngo')
-        delivery_time = request.POST.get('delivery_time')
-        expiration_date = request.POST.get('expiration_date')
-        quantity_value = int(request.POST.get('quantity'))
+        if 'next_button' in request.POST:
+            # Handle the next button (form part 1)
+            # Process the form data from the first part of the form
+            quantity_value = int(request.POST.get('food_quantity'))
+            expiration_date = request.POST.get('expiration_date')
+            food_condition = request.POST.get('food_condition')
+            packaging = request.POST.get('packaging')
+            transportation = request.POST.get('transportation')
 
-        if quantity_value < 50:
-            quantity_category = "less than 50"
+            if quantity_value < 50:
+                quantity_category = "less than 50"
+            elif 50 <= quantity_value < 100:
+                quantity_category = "50-100"
+            elif 100 <= quantity_value < 200:
+                quantity_category = "100-200"
+            elif 200 <= quantity_value < 500:
+                quantity_category = "200-500"
+            else:
+                quantity_category = "more than 500"
 
-        elif 50 <= quantity_value < 100:
-            quantity_category = "50-100"
+            # Create a new Donation object without the missing fields
+            donation = Donation.objects.create(
+                restaurant=restaurant,
+                quantity=quantity_category,
+                expiration_date=expiration_date,
+                food_condition=food_condition,
+                packaging=packaging,
+                transportation=transportation
+            )
 
-        elif 100 <= quantity_value < 200:
-            quantity_category = "100-200"
+            # Store the donation ID in the session or database, depending on your requirements
+            request.session['donation_id'] = donation.id
 
-        elif 200 <= quantity_value < 500:
-            quantity_category = "200-500"
-            
-        else:
-            quantity_category = "more than 500"
-        ngo = get_object_or_404(NGO, name=ngo_name)
-        
-        
-        
+            # Redirect to the second part of the form
+            return HttpResponseRedirect('/second_form_url/')  # Replace with the URL for the second form
 
-        # Create a new Donation object
-        donation = Donation.objects.create(
-            restaurant=restaurant,
-            ngo=ngo,
-            delivery_time=delivery_time,
-            expiration_date=expiration_date,
-            quantity=quantity_category
-        )
+        elif 'submit_button' in request.POST:
+            # Handle the submit button (form part 2)
+            # Process the form data from the second part of the form
+            ngo_name = request.POST.get('ngo')
+            delivery_time = request.POST.get('delivery_time')
+
+            donation_id = request.session.get('donation_id')
+            if donation_id:
+                donation = get_object_or_404(Donation, id=donation_id)
+                ngo = get_object_or_404(NGO, name=ngo_name)
+
+                # Update the existing Donation object with the missing fields
+                donation.ngo = ngo
+                donation.delivery_time = delivery_time
+                donation.save()
+
+                # Perform any necessary actions with the complete form data
+
+                # Clear the donation ID from the session or database
+                del request.session['donation_id']
+
+                # Redirect to a success page or perform any other desired actions
+                return HttpResponseRedirect('/success_url/')  # Replace with the URL for the success page
 
     ngos = NGO.objects.all()
 

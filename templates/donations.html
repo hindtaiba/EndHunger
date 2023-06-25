@@ -515,10 +515,9 @@
                     <div class="title">
                         Donate Here
                     </div>
-                    
-                    
                     <form id="mainForm" name="form_data" class="form active" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <!-- First Part of the Form -->
                         <div class="input_field">
                             <label for="food_quantity" class="form-label">Quantity of Food</label>
                             <div style="display: flex; align-items: center; flex-wrap: nowrap;">
@@ -536,7 +535,6 @@
                                 <option value="42h">42 hours</option>
                             </select>
                         </div>
-                        
                         <div class="input_field">
                             <label for="food_condition" class="form-label">Food Condition</label>
                             <select class="form-control input" id="food_condition" name="food_condition" required>
@@ -568,48 +566,33 @@
                             <label for="pickup" class="form-label" value="pickup" style="margin-bottom: 0 !important;">Pick-Up</label>
                         </div>
                         <div class="btn1">
-                            <button type="submit" name="next" class="btn1 btn-primary1" onclick="showAdditionalFields()">Next</button>
+                            <button type="submit" name="next_button" class="btn1 btn-primary1" onclick="showAdditionalFields()">Next</button>
                         </div>
-                    </form>
                     
-                    <form id="additionalFieldsForm" class="form" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input_field">
-                            <input type="checkbox" id="cbx" style="display: none;">
-                            <label for="cbx" class="check">
-                                <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                    <polyline points="1 9 7 14 15 4"></polyline>
-                                </svg>
-                                
-                            </label>
-                            Click to predict the best charities to donate for
-                            
-                        </div>
-                        <div class="input_field">
-                            <label for="ngo" class="form-label">NGO</label>
-                            <select class="form-control input" id="ngo" name="ngo">
-                                {% for ngo in ngos %}
-                                <option value="{{ ngo.name }}">{{ ngo.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="input_field" style="margin-bottom: 10px !important;">
-                            <label for="delivery_time" class="form-label">Delivery Time</label>
-                            <input type="time" class="form-control input" id="delivery_time" name="delivery_time" required>
-                        </div>
-                        <div class="buttons" style="display: flex !important;">
-                            <div class="btn1" style="margin-right: 10px;">
-                                <button type="button" name="back" class="btn1 btn-primary1" onclick="goBack()" style="width: auto !important; ">Back</button>
+                        <!-- Second Part of the Form -->
+                        {% if show_second_form %}
+                        <div id="secondForm">
+                            <div class="input_field">
+                                <label for="ngo" class="form-label">NGO</label>
+                                <select class="form-control input" id="ngo" name="ngo" required>
+                                    <option value="" selected disabled hidden></option>
+                                    {% for ngo in ngos %}
+                                    <option value="{{ ngo.name }}">{{ ngo.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
-                            <div class="btn1" style="margin-right: 10px;">
-                                <button type="submit" name="submit" class="btn1 btn-primary1" style="width: auto !important;">Donate</button>
+                            <div class="input_field">
+                                <label for="delivery_time" class="form-label">Delivery Time</label>
+                                <input type="text" class="form-control input" id="delivery_time" name="delivery_time" required>
+                            </div>
+                            <div class="btn1">
+                                <button type="submit" name="submit_button" class="btn1 btn-primary1">Submit</button>
                             </div>
                         </div>
+                        {% endif %}
                     </form>
-                    </div>
                 </div>
-    
+                </div>
     <div class="kanban-board">
         <div class="kanban-column column1" data-column="todo">
             <!-- <button class="btn btn-primary btn-add-donation" onclick="openDonationForm()" style="z-index: 3;">Add Donation</button> -->

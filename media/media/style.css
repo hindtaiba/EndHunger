@@ -9619,7 +9619,7 @@ textarea.form-control {
     border-radius: 50%;
     position: relative; }
   .testimony-wrap .text {
-    width: calc(100% - 80px);
+    width: calc(100% - 30px);
     position: relative; }
     .testimony-wrap .text p {
       color: #000000; }

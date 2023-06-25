@@ -36,8 +36,8 @@
 			<div class="row">
 				<div class="col-md-6 d-flex align-items-center">
 					<p class="mb-0 phone pl-md-2">
-						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a> 
-						<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +961 1234 567</a> 
+						<a href="#"><span class="fa fa-paper-plane mr-1"></span> FoodBridge.hr@email.com</a>
 					</p>
 				</div>
 				<div class="col-md-6 d-flex justify-content-md-end">
@@ -54,25 +54,6 @@
 		</div>
 	</div>
 	{% include "nav.html" %}
-
-	<!-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="/">EndHunger</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
-
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
-					<li class="nav-item cta"><a href="/register-login" class="nav-link">Log In</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav> -->
-	<!-- END nav -->
 	
 	<section class="hero-wrap js-fullheight">
 		<div class="home-slider js-fullheight owl-carousel">
@@ -82,8 +63,8 @@
 					<div class="row no-gutters slider-text js-fullheight align-items-center">
 						<div class="col-md-10 col-lg-7 ftco-animate">
 							<div class="text w-100">
-								<h2>Help the poor in need</h2>
-								<h1 class="mb-3">Lend the helping hand get involved</h1>
+								<h2>Join the Food Bridge</h2>
+								<h1 class="mb-3">Unite to Tackle Food Waste and Hunger</h1>
 								<div class="d-flex meta">
 									{% if request.user.is_authenticated %}
 										{% if user == "N" or user == "R" %}
@@ -113,8 +94,8 @@
 					<div class="row no-gutters slider-text js-fullheight align-items-center">
 						<div class="col-md-10 col-lg-7 ftco-animate">
 							<div class="text w-100">
-								<h2>Raising Hope</h2>
-								<h1 class="mb-3">Discover Non-Profit Charity Platform</h1>
+								<h2>Be a Hero</h2>
+								<h1 class="mb-3">Give Excess Food to Those in Need</h1>
 								<div class="d-flex meta">
 									{% if request.user.is_authenticated %}
 										{% if user == "N" or user == "R" %}
@@ -144,8 +125,8 @@
 					<div class="row no-gutters slider-text js-fullheight align-items-center">
 						<div class="col-md-10 col-lg-7 ftco-animate">
 							<div class="text w-100">
-								<h2>Raising Hope</h2>
-								<h1 class="mb-3">Giving Hope to the Homeless People</h1>
+								<h2>Act Locally, Impact Globally</h2>
+								<h1 class="mb-3">Restaurants & Charities Changing Lives</h1>
 								<div class="d-flex meta">
 									{% if request.user.is_authenticated %}
 										{% if user == "N" or user == "R" %}
@@ -178,7 +159,7 @@
 					<div class="services">
 						<div class="text text-center bg-secondary">
 							<h3>Zero <br>Food Waste</h3>
-							<p>But nothing the copy said could convince her and so it didn’t take long until a few</p>
+							<p>Food Bridge, dedicated to combat food waste, connecting Tripoli's Restos and Charities. </p>
 						</div>
 						<div class="img border-2" style="background-image: url(../../media/media/pic.jpg);">
 							<div class="icon d-flex align-items-center justify-content-center">
@@ -190,8 +171,8 @@
 				<div class="col-md-3 d-flex align-items-stretch">
 					<div class="services">
 						<div class="text text-center bg-tertiary">
-							<h3>Help Ones <br>In Need</h3>
-							<p>But nothing the copy said could convince her and so it didn’t take long until a few</p>
+							<h3>Help Those <br>In Need</h3>
+							<p>Food Bridge actively supports charities in their mission to combat hunger.  </p>
 						</div>
 						<div class="img border-3" style="background-image: url(../../media/media/pic4.jpg);">
 							<div class="icon d-flex align-items-center justify-content-center">
@@ -204,7 +185,7 @@
 					<div class="services">
 						<div class="text text-center bg-primary">
 							<h3>Fast <br>Connection</h3>
-							<p>But nothing the copy said could convince her and so it didn’t take long until a few</p>
+							<p>Food Bridge maximize efficiency and ensure simplicity, creating a user-friendly experience.</p>
 						</div>
 						<div class="img border-1" style="background-image: url(../../media/media/pic5.jpg);">
 							<div class="icon d-flex align-items-center justify-content-center">
@@ -217,7 +198,7 @@
 					<div class="services">
 						<div class="text text-center bg-quarternary">
 							<h3>Get <br>Involved</h3>
-							<p>But nothing the copy said could convince her and so it didn’t take long until a few</p>
+							<p>Food Bridge encourages everyone to join their mission.  Be part of the solution today!</p>
 						</div>
 						<div class="img border-4" style="background-image: url(../../media/media/pic1.jpg);">
 							<div class="icon d-flex align-items-center justify-content-center">
@@ -312,47 +293,55 @@
 			<div class="row">
 				<div class="col-md-3 mb-5 mb-md-0 text-center text-md-left">
 					<h2 class="font-weight-bold" style="color: #fff; font-size: 22px;">We're on a mission to help all your problems</h2>
-					<a href="#" class="btn btn-white btn-outline-white">Donate Now</a>
+					{% if user == 'R' %}
+						<a href="/donate/" class="btn btn-white btn-outline-white">Get Involved</a>
+					{% elif user == 'N' %}
+						<a href="/browse_donations/" class="btn btn-white btn-outline-white">Get Involved</a>
+					{% else %}
+						<a href="/login/" class="btn btn-white btn-outline-white">Get Involved</a>
+					{% endif %}
 				</div>
 				<div class="col-md-9">
 					<div class="row">
 						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
 							<div class="block-18 text-center">
 								<div class="text">
-									<strong class="number" data-number="88984">0</strong>
+									<strong class="number" data-number="3264000">0</strong>
 								</div>
 								<div class="text">
-									<span>Donation Campaigns are running</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-							<div class="block-18 text-center">
-								<div class="text">
-									<strong class="number" data-number="65000">0</strong>
-								</div>
-								<div class="text">
-									<span>Professional and kind volunteers</span>
+									<span>Hungry People in Lebanon</span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
 							<div class="block-18 text-center">
 								<div class="text">
-									<strong class="number" data-number="77000">0</strong>
+									<strong class="number" data-number="75000">0</strong>
 								</div>
 								<div class="text">
-									<span>Funds we raised till now on site</span>
+									<span>Pounds of food wasted by restaurants worldwide</span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
 							<div class="block-18 text-center">
 								<div class="text">
-									<strong class="number" data-number="50">0</strong>
+									<strong class="number" data-number="828">0</strong>
 								</div>
 								<div class="text">
-									<span>Dedicated Donors</span>
+									<span><span class="bold" style="font-weight: 1000;">Million</span> Person suffering from Hunger Worldwide</span>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<strong class="number" data-number="33">0</strong>
+								</div>
+								<div class="text">
+									<span>Percent of food going to waste in restaurants</span>
 								</div>
 							</div>
 						</div>
@@ -376,22 +365,13 @@
 					<div class="carousel-testimony owl-carousel">
 						<div class="item">
 							<div class="testimony-wrap d-flex">
-								<div class="user-img" style="background-image: url(../../media/media/person_1.jpg)">
-								</div>
 								<div class="text pl-4">
 									<span class="quote d-flex align-items-center justify-content-center">
 										<i class="fa fa-quote-left"></i>
 									</span>
-									<p class="rate">
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-										<span class="fa fa-star"></span>
-									</p>
-									<p>Far far away, behind the word mountains, far from the countries Vokalia</p>
-									<p class="name">Racky Henderson</p>
-									<span class="position">Father</span>
+									<p>“At restaurants that serve mezze, where people order and share several dishes, the average food wasted is 34 kilograms per day, and that rate goes further up when it comes to open buffets”</p>
+									<p class="name">Dr. Abiad</p>
+									<span class="position">Associate Professor of Applied Economics at AUB</span>
 								</div>
 							</div>
 						</div>
@@ -600,7 +580,13 @@
 						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
 						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
 					</ul>
-					<p><a href="#" class="btn btn-quarternary">Donate Now</a></p>
+					{% if user == 'R' %}
+						<p><a href="/donate/" class="btn btn-quarternary">Get Involved</a></p>
+					{% elif user == 'N' %}
+						<p><a href="/browse_donations/" class="btn btn-quarternary">Get Involved</a></p>
+					{% else %}
+						<p><a href="/login/" class="btn btn-quarternary">Get Involved</a></p>
+					{% endif %}
 				</div>
 				<div class="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
 					<h2 class="footer-heading">Quick Links</h2>
