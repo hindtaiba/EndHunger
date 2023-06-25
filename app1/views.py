@@ -45,6 +45,23 @@ def home(request):
     return render(request, 'index.html')
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        # Perform any necessary validations on the form data
+
+        # Send email notification
+        send_mail(
+            subject='Contact Us: ' + subject,
+            message='Name: ' + name + '\nEmail: ' + email + '\n\nMessage: ' + message,
+            from_email=email,
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            fail_silently=False
+        )
+        
     if request.user.is_authenticated:
         if Restaurant.objects.filter(user=request.user).exists():
             user_type = "R"  # User is a restaurant
@@ -79,34 +96,38 @@ def loginRegister(request):
 
 
 def charity_view(request):
+    user_type = None
+    status = False
     if request.user.is_authenticated:
         if Restaurant.objects.filter(user=request.user).exists():
             user_type = "R"  # User is a restaurant
             status = True
+            available_charities = NGO.objects.filter(is_verified=True)  # Fetch verified NGOs
         elif NGO.objects.filter(user=request.user).exists():
             user_type = "N"  # User is an NGO
             status = True
         else:
             user_type = None  # User doesn't have a recognized role
-            status = False
-    else:
-        user_type = None  # User is not authenticated
-    return render(request,'#', {'user': user_type, 'status': status})
+
+    return render(request, 'charity.html', {'user': user_type, 'status': status, 'charities': available_charities})
 
 def restaurant_view(request):
+    user_type = None
+    status = False
+
     if request.user.is_authenticated:
-        if Restaurant.objects.filter(user=request.user).exists():
-            user_type = "R"  # User is a restaurant
-            status = True
-        elif NGO.objects.filter(user=request.user).exists():
+        if NGO.objects.filter(user=request.user).exists():
             user_type = "N"  # User is an NGO
             status = True
+            available_restaurants = Restaurant.objects.filter(is_verified=True)  # Fetch verified restaurants
         else:
             user_type = None  # User doesn't have a recognized role
-            status = False
-    else:
-        user_type = None  # User is not authenticated
-    return render(request,'#', {'user': user_type, 'status': status})
+
+    return render(request, 'restaurant.html', {'user': user_type, 'status': status, 'restaurants': available_restaurants})
+
+def restaurant_detail(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
+    return render(request, 'restaurant_detail.html', {'restaurant': restaurant})
 
 
 def requestsR_view(request):
@@ -596,32 +617,3 @@ def update_profile(request):
         return render(request, 'profile.ngo.html', initial_data)
     else:
         return redirect('home')
-
-
-# def send_sms_to_restaurants(request):
-#     username = "naderbakir@gmail.com"
-#     password = "qfzjui1"
-
-#     if request.method == 'POST':
-#         form = SMSForm(request.POST)
-#         if form.is_valid():
-#             message = form.cleaned_data['message']
-
-#             for restaurant in Restaurant.objects.all():
-#                 number = restaurant.contact_phone
-#                 name = restaurant.name
-
-#                 url = f"http://unosms.us/api.php?user={username}&pass={password}&to={number}&from=fsegorg&msg={message}"
-
-#                 response = requests.get(url)
-
-#                 if response.status_code == 200:
-#                     print(f"SMS sent to {number} successfully!")
-#                 else:
-#                     print(f"Failed to send SMS to {number}. Error: {response.text}")
-                    
-#             return HttpResponse("SMS sent successfully!")  # Return a success message after sending the SMS
-#     else:
-#         form = SMSForm()
-
-#     return render(request, 'send_sms.html', {'form': form})

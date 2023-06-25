@@ -14,9 +14,9 @@ urlpatterns = [
     path('register/',register, name='register'),
     path('dashboard/<str:user>/', dashboard, name='dashboard'),
     path('donate/', add_donation, name='donate'),
-    path('charity', charity_view, name='charity'),
+    path('charity/', charity_view, name='charity'),
     path('browse_donations/', view_donations, name='browse_donations'),
-    path('restaurant', restaurant_view, name='restaurant'),
+    path('restaurant/', restaurant_view, name='restaurant'),
     path('requestsR/', requestsR_view, name='confirmations'),
     path('requestsN/', requestsN_view, name='confirmations'),
     path('logout/',logout_view, name='logout'),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('donation/request/<str:donation_name>/',request_donation, name='request_donation'),
     path('confirm_donation/<int:donation_id>/', confirm_donation, name='confirm_donation'),
     path('update-profile/',update_profile, name='update_profile'),
+    path('restaurant/<int:restaurant_id>/', restaurant_detail, name='restaurant_detail'),
 
 ]
