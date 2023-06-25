@@ -406,6 +406,7 @@ def add_donation(request):
         user_type = None  # User doesn't have a recognized role
         status = False
 
+    ngos = NGO.objects.all()
     if request.method == 'POST':
         if 'next_button' in request.POST:
             # Handle the next button (form part 1)
@@ -441,33 +442,8 @@ def add_donation(request):
             request.session['donation_id'] = donation.id
 
             # Redirect to the second part of the form
-            return HttpResponseRedirect('/second_form_url/')  # Replace with the URL for the second form
+            return render(request,'second_form.html', {'ngos':ngos})  # Replace with the URL for the second form
 
-        elif 'submit_button' in request.POST:
-            # Handle the submit button (form part 2)
-            # Process the form data from the second part of the form
-            ngo_name = request.POST.get('ngo')
-            delivery_time = request.POST.get('delivery_time')
-
-            donation_id = request.session.get('donation_id')
-            if donation_id:
-                donation = get_object_or_404(Donation, id=donation_id)
-                ngo = get_object_or_404(NGO, name=ngo_name)
-
-                # Update the existing Donation object with the missing fields
-                donation.ngo = ngo
-                donation.delivery_time = delivery_time
-                donation.save()
-
-                # Perform any necessary actions with the complete form data
-
-                # Clear the donation ID from the session or database
-                del request.session['donation_id']
-
-                # Redirect to a success page or perform any other desired actions
-                return HttpResponseRedirect('/success_url/')  # Replace with the URL for the success page
-
-    ngos = NGO.objects.all()
 
     context = {
         'donations': donations,
@@ -481,6 +457,80 @@ def add_donation(request):
     }
 
     return render(request, 'donations.html', context)
+
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+
+def submit_donation(request):
+    # Fetch the current restaurant
+    restaurant = get_object_or_404(Restaurant, user=request.user)
+
+    # Fetch the updated list of donations for the current restaurant
+    donations = Donation.objects.filter(restaurant=restaurant)
+
+    # Group donations based on their status
+    todo_donations = donations.filter(requested=False)
+    inprogress_donations = donations.filter(requested=True, confirmed=False)
+    done_donations = donations.filter(requested=True, confirmed=True)
+
+    if Restaurant.objects.filter(user=request.user).exists():
+        user_type = "R"  # User is a restaurant
+        status = True
+    elif NGO.objects.filter(user=request.user).exists():
+        user_type = "N"  # User is an NGO
+        status = True
+    else:
+        user_type = None  # User doesn't have a recognized role
+        status = False
+
+    ngos = NGO.objects.all()
+    if 'submit_button' in request.POST:
+        # Retrieve the form data from the second part of the form
+        ngo = request.POST.get('ngo')
+        delivery_time = request.POST.get('delivery_time')
+
+        donation_id = request.session.get('donation_id')
+        if donation_id:
+            donation = get_object_or_404(Donation, id=donation_id)
+            ngo = get_object_or_404(NGO, name=ngo)
+
+            # Update the existing Donation object with the missing fields
+            donation.ngo = ngo
+            donation.delivery_time = delivery_time
+            donation.save()
+
+            # Perform any necessary actions with the complete form data
+
+            # Clear the donation ID from the session or database
+            del request.session['donation_id']
+            
+            context = {
+                'donations': donations,
+                'ngos': ngos,
+                'todo_donations': todo_donations,
+                'inprogress_donations': inprogress_donations,
+                'done_donations': done_donations,
+                'ngos': ngos,
+                'user': user_type,
+                'status': status
+            }
+
+            # Redirect to a success page or perform any other desired actions
+            return render(request, 'donations.html', context)  # Replace with the URL for the success page
+        context = {
+            'donations': donations,
+            'ngos': ngos,
+            'todo_donations': todo_donations,
+            'inprogress_donations': inprogress_donations,
+            'done_donations': done_donations,
+            'ngos': ngos,
+            'user': user_type,
+            'status': status
+        }
+        return render(request, 'donations.html', context) 
+
+
+
 
 
 @login_required

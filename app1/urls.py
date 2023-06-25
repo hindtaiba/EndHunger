@@ -14,6 +14,7 @@ urlpatterns = [
     path('register/',register, name='register'),
     path('dashboard/<str:user>/', dashboard, name='dashboard'),
     path('donate/', add_donation, name='donate'),
+    path('submit_donation/', submit_donation, name='submit_donation'),
     path('charity/', charity_view, name='charity'),
     path('browse_donations/', view_donations, name='browse_donations'),
     path('restaurant/', restaurant_view, name='restaurant'),
