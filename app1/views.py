@@ -420,7 +420,18 @@ def add_donation(request):
     ngos = NGO.objects.all()
 
     if restaurant.name == "Aquaria":
-        ngos = ngos.filter(location='Al-Mina')
+        ngos = ngos.filter(location__in=['Mina', 'Al-Tal'])
+    
+    if restaurant.name == "hallab":
+        ngos = ngos.filter(location__in=['Tripoli Zeitoun', 'Al-Mina'])
+
+    if restaurant.name == "Baytuna":
+        ngos = ngos.filter(location__in=['Tripoli Zeitoun', 'Al-Mina','Al-Tabbaneh'])
+
+
+
+    
+
 
     if request.method == 'POST':
         if 'next_button' in request.POST:
@@ -457,7 +468,7 @@ def add_donation(request):
             request.session['donation_id'] = donation.id
 
             # Redirect to the second part of the form
-            return render(request, 'second_form.html', {'ngos': ngos})  # Replace with the URL for the second form
+            return render(request, 'second_form.html', {'ngos': ngos, 'user':user_type, 'status':status})  # Replace with the URL for the second form
 
     context = {
         'donations': donations,

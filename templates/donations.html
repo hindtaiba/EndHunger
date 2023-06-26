@@ -609,11 +609,6 @@
                 <p><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
                 <p><span class="boldtext">Expiration Time:</span> {{ donation.expiration_date }}</p>
             </div>
-                {% if donation.ngo.profile_picture %}
-                        <img src="{{ donation.ngo.profile_picture.url }}" alt="{{ donation.ngo.name }} Profile Picture" style="     width: 7%;
-                        position: absolute;
-                        transform: translate(278%, -142%);" draggable="false">
-                {% endif %}
             {% empty %}
             <p style="margin-left: 10px;">No donations in this column.</p>
             {% endfor %}
@@ -632,11 +627,6 @@
                     <button type="submit" class="fa-solid fa-check checkmark-btn" onclick="return confirm('Are you sure you want to confirm this donation?');">Confirm</button>
                 </form>
             </div>
-                {% if donation.ngo.profile_picture %}
-                        <img src="{{ donation.ngo.profile_picture.url }}" alt="{{ donation.ngo.name }} Profile Picture" style="     width: 9%;
-                        position: absolute;
-                        transform: translate(210%, -135%);" draggable="false">
-                {% endif %}
             {% empty %}
             <p style="margin-left: 10px;">No donations in this column.</p>
             {% endfor %}
