@@ -76,7 +76,7 @@ class NGO(models.Model):
     location = models.CharField(max_length=255)
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20)
-    capacity =  models.CharField(max_length=20)
+    capacity =  models.CharField(max_length=20,null=True)
     is_verified = models.BooleanField(default=False)
     profile_picture = models.ImageField(upload_to='ngo_profiles', blank=True, null=True)
     description = models.CharField(max_length=255, default='')

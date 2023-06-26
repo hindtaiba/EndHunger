@@ -41,9 +41,9 @@ import requests
 from django.http import HttpRequest
 
 
-# Create your views here.
 def home(request):
-    return render(request, 'index.html')
+    restaurants = Restaurant.objects.all() # Fetch only the first four restaurants
+    return render(request, 'index.html',{'restaurants':restaurants})
 
 def contact(request):
     if request.method == 'POST':
@@ -382,6 +382,17 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
 
 
+import json
+from datetime import date
+from django.utils import timezone
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from keras.models import load_model
+
 
 @login_required
 def add_donation(request):
@@ -407,6 +418,10 @@ def add_donation(request):
         status = False
 
     ngos = NGO.objects.all()
+
+    if restaurant.name == "Aquaria":
+        ngos = ngos.filter(location='Al-Mina')
+
     if request.method == 'POST':
         if 'next_button' in request.POST:
             # Handle the next button (form part 1)
@@ -442,8 +457,7 @@ def add_donation(request):
             request.session['donation_id'] = donation.id
 
             # Redirect to the second part of the form
-            return render(request,'second_form.html', {'ngos':ngos})  # Replace with the URL for the second form
-
+            return render(request, 'second_form.html', {'ngos': ngos})  # Replace with the URL for the second form
 
     context = {
         'donations': donations,
@@ -451,15 +465,12 @@ def add_donation(request):
         'todo_donations': todo_donations,
         'inprogress_donations': inprogress_donations,
         'done_donations': done_donations,
-        'ngos': ngos,
         'user': user_type,
         'status': status
     }
 
     return render(request, 'donations.html', context)
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
 
 def submit_donation(request):
     # Fetch the current restaurant
@@ -483,8 +494,12 @@ def submit_donation(request):
         user_type = None  # User doesn't have a recognized role
         status = False
 
-    ngos = NGO.objects.all()
-    if 'submit_button' in request.POST:
+    filtered_ngos = NGO.objects.all()
+
+    if restaurant.name == "Aquaria":
+        filtered_ngos = filtered_ngos.filter(location='Al-Mina')
+
+    if request.method == 'POST':
         # Retrieve the form data from the second part of the form
         ngo = request.POST.get('ngo')
         delivery_time = request.POST.get('delivery_time')
@@ -503,32 +518,31 @@ def submit_donation(request):
 
             # Clear the donation ID from the session or database
             del request.session['donation_id']
-            
+
             context = {
                 'donations': donations,
-                'ngos': ngos,
                 'todo_donations': todo_donations,
                 'inprogress_donations': inprogress_donations,
                 'done_donations': done_donations,
-                'ngos': ngos,
+                'ngos': filtered_ngos,
                 'user': user_type,
                 'status': status
             }
 
             # Redirect to a success page or perform any other desired actions
             return render(request, 'donations.html', context)  # Replace with the URL for the success page
-        context = {
-            'donations': donations,
-            'ngos': ngos,
-            'todo_donations': todo_donations,
-            'inprogress_donations': inprogress_donations,
-            'done_donations': done_donations,
-            'ngos': ngos,
-            'user': user_type,
-            'status': status
-        }
-        return render(request, 'donations.html', context) 
 
+    context = {
+        'donations': donations,
+        'todo_donations': todo_donations,
+        'inprogress_donations': inprogress_donations,
+        'done_donations': done_donations,
+        'ngos': filtered_ngos,
+        'user': user_type,
+        'status': status
+    }
+
+    return render(request, 'donations.html', context)
 
 
 

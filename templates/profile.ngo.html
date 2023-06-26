@@ -142,7 +142,7 @@ body {
                     <input type="file" name="profile_picture" accept="image/*" class="text-center center-block file-upload" style="margin-left: 35px; ">
                 
             </div>
-            <hr><br>
+            <br>
         </div><!--/col-3-->
         <div class="col-sm-9">
             <div class="tab-content">
@@ -151,8 +151,8 @@ body {
                     <hr>
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="cuisine_type">
-                                    <h4 style="color: #18a577; font-family: Montserrat, sans-serif; font-weight: bold;">Type of Cuisine you have:</h4>
+                                <label for="capacity">
+                                    <h4 style="color: #18a577; font-family: Montserrat, sans-serif; font-weight: bold;">What Is Your Charity Capacity ?</h4>
                                 </label>
                                 <select class="form-control" name="capacity" id="capacity" style="height: calc(2.25rem + 5px);">
                                     <option value="less than 100" {% if capacity == 'less than 100' %}selected{% endif %}>less than 100</option>
@@ -197,7 +197,6 @@ body {
                             </div>
                         </div>
                     </form>
-                    <hr>
                 </div><!--/tab-pane-->
             </div><!--/tab-content-->
         </div><!--/col-9-->
