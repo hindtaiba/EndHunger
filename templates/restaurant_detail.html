@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Bridge</title>
+</head>
+<body>
+    <div class="restaurant-detail">
+        <h2>{{ restaurant.name }}</h2>
+        <div>
+            {% if restaurant.profile_picture %}
+                <img src="{{ restaurant.profile_picture.url }}" alt="{{ restaurant.name }}" style="position: relative; width: 150px; z-index: 2;">
+            {% else %}
+                <img src="../media/media/default-profile.png" alt="{{ restaurant.name }}" style="position: relative; width: 100px; z-index: 2;">
+            {% endif %}
+        </div>
+        <p><span class="bold">Description:</span> {{ restaurant.description }}</p>
+        <p><span class="bold">Location:</span> {{ restaurant.location }}</p>
+        <p><span class="bold">Contact Email:</span> {{ restaurant.contact_email }}</p>
+        <p><span class="bold">Contact Phone:</span> {{ restaurant.contact_phone }}</p>
+        <p><span class="bold">Cuisine Type:</span> {{ restaurant.cuisine_type }}</p>
+        <!-- Add more details as needed -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Bridge</title>
+</head>
+<body>
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f7f7f7;">
+        <h2 style="margin-top: 0;">Email Verification</h2>
+        <p>Dear {{ user.username }},</p>
+        <p>Thank you for registering on our website. To complete your registration, please click the link below to verify your email address:</p>
+        <p><a style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;" href="{{ protocol }}://{{ domain }}{% url 'verify_email' uidb64=uid token=token %}">Verify Email</a></p>
+        <p>If you didn't create an account on our website, you can safely ignore this email.</p>
+        <p>Best regards,</p>
+        <p>FoodBridge Team</p>
+    </div>
+</body>
+</html>

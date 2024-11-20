@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Food Bridge</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../../media/media/animate.css">
+	
+	<link rel="stylesheet" href="../../media/media/owl.carousel.min.css">
+	<link rel="stylesheet" href="../../media/media/owl.theme.default.min.css">
+	<link rel="stylesheet" href="../../media/media/magnific-popup.css">
+
+
+	<link rel="stylesheet" href="../../media/media/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="../../media/media/jquery.timepicker.css">
+
+	<link rel="stylesheet" href="../../media/media/css/flaticon.css">
+	<link href="../../media/media/uicons-regular-rounded.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../media/media/style.css">
+</head>
+<body>
+	{% if show_get_started_modal %}
+        <script>
+            $(document).ready(function() {
+                $('#get-started-modal').modal('show');
+            });
+        </script>
+    {% endif %}
+	<div class="wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex align-items-center">
+					<p class="mb-0 phone pl-md-2">
+						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +961 1234 567</a> 
+						<a href="#"><span class="fa fa-paper-plane mr-1"></span> FoodBridge.hr@gmail.com</a>
+					</p>
+				</div>
+				<div class="col-md-6 d-flex justify-content-md-end">
+					<div class="social-media">
+						<p class="mb-0 d-flex">
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include "nav.html" %}
+	
+	<section class="hero-wrap js-fullheight">
+		<div class="home-slider js-fullheight owl-carousel">
+			<div class="slider-item js-fullheight" style="background-image:url(../../media/media/close-up-face-hungry-little-boy-eaitng-hot-donut.jpg);">
+				<div class="overlay-1"></div><div class="overlay-2"></div><div class="overlay-3"></div><div class="overlay-4"></div>
+				<div class="container">
+					<div class="row no-gutters slider-text js-fullheight align-items-center">
+						<div class="col-md-10 col-lg-7 ftco-animate">
+							<div class="text w-100">
+								<h2>Join the Food Bridge</h2>
+								<h1 class="mb-3">Unite to Tackle Food Waste and Hunger</h1>
+								<div class="d-flex meta">
+									{% if request.user.is_authenticated %}
+										{% if user == "N" or user == "R" %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome {{ user_name }}</a></p></div>
+										{% else %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome!</a></p></div>
+										{% endif %}
+									{% else %}
+										<div class=""><p class="mb-0"><a href="/login-register/" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% endif %}
+									<a href="#" class="d-flex align-items-center button-link">
+										<div class="button-video d-flex align-items-center justify-content-center">
+											<span class="fa fa-play"></span>
+										</div>
+										<span>Watch our video</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="slider-item js-fullheight" style="background-image:url(../../media/media/full-shot-happy-kids-outdoors.jpg);">
+				<div class="overlay-1"></div><div class="overlay-2"></div><div class="overlay-3"></div><div class="overlay-4"></div>
+				<div class="container">
+					<div class="row no-gutters slider-text js-fullheight align-items-center">
+						<div class="col-md-10 col-lg-7 ftco-animate">
+							<div class="text w-100">
+								<h2>Be a Hero</h2>
+								<h1 class="mb-3">Give Excess Food to Those in Need</h1>
+								<div class="d-flex meta">
+									{% if request.user.is_authenticated %}
+										{% if user == "N" or user == "R" %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome {{ user_name }}</a></p></div>
+										{% else %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome!</a></p></div>
+										{% endif %}
+									{% else %}
+										<div class=""><p class="mb-0"><a href="/login-register/" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% endif %}
+									<a href="#" class="d-flex align-items-center button-link">
+										<div class="button-video d-flex align-items-center justify-content-center">
+											<span class="fa fa-play"></span>
+										</div>
+										<span>Watch our video</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="slider-item js-fullheight" style="background-image:url(../../media/media/medium-shot-man-holding-food-donations-box.jpg);">
+				<div class="overlay-1"></div><div class="overlay-2"></div><div class="overlay-3"></div><div class="overlay-4"></div>
+				<div class="container">
+					<div class="row no-gutters slider-text js-fullheight align-items-center">
+						<div class="col-md-10 col-lg-7 ftco-animate">
+							<div class="text w-100">
+								<h2>Act Locally, Impact Globally</h2>
+								<h1 class="mb-3">Restaurants & Charities Changing Lives</h1>
+								<div class="d-flex meta">
+									{% if request.user.is_authenticated %}
+										{% if user == "N" or user == "R" %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome {{ user_name }}</a></p></div>
+										{% else %}
+											<div class=""><p class="mb-0"><a href="" class="btn btn-secondary py-3 px-2 px-md-4">Welcome!</a></p></div>
+										{% endif %}
+									{% else %}
+										<div class=""><p class="mb-0"><a href="/login-register/" class="btn btn-secondary py-3 px-2 px-md-4">Join Us</a></p></div>
+									{% endif %}
+									<a href="#" class="d-flex align-items-center button-link">
+										<div class="button-video d-flex align-items-center justify-content-center">
+											<span class="fa fa-play"></span>
+										</div>
+										<span>Watch our video</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-no-pb">
+		<div class="container">
+			<div class="row no-gutters">
+				<div class="col-md-3 d-flex align-items-stretch">
+					<div class="services">
+						<div class="text text-center bg-secondary">
+							<h3>Zero <br>Food Waste</h3>
+							<p>Food Bridge, dedicated to combat food waste, connecting Tripoli's Restos and Charities. </p>
+						</div>
+						<div class="img border-2" style="background-image: url(../../media/media/pic.jpg);">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-donation"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 d-flex align-items-stretch">
+					<div class="services">
+						<div class="text text-center bg-tertiary">
+							<h3>Help Those <br>In Need</h3>
+							<p>Food Bridge actively supports charities in their mission to combat hunger.  </p>
+						</div>
+						<div class="img border-3" style="background-image: url(../../media/media/pic4.jpg);">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-volunteer"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 d-flex align-items-stretch">
+					<div class="services">
+						<div class="text text-center bg-primary">
+							<h3>Fast <br>Connection</h3>
+							<p>Food Bridge maximize efficiency and ensure simplicity, creating a user-friendly experience.</p>
+						</div>
+						<div class="img border-1" style="background-image: url(../../media/media/pic5.jpg);">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="fi-rr-data-transfer"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 d-flex align-items-stretch">
+					<div class="services">
+						<div class="text text-center bg-quarternary">
+							<h3>Get <br>Involved</h3>
+							<p>Food Bridge encourages everyone to join their mission.  Be part of the solution today!</p>
+						</div>
+						<div class="img border-4" style="background-image: url(../../media/media/pic1.jpg);">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-ecological"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-no-pb">
+		
+	</section>
+
+	<section class="ftco-counter" id="section-counter">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 mb-5 mb-md-0 text-center text-md-left">
+					<h2 class="font-weight-bold" style="color: #fff; font-size: 22px;">We're on a mission to help all your problems</h2>
+					{% if user == 'R' %}
+						<a href="/donate/" class="btn btn-white btn-outline-white">Get Involved</a>
+					{% elif user == 'N' %}
+						<a href="/browse_donations/" class="btn btn-white btn-outline-white">Get Involved</a>
+					{% else %}
+						<a href="/login/" class="btn btn-white btn-outline-white">Get Involved</a>
+					{% endif %}
+				</div>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<strong class="number" data-number="3264000">0</strong>
+								</div>
+								<div class="text">
+									<span>Hungry People in Lebanon</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<strong class="number" data-number="75000">0</strong>
+								</div>
+								<div class="text">
+									<span>Pounds of food wasted by restaurants worldwide</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<strong class="number" data-number="828">0</strong>
+								</div>
+								<div class="text">
+									<span><span class="bold" style="font-weight: 1000;">Million</span> Person suffering from Hunger Worldwide</span>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+							<div class="block-18 text-center">
+								<div class="text">
+									<strong class="number" data-number="33">0</strong>
+								</div>
+								<div class="text">
+									<span>Percent of food going to waste in restaurants</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section testimony-section">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row justify-content-center pb-5">
+				<div class="col-md-7 heading-section heading-section-white text-center ftco-animate">
+					<span class="subheading">Food Bridge</span>
+					<h2>Articles Quotes</h2>
+				</div>
+			</div>
+			<div class="row ftco-animate">
+				<div class="col-md-12">
+					<div class="carousel-testimony owl-carousel">
+						<div class="item">
+							<div class="testimony-wrap d-flex" style="height: 380px !important;">
+								<div class="text pl-4"style="width:100% !important">
+									<span class="quote d-flex align-items-center justify-content-center">
+										<i class="fa fa-quote-left"></i>
+									</span>
+									<p>“At restaurants that serve mezze, where people order and share several dishes, the average food wasted is 34 kilograms per day, and that rate goes further up when it comes to open buffets”</p>
+									<p class="name">Dr. Abiad</p>
+									<span class="position">Associate Professor of Applied Economics at AUB</span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap d-flex" style="height: 380px !important;">
+								<div class="text pl-4"style="width:100% !important">
+									<span class="quote d-flex align-items-center justify-content-center">
+										<i class="fa fa-quote-left"></i>
+									</span>
+									<p>In the hospitality sector, people tended to generate more food waste when dining out, said Dr. Abiad. “For a table of four, about half a kilogram of food is wasted per meal – the equivalent of the average food wasted at home in an entire day,” he explained.</p>
+									<p class="name">Dr. Abiad</p>
+									<span class="position">Associate Professor of Applied Economics at AUB</span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap d-flex" style="height: 380px !important;">
+								<div class="text pl-4"style="width:100% !important">
+									<span class="quote d-flex align-items-center justify-content-center">
+										<i class="fa fa-quote-left"></i>
+									</span>
+									<p>In his closing remarks, Dr. Hassan described Lebanon’s current crisis as “a golden opportunity for us to address food waste and to change our attitudes and behaviors.”</p>
+									<p class="name">Hussein F. Hassan</p>
+									<span class="position">LAU Associate Professor of Food Science</span>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap d-flex" style="height: 380px !important;">
+								<div class="text pl-4"style="width:100% !important">
+									<span class="quote d-flex align-items-center justify-content-center">
+										<i class="fa fa-quote-left"></i>
+									</span>
+									<p>According to a United Nations Environment Program (UNEP) report, globally, 17 per cent of all food produced each year, amounting to 931 million tonnes, is wasted from households, retail establishments and the food service industry.</p>
+									<p class="name">article: UN Information Centre (UNIC) in Beirut.</p>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap d-flex" style="height: 380px !important;">
+								<div class="text pl-4"style="width:100% !important">
+									<span class="quote d-flex align-items-center justify-content-center">
+										<i class="fa fa-quote-left"></i>
+									</span>
+									<p>Today, Aline Kamakian, 53, owner of Mayrig Restaurant in Beirut, Lebanon alone produces around 20Kgs of food waste. In a country struggling with waste management, Kamakian hopes this initiative would reduce the negative impact of restaurants on the environment.</p>
+									<p class="name">Aline Kamakian</p>
+									<span class="position">article: UN Information Centre (UNIC) in Beirut.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center pb-5 mb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<span class="subheading">Our Restaurants</span>
+					<h2>Explore Our Partner Restaurants</h2>
+				</div>
+			</div>
+			<div class="row d-flex">
+				{% for restaurant in restaurants %}
+				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
+					<div class="blog-entry align-self-stretch">
+						<div class="text p-4">
+							<h3 class="heading">{{ restaurant.name }}</h3>
+							<p>{{ restaurant.description }}</p>
+							<p>Location: {{ restaurant.location }}</p>
+							<!-- Display other relevant restaurant information -->
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	
+	
+
+
+	
+
+	<section class="ftco-hireme" style="background-color: rgb(24, 165, 119);">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-md-8 col-lg-8 d-flex align-items-center">
+					<div class="w-100">
+						<h2>Best Way to Make a Difference in the Lives of Others</h2>
+					</div>
+				</div>
+				<div class="col-md-4 col-lg-4 d-flex align-items-center justify-content-end">
+					{% if request.user.is_authenticated %}
+						{% if user == "N" or user == "R" %}
+							<div class=""></div>
+						{% else %}
+							<div class=""></div>
+						{% endif %}
+					{% else %}
+					
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h2 class="footer-heading">Food Bridge.</h2>
+					<p>Food Bridge aims to reduce food waste in restaurants by facilitating the donation of surplus food to charities.</p>
+					<ul class="ftco-footer-social p-0">
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+					</ul>
+					{% if user == 'R' %}
+						<p><a href="/donate/" class="btn btn-quarternary">Get Involved</a></p>
+					{% elif user == 'N' %}
+						<p><a href="/browse_donations/" class="btn btn-quarternary">Get Involved</a></p>
+					{% else %}
+						<p><a href="/login/" class="btn btn-quarternary">Get Involved</a></p>
+					{% endif %}
+				</div>
+				<div class="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
+					<h2 class="footer-heading">Quick Links</h2>
+					<ul class="list-unstyled">
+						<li><a href="/home/" class="py-2 d-block">Home</a></li>
+						<li><a href="/about/" class="py-2 d-block">About</a></li>
+						<li><a href="/contact/" class="py-2 d-block">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h2 class="footer-heading">Have Questions?</h2>
+					<div class="block-23 mb-3">
+						<ul>
+							<li><span class="icon fa fa-map"></span><span class="text">Food Bridge, Tripoli, Lebanon</span></li>
+							<li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+961 1234 567</span></a></li>
+							<li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">FoodBridge.hr@gmail.com</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h3 class="footer-heading">Get in Touch</h3>
+					<p>Don’t miss any updates!</p>
+					<form action="#" class="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+						<input type="text" name="EMAIL" class="form-control memail form__field" placeholder="Email" id="email">
+						<p><button class="btn btn-quarternary" type="submit" style="margin-top: 20px;">Subscribe</button></p>
+						<p class="mchimp-errmessage" style="display: none;"></p>
+						<p class="mchimp-sucmessage" style="display: none;"></p>
+					</form>
+				</div>
+			</div>
+		</footer>
+			<!-- <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h2 class="footer-heading">Latest News</h2>
+					<div class="block-21 mb-4 d-flex">
+						<a class="img mr-4 rounded" style="background-image: url(images/image_1.jpg);"></a>
+						<div class="text">
+							<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
+							<div class="meta">
+								<div><a href="#">Jul 20, 2020</a></div>
+								<div><a href="#">Admin</a></div>
+								<div><a href="#">19</a></div>
+							</div>
+						</div>
+					</div>
+					<div class="block-21 mb-4 d-flex">
+						<a class="img mr-4 rounded" style="background-image: url(images/image_2.jpg);"></a>
+						<div class="text">
+							<h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
+							<div class="meta">
+								<div><a href="#">Jul 20, 2020</a></div>
+								<div><a href="#">Admin</a></div>
+								<div><a href="#">19</a></div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+			
+		
+
+		
+		
+
+		<!-- loader -->
+		<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+		<script src="../../media/media/jquery.min.js"></script>
+		<script src="../../media/media/jquery-migrate-3.0.1.min.js"></script>
+		<script src="../../media/media/popper.min.js"></script>
+		<script src="../../media/media/bootstrap.min.js"></script>
+		<script src="../../media/media/jquery.easing.1.3.js"></script>
+		<script src="../../media/media/jquery.waypoints.min.js"></script>
+		<script src="../../media/media/jquery.stellar.min.js"></script>
+		<script src="../../media/media/jquery.animateNumber.min.js"></script>
+		<script src="../../media/media/bootstrap-datepicker.js"></script>
+		<script src="../../media/media/jquery.timepicker.min.js"></script>
+		<script src="../../media/media/owl.carousel.min.js"></script>
+		<script src="../../media/media/jquery.magnific-popup.min.js"></script>
+		<script src="../../media/media/scrollax.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+		<script src="../../media/media/google-map.js"></script>
+		<script src="../../media/media/main.js"></script>
+	
+		
+	</body>
+	</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Food Bridge</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../../media/media/animate.css">
+	
+	<link rel="stylesheet" href="../../media/media/owl.carousel.min.css">
+	<link rel="stylesheet" href="../../media/media/owl.theme.default.min.css">
+	<link rel="stylesheet" href="../../media/media/magnific-popup.css">
+
+
+	<link rel="stylesheet" href="../../media/media/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="../../media/media/jquery.timepicker.css">
+
+	<link rel="stylesheet" href="../../media/media/flaticon.css">
+	<link rel="stylesheet" href="../../media/media/style.css">
+    <style>
+        .donation-card:hover button.request-button {
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 10px;
+            background-color: #fff !important;
+            color: #fd645b !important;
+            border: solid #fd645b !important;
+            transition: color .5s;
+        }
+
+        button.request-button {
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 10px;
+            background-color: #fd645b !important;
+            color: #fff !important;
+            border: solid #fd645b !important;
+            transition: color .5s;
+        }
+
+        .donation-card:hover button.undo-request-button:hover {
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 10px;
+            background-color: transparent;
+            color: #fff !important;
+            border: solid #fff !important;
+        }
+        .card {
+            display: flex;
+            flex-wrap: wrap;
+            border: none !important;
+            margin-left: 10px;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        .donation-card {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 300px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .donation-card:hover {
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .donation-card h4 {
+            margin-top: 0;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .donation-card p {
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555555;
+        }
+
+        .donation-card button {
+            background-color: #18a577;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 10px;
+            border: solid #18a577;
+        }
+
+        .donation-card button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: solid #fff;
+        }
+
+        .category-buttons {
+            margin-bottom: 10px;
+        }
+
+        .category-buttons {
+            display: flex;
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+
+        .category-buttons button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #f2f2f2;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .category-buttons button:hover {
+            background-color: #ddd;
+        }
+
+        .category-buttons button.active {
+            background-color: #18a577;
+            color: white;
+        }
+
+        #confirmed {
+            color: #18a577;
+            font-weight: 500;
+        }
+
+        #pending {
+            color: #eec857;
+            font-weight: 500;
+        }
+
+        .ag-format-container {
+            margin: 0 auto;
+            }
+
+    .ag-courses_box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    }
+    .ag-courses_item {
+    -ms-flex-preferred-size: calc(33.33333% - 30px);
+    flex-basis: calc(34.33333% - 30px);
+
+    overflow: hidden;
+
+    border-radius: 28px;
+    }
+    .ag-courses-item_link {
+    display: block;
+    padding: 10px 10px;
+    background-color: #fff;
+    height: 100%;
+
+    overflow: hidden;
+
+    position: relative;
+    }
+
+    .ag-courses-item_link:hover .ag-courses-item_title {
+    color: white;
+    -webkit-transition: color .6s ease;
+    -o-transition: color .6s ease;
+    transition: color .4s ease;
+    }
+
+    .ag-courses-item_link:hover .ag-courses-item_date-box p {
+    color: white !important;
+    -webkit-transition: color .6s ease;
+    -o-transition: color .6s ease;
+    transition: color .4s ease;
+    }
+
+    .ag-courses-item_link:hover,
+    .ag-courses-item_link:hover .ag-courses-item_date {
+    text-decoration: none;
+    color: #FFF;
+    }
+    .ag-courses-item_link:hover .ag-courses-item_bg {
+    -webkit-transform: scale(10);
+    -ms-transform: scale(10);
+    transform: scale(10);
+    }
+    .ag-courses-item_title {
+
+    overflow: hidden;
+
+    font-weight: bold;
+    font-size: 30px;
+    color: #000;
+
+    z-index: 2;
+    position: relative;
+    }
+    .ag-courses-item_date-box {
+    font-size: 18px;
+    color: #fff;
+
+    z-index: 2;
+    position: relative;
+    }
+    .ag-courses-item_date {
+    font-weight: bold;
+    color: #f9b234;
+
+    -webkit-transition: color .5s ease;
+    -o-transition: color .5s ease;
+    transition: color .5s ease;
+    }
+    .ag-courses-item_bg {
+    height: 128px;
+    width: 128px;
+
+    z-index: 1;
+    position: absolute;
+    top: -75px;
+    right: -75px;
+
+    border-radius: 50%;
+
+    -webkit-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+    }
+
+    .confirmed {
+    background-color: #18a577;
+    }
+
+    .pending {
+    background-color: #eec857;
+    }
+
+    .not-confirmed {
+    background-color: #fd645b;
+    }
+
+
+
+    @media only screen and (max-width: 979px) {
+    .ag-courses_item {
+        -ms-flex-preferred-size: calc(50% - 30px);
+        flex-basis: calc(50% - 30px);
+    }
+    .ag-courses-item_title {
+        font-size: 24px;
+    }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .ag-format-container {
+            width: 96%;
+        }
+
+    }
+
+    @media only screen and (max-width: 830px) {
+        .hide-on-small-screen {
+            display: none;
+        }
+
+    }
+    @media only screen and (max-width: 639px) {
+        .ag-courses_item {
+            -ms-flex-preferred-size: 100%;
+            flex-basis: 100%;
+        }
+        .ag-courses-item_title {
+            min-height: 72px;
+            line-height: 1;
+
+            font-size: 24px;
+        }
+        .ag-courses-item_link {
+            padding: 22px 40px;
+        }
+        .ag-courses-item_date-box {
+            font-size: 16px;
+        }
+        .category-buttons {
+            flex-wrap: wrap;
+        }
+
+        .category-buttons button {
+            flex-basis: 50%;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+    }
+
+        @media (device-width: 768px) and (device-height: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait),
+            (device-width: 1024px) and (device-height: 768px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+        .hide-on-small-screen {
+        display: none;
+        }
+    }
+
+    /* Hide the image on Nest Hub */
+    @media (max-width: 1280px) and (max-height: 800px) {
+        .hide-on-small-screen {
+        display: none;
+        }
+    }
+
+    @media (width: 540px) and (height: 720px) {
+        .hide-on-small-screen {
+        display: block;
+        }
+    }
+
+    @media (min-width: 980px) and (max-width: 1300px) {
+        .hide-on-small-screen {
+            display: none;
+        }
+    }
+
+    @media (min-width: 520px) and (max-width: 636px) {
+        .hide-on-small-screen {
+            display: block;
+        }
+    }
+
+    @media (max-width: 330px) {
+        .donation-card{
+            width: auto;
+        }
+        .ag-courses-item_link {
+            padding: 22px 15px;
+        }
+    }
+
+    .fleximg {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 24px;
+    }
+    .bold {
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+
+	<div class="wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex align-items-center">
+					<p class="mb-0 phone pl-md-2">
+						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a> 
+						<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+					</p>
+				</div>
+				<div class="col-md-6 d-flex justify-content-md-end">
+					<div class="social-media">
+						<p class="mb-0 d-flex">
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include 'nav.html' %}
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('../../media/media/medium-shot-man-holding-food-donations-box.jpg');" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span><span><a href="/contact/">Contact us <i class="ion-ios-arrow-forward"></i></a></span></p>
+					<h1 class="mb-0 bread">Charities</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section style="margin-top: 8%;">
+    
+        <div class="card">
+            <!-- Charities List -->
+            <h3>Charities</h3>
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline;">
+                {% for charity in charities %}
+                <div class="ag-courses_item donation-card">
+                    <div class="ag-courses-item_link">
+                    <div class="ag-courses-item_bg confirmed"></div>
+                    <div class="ag-courses-item_title">{{ charity.name }}</div>
+                        <div class="fleximg">
+                            {% if charity.profile_picture %}
+                                <img src="{{ charity.profile_picture.url }}" alt="{{ charity.name }}" style="position: relative; width: 150px; z-index: 2;">
+                            {% else %}
+                                <img src="../media/media/default-profile.png" alt="{{ charity.name }}" style="position: relative; width: 100px; z-index: 2;">
+                            {% endif %}
+                            <div class="ag-courses-item_date-box">
+                                <p><span class="bold">Location:</span> {{ charity.location }}</p>
+                                <p><span class="bold">Contact Email:</span> {{ charity.contact_email }}</p>
+                                <p><span class="bold">Contact Phone:</span> {{ charity.contact_phone }}</p>
+                                <p><span class="bold">Capacity:</span> {{ charity.capacity }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            <!-- End Charities List -->
+            </div>
+        
+    </section>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h2 class="footer-heading">Food Bridge.</h2>
+					<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+					<ul class="ftco-footer-social p-0">
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+						<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+					</ul>
+					<p><a href="#" class="btn btn-quarternary">Donate Now</a></p>
+				</div>
+				<div class="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
+					<h2 class="footer-heading">Quick Links</h2>
+					<ul class="list-unstyled">
+						<li><a href="#" class="py-2 d-block">Home</a></li>
+						<li><a href="#" class="py-2 d-block">About</a></li>
+						<li><a href="#" class="py-2 d-block">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h2 class="footer-heading">Have Questions?</h2>
+					<div class="block-23 mb-3">
+						<ul>
+							<li><span class="icon fa fa-map"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+							<li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+							<li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+					<h3 class="footer-heading">Get in Touch</h3>
+					<p>Don’t miss any updates!</p>
+					<form action="#" class="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+						<input type="text" name="EMAIL" class="form-control memail form__field" placeholder="Email" id="email">
+						<p><button class="btn btn-quarternary" type="submit" style="margin-top: 20px;">Subscribe</button></p>
+						<p class="mchimp-errmessage" style="display: none;"></p>
+						<p class="mchimp-sucmessage" style="display: none;"></p>
+					</form>
+				</div>
+			</div>
+		</footer>
+
+		
+		
+
+		<!-- loader -->
+		<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+		<script src="../../media/media/jquery.min.js"></script>
+		<script src="../../media/media/jquery-migrate-3.0.1.min.js"></script>
+		<script src="../../media/media/popper.min.js"></script>
+		<script src="../../media/media/bootstrap.min.js"></script>
+		<script src="../../media/media/jquery.easing.1.3.js"></script>
+		<script src="../../media/media/jquery.waypoints.min.js"></script>
+		<script src="../../media/media/jquery.stellar.min.js"></script>
+		<script src="../../media/media/jquery.animateNumber.min.js"></script>
+		<script src="../../media/media/bootstrap-datepicker.js"></script>
+		<script src="../../media/media/jquery.timepicker.min.js"></script>
+		<script src="../../media/media/owl.carousel.min.js"></script>
+		<script src="../../media/media/jquery.magnific-popup.min.js"></script>
+		<script src="../../media/media/scrollax.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+		<script src="../../media/media/google-map.js"></script>
+		<script src="../../media/media/main.js"></script>
+		
+
+</body>
+</html>

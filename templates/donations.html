@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Bridge</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../media/media/css/all.min.css" crossorigin="anonymous" />
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="../../media/media/animate.css">
+	
+	<link rel="stylesheet" href="../../media/media/owl.carousel.min.css">
+	<link rel="stylesheet" href="../../media/media/owl.theme.default.min.css">
+	<link rel="stylesheet" href="../../media/media/magnific-popup.css">
+
+
+	<link rel="stylesheet" href="../../media/media/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="../../media/media/jquery.timepicker.css">
+
+	<link rel="stylesheet" href="../media/media/flaticon.css">
+	<link rel="stylesheet" href="../../media/media/style.css">
+    <style>
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    
+        .container1 {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            height: 99.3vh !important;
+        }
+    
+        .text-center {
+            display: inline-block !important;
+        }
+
+        .kanban-board {
+            display: flex !important;
+            justify-content: space-between !important;
+            overflow-x: auto !important;
+            padding-bottom: 10px !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+    
+        .kanban-column {
+            flex: 1 !important;
+            border-radius: 8px;
+            background-color: aliceblue !important;
+            overflow-y: auto !important;
+            margin-right: 15px !important;
+            margin-left: 15px !important;
+            margin-top: 15px !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .column1 {
+            border-top: solid 4px #fd645b !important;
+        }
+
+        .column2 {
+            border-top: solid 4px #eec857 !important;
+        }
+
+        .column3 {
+            border-top: solid 4px #18a577 !important;
+        }
+    
+        .kanban-column h3 {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+            padding: 10px !important;
+            font-size: 18px !important;
+            color: rgb(57, 80, 101) !important;
+            text-align: center !important;
+            position: sticky !important;
+            top: 0 !important;
+            background-color: aliceblue !important;
+            z-index: 1 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .fa-xmark {
+            font-size: 26px !important;
+            position: absolute !important;
+            transform: translate(1700%, -130%) !important;
+        }
+
+        .fa-solid {
+            cursor: pointer !important;
+        }
+    
+        .kanban-column:last-child {
+            margin-right: 0 !important;
+        }
+    
+        .kanban-column::-webkit-scrollbar {
+            width: 5px !important;
+            background-color: #F5F5F5 !important;
+        }
+    
+        .kanban-column::-webkit-scrollbar-track {
+            background: #f5f5f5 !important;
+        }
+    
+        .kanban-column::-webkit-scrollbar-thumb {
+            border-radius: 10px !important;
+            background-color: #d1d0d0 !important;
+        }
+    
+        .kanban-card {
+            padding: 10px !important;
+            margin: 15px !important;
+            border-radius: 4px !important;
+            background-color: #fff !important;
+            cursor: move !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+    
+        .kanban-card h4 {
+            margin-top: 0 !important;
+            margin-bottom: 8px !important;
+            font-size: 16px !important;
+            color: aliceblue !important;
+            padding-left: 14px !important;
+            padding-right: 14px !important;
+            border-radius: 4px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+    
+        .kanban-card p {
+            margin: 0 !important;
+            color: #777 !important;
+        }
+    
+        .kanban-card.confirmation {
+            border-left: 4px solid #18a577 !important;
+        }
+    
+        .kanban-card.pending {
+            border-left: 4px solid #ffc107 !important;
+        }
+    
+        .btn-primary1 {
+            color: #fff !important;
+            border: none !important;
+            padding: 10px 20px !important;
+            cursor: pointer !important;
+            outline: none !important;
+        }
+    
+        .btn-add-donation {
+            float: right !important;
+            background-color: #18a577 !important;
+            color: #fff !important;
+            border: none !important;
+            padding: 10px 20px !important;
+            cursor: pointer !important;
+            position: absolute !important;
+        }
+
+        .wrapper{
+            z-index: 2 !important;
+            max-width: 450px !important;
+            width: 100% !important;
+            height: auto !important;
+            background: #fff !important;
+            padding: 50px 60px !important;
+            position: absolute !important;
+            top: 110% !important;
+            left: 35% !important;
+            border-radius: 20px !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+            }
+
+        .wrapper .title{
+            margin-bottom: 20px !important;
+            text-align: center !important;
+            font-size: 26px !important;
+            font-weight: bold !important;
+            color: #18a577 !important;
+            }
+
+
+        .wrapper .form .input_field{
+            position: relative !important;
+            margin-bottom: 5px !important;
+            width: 100% !important;
+            }
+
+        .wrapper .form .input_field .input{
+            width: 100% !important;
+            padding: 12px !important;
+            padding-left: 30px !important;
+            border: none !important;
+            background: #eeeeee  !important;
+            color: black !important;
+            }
+
+        .wrapper .form .btn1 {
+            width: 70% !important;
+            /* margin: 20px auto 0; */
+            background: #18a577 !important;
+            text-align: center !important;
+            /* padding: 12px; */
+            border-radius: 25px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        .wrapper .form .btn1,
+        .wrapper .form .btn1:active,
+        .wrapper .form .btn1:focus {
+            border: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-focus-ring-color: transparent !important;
+        }
+        .wrapper .form .btn-primary1,
+        .wrapper .form .btn-primary1:active,
+        .wrapper .form .btn-primary1:focus {
+            border: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-focus-ring-color: transparent !important;
+        }
+
+        .wrapper .form .btn1::-moz-focus-inner {
+            border: none !important;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-focus-ring-color: transparent !important;
+        }
+
+        .wrapper .form .btn1 a{
+            color: #fff !important;
+            }
+
+        .wrapper .form .input_field i{
+            position: absolute !important;
+            top: 10px !important;
+            left: 10px !important;
+            font-size: 14px !important;
+            color: #1d2120 !important;
+            }
+
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: #1d2120 !important;
+            }
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: #1d2120 !important;
+            }
+        :-ms-input-placeholder { /* IE 10+ */
+            color: #1d2120 !important;
+        }
+        
+        .blur-background {
+            filter: blur(2px);
+            pointer-events: none !important; /* Prevents interaction with blurred elements */
+        }
+
+        .fa-plus {
+            position: absolute !important;
+            left: 92% !important;
+        }
+
+
+
+        @media (max-width: 560px) {
+            /* Adjust the breakpoint value as needed */
+            .kanban-board {
+                flex-direction: column !important;
+            }
+            
+        }
+
+        @media (max-width: 800px) {
+            .fa-plus {
+                position: absolute !important;
+                transform: translate(600%, -2px) !important;
+            }
+            
+        }
+
+        .form {
+            display: none !important;
+        }
+
+        .active {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .checkmark-btn {
+            border: none !important;
+            background-color: white !important;
+            color: #18a577 !important;
+            letter-spacing: .05cm !important;
+        }
+
+        .column1 .kanban-card h4 {
+            background-color: #fd645b !important;
+        }
+        .column2 .kanban-card h4 {
+            background-color: #eec857 !important;
+        }
+        .column3 .kanban-card h4 {
+            background-color: #18a577 !important;
+        }
+
+        section {
+            margin-bottom: 8%;
+        }
+
+        .boldtext {
+            font-weight: bold;
+        }
+        
+        .check {
+  cursor: pointer;
+  position: relative;
+  margin: auto;
+  width: 18px;
+  height: 18px;
+  -webkit-tap-highlight-color: transparent;
+  transform: translate3d(0, 0, 0);
+}
+
+.check:before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(34,50,84,0.03);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.check svg {
+  position: relative;
+  z-index: 1;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #c8ccd4;
+  stroke-width: 1.5;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+}
+
+.check svg path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+}
+
+.check svg polyline {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 66;
+}
+
+.check:hover:before {
+  opacity: 1;
+}
+
+.check:hover svg {
+  stroke: #4c7bcb;
+}
+
+#cbx:checked + .check svg {
+  stroke: #4c7bcb;
+}
+
+#cbx:checked + .check svg path {
+  stroke-dashoffset: 60;
+  transition: all 0.3s linear;
+}
+
+#cbx:checked + .check svg polyline {
+  stroke-dashoffset: 42;
+  transition: all 0.2s linear;
+  transition-delay: 0.15s;
+}
+
+
+        .tabs {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 2px 12px 0 rgba(24, 94, 224, 0.15);
+  padding: 0.75rem;
+  border-radius: 99px;
+  margin-bottom: 10px;
+}
+
+.tabs * {
+  z-index: 2;
+}
+
+#container input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 130px;
+  font-size: .8rem;
+  color: black;
+  font-weight: 500;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+}
+
+#container input[type="radio"]:checked + label {
+  color: #185ee0;
+}
+
+#container input[id="packaged"]:checked ~ .glider {
+  transform: translateX(0);
+}
+
+#container input[id="not-packaged"]:checked ~ .glider {
+  transform: translateX(100%);
+}
+
+#container input[id="partially-packaged"]:checked ~ .glider {
+  transform: translateX(200%);
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 30px;
+  width: 100px;
+  background-color: #e6eef9;
+  z-index: 1;
+  border-radius: 99px;
+  transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
+ 
+  .tabs {
+    transform: scale(0.6);
+  }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex align-items-center">
+					<p class="mb-0 phone pl-md-2">
+						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a> 
+						<a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+					</p>
+				</div>
+				<div class="col-md-6 d-flex justify-content-md-end">
+					<div class="social-media">
+						<p class="mb-0 d-flex">
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+							<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include 'nav.html' %}
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('../../media/media/medium-shot-man-holding-food-donations-box.jpg');" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span><span><a href="/contact/">Contact us <i class="ion-ios-arrow-forward"></i></a></span></p>
+					<h1 class="mb-0 bread">Donate</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+    <section>
+        <div class="container1">
+            <div class="card1">
+                <!-- Donation Form (hidden by default) -->
+    
+                <div class="wrapper" id="donationForm" style="display: none;">
+                    <i class="fa-solid fa-xmark" onclick="openDonationForm()"></i>
+                    <div class="title">
+                        Donate Here
+                    </div>
+                    <form id="mainForm" name="form_data" class="form active" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- First Part of the Form -->
+                        <div class="input_field">
+                            <label for="food_quantity" class="form-label">Quantity of Food</label>
+                            <div style="display: flex; align-items: center; flex-wrap: nowrap;">
+                                <input type="number" class="form-control input" id="food_quantity" name="food_quantity" min="1" required style="width: 55% !important; margin-right: 20px !important;">
+                                <span>Persons</span>
+                            </div>
+                        </div>
+                        <div class="input_field">
+                            <label for="expiration_time" class="form-label">Expiration Time</label>
+                            <select class="form-control input" id="expiration_time" name="expiration_date" required>
+                                <option value="" selected disabled hidden></option>
+                                <option value="2-8h">2-8 hours</option>
+                                <option value="8-12h">8-12 hours</option>
+                                <option value="12-24h">12-24 hours</option>
+                                <option value="42h">42 hours</option>
+                            </select>
+                        </div>
+                        <div class="input_field">
+                            <label for="food_condition" class="form-label">Food Condition</label>
+                            <select class="form-control input" id="food_condition" name="food_condition" required>
+                                <option value="" selected disabled hidden></option>
+                                <option value="Fresh">Fresh</option>
+                                <option value="slightly_bruised">Slightly Bruised</option>
+                                <option value="near_expiration">Near Expiration</option>
+                            </select>
+                        </div>
+                        <div class="input_field" id="container" style="line-height: 2;">
+                            <span style="margin-bottom: 5px;">Packaging</span>
+                            <div class="tabs">
+                                <input type="radio" class="form-control input" id="Packaged" name="packaging" required checked>
+                                <label for="Packaged" class="form-label tab" value="Packaged" style="margin-bottom: 0 !important; width: 100px;
+                                margin-right: 10px;">Packaged</label>
+                                <input type="radio" class="form-control input" id="not-packaged" name="packaging" required>
+                                <label for="not-packaged" class="form-label tab" value="not-packaged" style="margin-bottom: 0 !important; width: 100px;
+                                margin-right: 10px;">Not Packaged</label>
+                                <input type="radio" class="form-control input" id="partially-packaged" name="packaging" required>
+                                <label for="partially-packaged" class="form-label tab" value="partially-packaged" style="margin-bottom: 0 !important;width: 100px;margin-right: 10px;">Partially</label>
+                                <span class="glider"></span>
+                            </div>
+                        </div>
+                        <div class="input_field" style="display: flex !important; align-items: center; justify-content: space-between; margin-bottom: 15px !important;">
+                            Choose:
+                            <input type="radio" class="form-control input" id="Delivery" name="transportation" required style="width: 15px !important; height: 15px;">
+                            <label for="Delivery" class="form-label" value="Delivery" style="margin-bottom: 0 !important;">Delivery</label>
+                            <input type="radio" class="form-control input" id="pickup" name="transportation" required style="width: 15px !important; height: 15px;">
+                            <label for="pickup" class="form-label" value="pickup" style="margin-bottom: 0 !important;">Pick-Up</label>
+                        </div>
+                        <div class="btn1">
+                            <button type="submit" name="next_button" class="btn1 btn-primary1" onclick="showAdditionalFields()">Next</button>
+                        </div>
+                    
+                        <!-- Second Part of the Form
+                        {% if show_second_form %}
+                        <div id="secondForm">
+                            <div class="input_field">
+                                <label for="ngo" class="form-label">NGO</label>
+                                <select class="form-control input" id="ngo" name="ngo" required>
+                                    <option value="" selected disabled hidden></option>
+                                    {% for ngo in ngos %}
+                                    <option value="{{ ngo.name }}">{{ ngo.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="input_field">
+                                <label for="delivery_time" class="form-label">Delivery Time</label>
+                                <input type="text" class="form-control input" id="delivery_time" name="delivery_time" required>
+                            </div>
+                            <div class="btn1">
+                                <button type="submit" name="submit_button" class="btn1 btn-primary1">Submit</button>
+                            </div>
+                        </div>
+                        {% endif %} -->
+                    </form>
+                </div>
+            </div>
+    <div class="kanban-board">
+        <div class="kanban-column column1" data-column="todo">
+            <!-- <button class="btn btn-primary btn-add-donation" onclick="openDonationForm()" style="z-index: 3;">Add Donation</button> -->
+            
+            <h3>
+                <span class="donations-text">Donations</span>
+                <span class="fa-sharp fa-solid fa-plus" onclick="openDonationForm()"></span>
+            </h3>
+            {% for donation in todo_donations %}
+            
+            <div class="kanban-card" id="{{ donation.id }}">
+                <h4>{{ donation.name }}</h4>
+                <p><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
+                <p><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
+                <p><span class="boldtext">Expiration Time:</span> {{ donation.expiration_date }}</p>
+            </div>
+            {% empty %}
+            <p style="margin-left: 10px;">No donations in this column.</p>
+            {% endfor %}
+        </div>
+        <div class="kanban-column column2" data-column="inprogress">
+            <h3>Requested</h3>
+            {% for donation in inprogress_donations %}
+            <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="{{ donation.id }}">
+                <h4>{{ donation.name }}</h4>
+                <p><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
+                <p><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
+                <p><span class="boldtext">Expiration Time:</span> {{ donation.expiration_date }}</p>
+                <form method="POST" action="{% url 'confirm_donation' donation.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="donation_id" value="{{ donation.id }}">
+                    <button type="submit" class="fa-solid fa-check checkmark-btn" onclick="return confirm('Are you sure you want to confirm this donation?');">Confirm</button>
+                </form>
+            </div>
+            {% empty %}
+            <p style="margin-left: 10px;">No donations in this column.</p>
+            {% endfor %}
+        </div>
+        <div class="kanban-column column3" data-column="done" ondrop="drop(event, 'done')" draggable="false" ondragover="allowDrop(event)" style="margin-right: 15px !important;">
+            <h3 draggable="false">Confirmed</h3>
+            {% for donation in done_donations %}
+            <div class="kanban-card" ondragstart="drag(event)" draggable="false" id="{{ donation.id }}">
+                <h4 draggable="false">{{ donation.name }}</h4>
+                <div class="fleximg" style="display: flex;
+                width: 100%;
+                align-items: center;">
+                
+                    <div>
+                        <p draggable="false"><span class="boldtext">NGO:</span> {{ donation.ngo.name }}</p>
+                        <p draggable="false"><span class="boldtext">Delivery Time:</span> {{ donation.delivery_time }}</p>
+                        <p draggable="false"><span class="boldtext">Expiration Time:</span> {{ donation.expiration_date }}</p>
+                        <p draggable="false"><span class="boldtext">Confirmation Date:</span> {{ donation.donation_date }}</p>
+                        <p draggable="false">CONFIRMED</p>
+                    </div>
+                    {% if donation.ngo.profile_picture %}
+                        <img src="{{ donation.ngo.profile_picture.url }}" alt="{{ donation.ngo.name }} Profile Picture" style="
+                        width: 33%;
+                        position: relative;
+                        top: 3px;
+                        left: 28px;" draggable="false">
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p style="margin-left: 10px;">No donations in this column.</p>
+            {% endfor %}
+        </div>
+    </div>
+    </section>
+<!-- End Kanban View -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+                <h2 class="footer-heading">Food Bridge.</h2>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <ul class="ftco-footer-social p-0">
+                    <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+                    <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+                    <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+                </ul>
+                <p><a href="#" class="btn btn-quarternary">Donate Now</a></p>
+            </div>
+            <div class="col-md-6 col-lg-3 pl-lg-5 mb-4 mb-md-0">
+                <h2 class="footer-heading">Quick Links</h2>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="py-2 d-block">Home</a></li>
+                    <li><a href="#" class="py-2 d-block">About</a></li>
+                    <li><a href="#" class="py-2 d-block">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+                <h2 class="footer-heading">Have Questions?</h2>
+                <div class="block-23 mb-3">
+                    <ul>
+                        <li><span class="icon fa fa-map"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                        <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                        <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
+                <h3 class="footer-heading">Get in Touch</h3>
+                <p>Don’t miss any updates!</p>
+                <form action="#" class="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+                    <input type="text" name="EMAIL" class="form-control memail form__field" placeholder="Email" id="email">
+                    <p><button class="btn btn-quarternary" type="submit" style="margin-top: 20px;">Subscribe</button></p>
+                    <p class="mchimp-errmessage" style="display: none;"></p>
+                    <p class="mchimp-sucmessage" style="display: none;"></p>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+
+<script>
+    function openDonationForm() {
+        var donationForm = document.getElementById('donationForm');
+        var kanban = document.getElementsByClassName('kanban-board')
+        if (donationForm.style.display === 'block') {
+            donationForm.style.display = 'none';
+            for (var i = 0; i < kanban.length; i++) {
+                kanban[i].classList.remove('blur-background');
+            }
+        } else {
+            donationForm.style.display = 'block';
+            for (var i = 0; i < kanban.length; i++) {
+                kanban[i].classList.add('blur-background');
+            }
+        }
+    }
+    
+    // Get the form and the donationForm element
+    var form = document.querySelector('.form');
+            var donationForm = document.getElementById('donationForm');
+    
+            // Function to close the donation form
+            function closeDonationForm(event) {
+                // Check if the clicked element is outside the form
+                if (!form.contains(event.target)) {
+                    donationForm.style.display = 'none';
+                    document.removeEventListener('click', closeDonationForm);
+                }
+            }
+    
+            // Attach event listener to the "Add Donation" button
+            var addDonationBtn = document.querySelector('.btn-add-donation');
+            addDonationBtn.addEventListener('click', openDonationForm);
+    
+    
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+    
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+    }
+    function drop(event, column) {
+        event.preventDefault();
+        var donationId = event.dataTransfer.getData("text");
+        var donationCard = document.getElementById(donationId);
+        var targetColumn = event.target.closest('.kanban-column');
+    
+        if (column === 'done') {
+            if (confirm('Are you sure you want to confirm this donation?')) {
+                var donationForm = document.createElement('form');
+                donationForm.method = 'POST';
+                donationForm.action = '/confirm_donation/' + donationId + '/';
+                donationForm.style.display = 'none';
+    
+                var csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = 'csrfmiddlewaretoken';
+                csrfInput.value = '{{ csrf_token }}';
+    
+                donationForm.appendChild(csrfInput);
+                targetColumn.appendChild(donationForm);
+                donationForm.submit();
+            }
+        } else {
+            targetColumn.appendChild(donationCard);
+        }
+    }
+    
+    function showAdditionalFields() {
+        var mainForm = document.getElementById("mainForm");
+        var additionalFieldsForm = document.getElementById("additionalFieldsForm");
+
+        // Toggle the visibility of additionalFieldsForm
+        additionalFieldsForm.style.display = (additionalFieldsForm.style.display === "none") ? "block" : "none";
+
+        // Add or remove the "active" class to mainForm and additionalFieldsForm
+        mainForm.classList.toggle("active");
+        additionalFieldsForm.classList.toggle("active");
+    }
+
+    
+    function goBack() {
+        var mainForm = document.getElementById('mainForm');
+        mainForm.classList.add('active');
+    
+        var additionalFieldsForm = document.getElementById('additionalFieldsForm');
+        additionalFieldsForm.classList.remove('active');
+    }
+</script>
+
+    <!-- loader -->
+		<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+		<script src="../../media/media/jquery.min.js"></script>
+		<script src="../../media/media/jquery-migrate-3.0.1.min.js"></script>
+		<script src="../../media/media/popper.min.js"></script>
+		<script src="../../media/media/bootstrap.min.js"></script>
+		<script src="../../media/media/jquery.easing.1.3.js"></script>
+		<script src="../../media/media/jquery.waypoints.min.js"></script>
+		<script src="../../media/media/jquery.stellar.min.js"></script>
+		<script src="../../media/media/jquery.animateNumber.min.js"></script>
+		<script src="../../media/media/bootstrap-datepicker.js"></script>
+		<script src="../../media/media/jquery.timepicker.min.js"></script>
+		<script src="../../media/media/owl.carousel.min.js"></script>
+		<script src="../../media/media/jquery.magnific-popup.min.js"></script>
+		<script src="../../media/media/scrollax.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+		<script src="../../media/media/google-map.js"></script>
+		<script src="../../media/media/main.js"></script>
+</body>

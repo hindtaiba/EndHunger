@@ -1,0 +1,223 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" defer></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff; }
+
+
+    .wrap {
+    background: rgba(0, 0, 0, 0.1);
+    background: #00043c;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    width: 100%; }
+
+    .row1 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px; 
+    }
+
+
+    .social-media {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .social-media p a {
+        width: 34px;
+        height: 34px;
+        margin-right: 1px; }
+    .social-media p a span {
+        color: #fff; }
+
+
+        .btn, .btn:hover, .btn:focus {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            background: rgb(24, 165, 119);
+            border: 2px solid rgb(24, 165, 119);
+            color: #fff;
+            margin-right: 15px;
+
+        }
+        
+    </style>
+</head>
+
+<div class="wrap">
+    <div class="container1">
+        <div class="social-media">
+            <p style="margin: 8px;">
+                <a href="/" class="mr-2"><span>FoodBridge</span></a>
+            </p>
+            <p style="margin: 8px;">
+                <a href="/" class="mr-2"><span>Home</span></a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-sm-10"><h1 style="font-size: 25px; margin-left: 41px ;">Account Settings</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><!--left col-->
+          <div class="text-center">
+            <form class="form" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+            {% if request.user.ngo.profile_picture %}
+              <img src="{{ request.user.ngo.profile_picture.url }}" class="avatar img-circle img-thumbnail" alt="avatar">
+            {% else %}
+              <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="Default Avatar">
+            {% endif %}
+            <h6>Upload a different photo...</h6>
+                    <input type="file" name="profile_picture" accept="image/*" class="text-center center-block file-upload" style="margin-left: 35px; ">
+                
+            </div>
+            <br>
+        </div><!--/col-3-->
+        <div class="col-sm-9">
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <p style="font-family: Poppins, sans-serif; font-size:xx-large;">EDIT YOUR INFORMATION:</p>
+                    <hr>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="capacity">
+                                    <h4 style="color: #18a577; font-family: Montserrat, sans-serif; font-weight: bold;">What Is Your Charity Capacity ?</h4>
+                                </label>
+                                <select class="form-control" name="capacity" id="capacity" style="height: calc(2.25rem + 5px);">
+                                    <option value="less than 100" {% if capacity == 'less than 100' %}selected{% endif %}>less than 100</option>
+                                    <option value="100-200" {% if capacity == '100-200' %}selected{% endif %}>100-200</option>
+                                    <option value="200-500" {% if capacity == '200-500' %}selected{% endif %}>200-500</option>
+                                    <option value="more than 500" {% if capacity == 'more than 500' %}selected{% endif %}>more than 500</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="name"><h4>Name</h4></label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Username" value="{{ name }}" title="enter your username if any.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="contact_phone"><h4>Phone</h4></label>
+                                <input type="text" class="form-control" name="contact_phone" id="contact_phone" placeholder="enter phone" value="{{ contact_phone }}" title="enter your phone number if any.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="location"><h4>Location</h4></label>
+                                <input type="text" class="form-control" name="location" placeholder="somewhere" value="{{ location }}" title="enter a location">
+                            </div>
+                        </div>
+                           <br>
+                           <br>
+                        <div class="form-group">
+                            <div class="col-xs-6" style="width: 100% !important;">
+                                <label for="description"><h4>Description</h4></label>
+                                <textarea class="form-control" name="description" id="description" placeholder="enter description"  title="enter your phone number if any.">{{ description }}</textarea>
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <br>
+                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                <a class="btn" href="/password_reset/">Reset your password </a>
+                            </div>
+                        </div>
+                    </form>
+                </div><!--/tab-pane-->
+            </div><!--/tab-content-->
+        </div><!--/col-9-->
+    </div><!--/row-->
+    <script>
+        $(document).ready(function() {
+            var readURL = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.avatar').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".file-upload").on('change', function(){
+                readURL(this);
+            });
+        });
+    </script>
+</div>
